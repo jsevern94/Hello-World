@@ -237,59 +237,60 @@ $(document).ready(function () {
         });
     }); */
 
-    var location = "47.6062,-122.3321";
-    var radius = "500";
-    var type = "restaurant";
+    // var location = "47.6062,-122.3321";
+    // var type = "restaurant";
 
 
     var key = "AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4";
-    var inputType = "textquery";
-    var queryURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + type + "&location=" + location + "&radius=" + radius + "&key=" + key + "&inputType=" + inputType;
 
     //^ fix the CORS thing later
     // url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=groceries&location=42.294,-83.721&rankedBy=distance&key=AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4"
+    var ratingGenerator = function(location, type) {
+        var queryURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + type + "&location=" + location + "&radius=2500&key=" + key + "&inputType=textquery";
 
-    var average;
-    var ratings = [];
-    var reviews = [];
+        var average = 0;
+        var ratings = [];
+        var reviews = [];
 
-    $.ajax({
-        url: queryURL,
-    }).then(function mySuccess(response) {
-        var total = 0;
+        $.ajax({
+            url: queryURL,
+        }).then(function mySuccess(response) {
+            var total = 0;
 
-        console.log(response.results[3].rating);
-        console.log(response.results[3].user_ratings_total);
+            console.log(response.results[3].rating);
+            console.log(response.results[3].user_ratings_total);
 
-        for (var i = 0; i < response.results.length; i++) {
-            ratings.push(response.results[i].rating);
-            reviews.push(response.results[i].user_ratings_total);
+            for (var i = 0; i < response.results.length; i++) {
+                ratings.push(response.results[i].rating);
+                reviews.push(response.results[i].user_ratings_total);
 
-            if (reviews[i] < 200) {
-                ratings[i] = ratings[i] * 0.8;
-            } else if (reviews[i] >= 200 && reviews [i] < 400) {
-                ratings[i] = ratings[i] * 0.9;
-            } else if (reviews[i] >= 400 && reviews [i] < 600){
-                ratings[i] = ratings[i] * 1.0;
-            } else if (reviews[i] >= 800 && reviews [i] < 1000) {
-                ratings[i] = ratings[i] * 1.1;
-            } else if (reviews[i] >= 1000 && reviews [i] < 1400) {
-                ratings[i] = ratings[i] * 1.2;
-            } else if (reviews[i] >= 1400 && reviews [i] < 2000) {
-                ratings[i] = ratings[i] * 1.3;
-            } else if (reviews[i] >= 2000 && reviews [i] < 3000) {
-                ratings[i] = ratings[i] * 1.4;
-            } else {
-                ratings[i] = ratings[i] * 1.5;
-            }
-        };
-        console.log(ratings[3], reviews[3]);
+                if (reviews[i] < 200) {
+                    ratings[i] = ratings[i] * 0.8;
+                } else if (reviews[i] >= 200 && reviews [i] < 400) {
+                    ratings[i] = ratings[i] * 0.9;
+                } else if (reviews[i] >= 400 && reviews [i] < 600){
+                    ratings[i] = ratings[i] * 1.0;
+                } else if (reviews[i] >= 800 && reviews [i] < 1000) {
+                    ratings[i] = ratings[i] * 1.1;
+                } else if (reviews[i] >= 1000 && reviews [i] < 1400) {
+                    ratings[i] = ratings[i] * 1.2;
+                } else if (reviews[i] >= 1400 && reviews [i] < 2000) {
+                    ratings[i] = ratings[i] * 1.3;
+                } else if (reviews[i] >= 2000 && reviews [i] < 3000) {
+                    ratings[i] = ratings[i] * 1.4;
+                } else {
+                    ratings[i] = ratings[i] * 1.5;
+                }
+                var total = total + ratings[i];
+            };
+            console.log(ratings);
 
-       
-        console.log("Seattle average star rating: " + total / 20)
-    });
+            average = total / ratings.length;
+            console.log("Seattle average star rating: " + average)
+        });
+    };
 
-
+    ratingGenerator("47.6062,-122.3321", "restaurant");
     // $.ajax({
     //     url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurant&location=47.606,-122.332&key=AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4"
 
