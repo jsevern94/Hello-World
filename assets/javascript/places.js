@@ -1,4 +1,20 @@
 $(document).ready(function () {
+
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDuKxBBJIya6DvOXENE1xnfSZ2uImIWd-M",
+    authDomain: "hello-world-19f5c.firebaseapp.com",
+    databaseURL: "https://hello-world-19f5c.firebaseio.com",
+    projectId: "hello-world-19f5c",
+    storageBucket: "hello-world-19f5c.appspot.com",
+    messagingSenderId: "969652105932",
+    appId: "1:969652105932:web:1a77a8131af3a725"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+    
+    
     var cities = [
         {
             city: "Paris",
@@ -210,11 +226,13 @@ $(document).ready(function () {
     $.ajax({
         url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + name + country + "&key=AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4"
     }).then(function mySuccess(response) {
-        console.log(response.results[0].geometry.location);
-        cities[0].lat = response.results[0].geometry.location.lat;
-        cities[0].lng = response.results[0].geometry.location.lng;
-        console.log(cities[0]);
+        for (var i = 0; i < response.results.length; i++) {
 
+            console.log(response.results[i].geometry.location);
+            cities[i].lat = response.results[i].geometry.location.lat;
+            cities[i].lng = response.results[i].geometry.location.lng;
+            console.log(cities[i]);
+        }
     });
 
     var location = "47.6062,-122.3321";
@@ -235,13 +253,18 @@ $(document).ready(function () {
     $.ajax({
         url: queryURL,
     }).then(function mySuccess(response) {
+        var result = response.results;
+        var total = 0;
+
         console.log(response.results);
         console.log(response.results[0].rating);
         console.log(response.results[1].user_ratings_total);
         console.log(response.results.length)
 
-        // for (var i = 0; i = response.results.length; i++) {
-        // };
+         for (var i = 0; i < response.results.length; i++) {
+             total = total + result[i].rating;
+         };
+         console.log("Seattle average star rating: " + total/20)
     });
 
 
