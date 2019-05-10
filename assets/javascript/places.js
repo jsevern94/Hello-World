@@ -1,20 +1,20 @@
 $(document).ready(function () {
 
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyDuKxBBJIya6DvOXENE1xnfSZ2uImIWd-M",
-    authDomain: "hello-world-19f5c.firebaseapp.com",
-    databaseURL: "https://hello-world-19f5c.firebaseio.com",
-    projectId: "hello-world-19f5c",
-    storageBucket: "hello-world-19f5c.appspot.com",
-    messagingSenderId: "969652105932",
-    appId: "1:969652105932:web:1a77a8131af3a725"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyDuKxBBJIya6DvOXENE1xnfSZ2uImIWd-M",
+        authDomain: "hello-world-19f5c.firebaseapp.com",
+        databaseURL: "https://hello-world-19f5c.firebaseio.com",
+        projectId: "hello-world-19f5c",
+        storageBucket: "hello-world-19f5c.appspot.com",
+        messagingSenderId: "969652105932",
+        appId: "1:969652105932:web:1a77a8131af3a725"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
 
-    
-    
+
+
     var cities = [
         {
             city: "Paris",
@@ -218,22 +218,24 @@ $(document).ready(function () {
         }
     ];
 
-    
-    var name = cities[0].city;
-    var country = cities[0].country;
-    console.log(name, country);
-
-    $.ajax({
+  /*   $.ajax({
         url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + name + country + "&key=AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4"
     }).then(function mySuccess(response) {
-        for (var i = 0; i < response.results.length; i++) {
+        for (var i = 48; i < cities.length; i++) {
 
             console.log(response.results[i].geometry.location);
             cities[i].lat = response.results[i].geometry.location.lat;
             cities[i].lng = response.results[i].geometry.location.lng;
             console.log(cities[i]);
         }
-    });
+
+        database.ref().push({
+            "city": cities[i].city,
+            "country": cities[i].country,
+            "lat0": cities[i].lat,
+            "lng0": cities[i].lng,
+        });
+    }); */
 
     var location = "47.6062,-122.3321";
     var radius = "500";
@@ -248,23 +250,43 @@ $(document).ready(function () {
     // url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=groceries&location=42.294,-83.721&rankedBy=distance&key=AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4"
 
     var average;
-    var total;
+    var ratings = [];
+    var reviews = [];
 
     $.ajax({
         url: queryURL,
     }).then(function mySuccess(response) {
-        var result = response.results;
         var total = 0;
 
-        console.log(response.results);
-        console.log(response.results[0].rating);
-        console.log(response.results[1].user_ratings_total);
-        console.log(response.results.length)
+        console.log(response.results[3].rating);
+        console.log(response.results[3].user_ratings_total);
 
-         for (var i = 0; i < response.results.length; i++) {
-             total = total + result[i].rating;
-         };
-         console.log("Seattle average star rating: " + total/20)
+        for (var i = 0; i < response.results.length; i++) {
+            ratings.push(response.results[i].rating);
+            reviews.push(response.results[i].user_ratings_total);
+
+            if (reviews[i] < 200) {
+                ratings[i] = ratings[i] * 0.8;
+            } else if (reviews[i] >= 200 && reviews [i] < 400) {
+                ratings[i] = ratings[i] * 0.9;
+            } else if (reviews[i] >= 400 && reviews [i] < 600){
+                ratings[i] = ratings[i] * 1.0;
+            } else if (reviews[i] >= 800 && reviews [i] < 1000) {
+                ratings[i] = ratings[i] * 1.1;
+            } else if (reviews[i] >= 1000 && reviews [i] < 1400) {
+                ratings[i] = ratings[i] * 1.2;
+            } else if (reviews[i] >= 1400 && reviews [i] < 2000) {
+                ratings[i] = ratings[i] * 1.3;
+            } else if (reviews[i] >= 2000 && reviews [i] < 3000) {
+                ratings[i] = ratings[i] * 1.4;
+            } else {
+                ratings[i] = ratings[i] * 1.5;
+            }
+        };
+        console.log(ratings[3], reviews[3]);
+
+       
+        console.log("Seattle average star rating: " + total / 20)
     });
 
 
