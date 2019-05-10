@@ -1,3 +1,16 @@
+var config = {
+    apiKey: "AIzaSyDuKxBBJIya6DvOXENE1xnfSZ2uImIWd-M",
+    authDomain: "hello-world-19f5c.firebaseapp.com",
+    databaseURL: "https://hello-world-19f5c.firebaseio.com",
+    projectId: "hello-world-19f5c",
+    storageBucket: "hello-world-19f5c.appspot.com",
+    messagingSenderId: "969652105932"
+};
+
+firebase.initializeApp(config);
+
+var database = firebase.database();
+
 var months = [
     {
         name: "January",
@@ -61,7 +74,18 @@ var months = [
         endDate: "2018-12-31"
     }
     ]
-    
+    var January = months[0];
+    var February = months[1];
+    var March = months[2];
+    var April = months[3];
+    var May = months[4];
+    var June = months[5];
+    var July = months[6];
+    var August = months[7];
+    var September = months[8];
+    var October = months[9];
+    var November = months[10];
+    var December = months[11];
     
     
     function cityWeather(city, month, startDate, endDate) {
@@ -85,11 +109,12 @@ var months = [
             });
     }
     
-    cityWeather("Budapest, Hungary", months[0].name, months[0].startDate, months[0].endDate);
-    cityWeather("Minsk, Belarus", months[3].name, months[3].startDate, months[3].endDate);
-    cityWeather("Seattle, USA", months[7].name, months[7].startDate, months[7].endDate);
+    cityWeather("Budapest, Hungary", January.name, January.startDate, January.endDate);
+    cityWeather("Minsk, Belarus", April.name, April.startDate, April.endDate);
+    cityWeather("Seattle, USA", August.name, August.startDate, August.endDate);
     
     function findFlights(place) {
         var city = place;
         var apiKey = MvKNAIoHaObHGFQaA6KAZ7Cx2gkkV2h1;
+        //check bookmarks for how to do oAuth and use new technology
     }
