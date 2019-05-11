@@ -3,7 +3,7 @@
  
  //
  
- var searchTerm = "";
+ var searchTerm = "paris";
 
 
 // var queryUrl = "https://pixabay.com/api/?key=12446401-bf90607e0ef711dcac16707ef&q=" + searchTerm + "&image_type=photo&safesearch=true";
@@ -36,3 +36,4 @@ else
 
 
 
+var BlurbUrl: "https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=" + searchTerm +"&format=jsonfm"
