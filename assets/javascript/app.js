@@ -1,3 +1,4 @@
+
 var config = {
     apiKey: "AIzaSyDuKxBBJIya6DvOXENE1xnfSZ2uImIWd-M",
     authDomain: "hello-world-19f5c.firebaseapp.com",
@@ -74,6 +75,7 @@ var months = [
         endDate: "2018-12-31"
     }
 ]
+
 var January = months[0];
 var February = months[1];
 var March = months[2];
@@ -86,7 +88,6 @@ var September = months[8];
 var October = months[9];
 var November = months[10];
 var December = months[11];
-
 
 var cities = [
     {
@@ -355,7 +356,7 @@ var cities = [
     },
     {
         city: "Fes",
-        country: "Morocco", 
+        country: "Morocco",
     },
     {
         city: "Auckland",
@@ -395,7 +396,7 @@ var cities = [
     },
     {
         city: "Mumbai",
-        country:"India",
+        country: "India",
     },
     {
         city: "Hamburg",
@@ -563,7 +564,7 @@ var cities = [
     },
     {
         city: "Bath",
-        country: "United Kingdom", 
+        country: "United Kingdom",
     },
     {
         city: "Copenhagen",
@@ -571,7 +572,7 @@ var cities = [
     },
     {
         city: "Macau",
-        country: "Macau", 
+        country: "Macau",
     },
     {
         city: "Sofia",
@@ -723,7 +724,7 @@ var cities = [
     },
     {
         city: "Laval",
-        country: "Canada", 
+        country: "Canada",
     },
     {
         city: "Sanaa",
@@ -731,7 +732,7 @@ var cities = [
     },
     {
         city: "Livingstone",
-        country: "Zambia", 
+        country: "Zambia",
     },
     {
         city: "Alexandria",
@@ -892,6 +893,7 @@ var cities = [
 
 ];
 
+// var januaryTempsF = [];
 
 function cityWeather(city, month, startDate, endDate) {
     var apiKey = "305d321add43432d946225042190805"
@@ -902,12 +904,13 @@ function cityWeather(city, month, startDate, endDate) {
         method: "GET"
     })
         .then(function (response) {
+            var currentCity = response.data.request[0].query;
+            var justCity = currentCity.split(",");
             var results = response.data.weather;
-            console.log(results);
+            console.log(justCity[0]);
             var avgWeather = 0;
             var total = 0;
-            console.log(cities.length)
-            var userTemp = "F"; 
+            var userTemp = "F";
             if (userTemp === "C") {
                 for (var i = 0; i < results.length; i++) {
                     total += parseInt(results[i].maxtempC)
@@ -923,15 +926,16 @@ function cityWeather(city, month, startDate, endDate) {
                 }
             }
             console.log(city + " " + month + " weather: " + userWeather);
+            // januaryTemps[pos] = userWeather;
+            database.ref("cities/" + justCity[0] +"/" + "temps/").set({
+                "01 January": userWeather,
+            })
         });
 }
 
-// for (var j = 0; j < cities.length; j++) {
-//     cityWeather(cities[j].city + ", " + cities[j].country, January.name, January.startDate, January.endDate);
-// }
-
-// cityWeather("Antigua, Antigua and Barbuda", February.name, February.startDate, February.endDate);
-
+for (var j = 0; j < 3; j++) {
+    cityWeather(cities[j].city + ", " + cities[j].country, January.name, January.startDate, December.endDate);
+}
 
 function findFlights(place) {
     var city = place;
