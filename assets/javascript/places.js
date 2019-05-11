@@ -1,4 +1,4 @@
-$(document).ready(function () {
+// $(document).ready(function () {
 
     // Your web app's Firebase configuration
     var firebaseConfig = {
@@ -12,7 +12,7 @@ $(document).ready(function () {
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-
+    var database = firebase.database();
 
 
     var cities = [
@@ -218,34 +218,72 @@ $(document).ready(function () {
         }
     ];
 
-  /*   $.ajax({
-        url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + name + country + "&key=AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4"
-    }).then(function mySuccess(response) {
-        for (var i = 48; i < cities.length; i++) {
+    var findLatLng = function () {
+        var citiesCopy = cities;
 
-            console.log(response.results[i].geometry.location);
-            cities[i].lat = response.results[i].geometry.location.lat;
-            cities[i].lng = response.results[i].geometry.location.lng;
-            console.log(cities[i]);
+
+        for (var i = 0; i < 3; i++) {
+            var city = citiesCopy[i].city;
+            var country = citiesCopy[i].country;
+            console.log("test: " + country);
+
+            $.ajax({
+                url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + city + country + "&key=AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4"
+            }).then(function mySuccess(response) {
+                // var lat = response.results[0].geometry.location.lat;
+                // citiesCopy[i].lat = lat;
+                // var lng = response.results[0].geometry.location.lng;
+                // citiesCopy[i].lng = lng;
+
+                console.log(response.results[0]);
+                console.log(response.results[0].geometry.location.lng);
+                citiesCopy[i].lng = response.results[0].geometry.location.lng;
+                citiesCopy[i].lat = response.results[0].geometry.location.lat;
+
+                console.log(citiesCopy[i]);
+
+            });
+
+        };
+        // for (var i = 0; i < 3; i++) {
+        //     database.ref("cities/" + citiesCopy[i].city).update({
+        //         "lat": lat,
+        //         "lng": lng,
+        //     });
+        // };
+        console.log(citiesCopy);
+    };
+
+    var dbGenerator = function () {
+        //  ratingGenerator("47.6062,-122.3321", "restaurant");
+        for (var j = 0; j < 3; j++) {
+            var city = cities[j].city;
+            var country = cities[j].country;
+            // var lat = cities.city.lat;
+            // var lng = cities.city.lng;
+
+            // console.log(lat, lng);
+
+            database.ref("cities/" + cities[j].city).set({
+                "city": city,
+                "country": country,
+                "lat": "",
+                "lng": "",
+                "dateAdded": firebase.database.ServerValue.TIMESTAMP,
+            });
+
         }
+    }
 
-        database.ref().push({
-            "city": cities[i].city,
-            "country": cities[i].country,
-            "lat0": cities[i].lat,
-            "lng0": cities[i].lng,
-        });
-    }); */
-
-    // var location = "47.6062,-122.3321";
-    // var type = "restaurant";
+    dbGenerator();
+    findLatLng();
 
 
     var key = "AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4";
 
     //^ fix the CORS thing later
     // url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=groceries&location=42.294,-83.721&rankedBy=distance&key=AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4"
-    var ratingGenerator = function(location, type) {
+    var ratingGenerator = function (location, type) {
         var queryURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + type + "&location=" + location + "&radius=2500&key=" + key + "&inputType=textquery";
 
         var average = 0;
@@ -266,17 +304,17 @@ $(document).ready(function () {
 
                 if (reviews[i] < 200) {
                     ratings[i] = ratings[i] * 0.8;
-                } else if (reviews[i] >= 200 && reviews [i] < 400) {
+                } else if (reviews[i] >= 200 && reviews[i] < 400) {
                     ratings[i] = ratings[i] * 0.9;
-                } else if (reviews[i] >= 400 && reviews [i] < 600){
+                } else if (reviews[i] >= 400 && reviews[i] < 600) {
                     ratings[i] = ratings[i] * 1.0;
-                } else if (reviews[i] >= 800 && reviews [i] < 1000) {
+                } else if (reviews[i] >= 800 && reviews[i] < 1000) {
                     ratings[i] = ratings[i] * 1.1;
-                } else if (reviews[i] >= 1000 && reviews [i] < 1400) {
+                } else if (reviews[i] >= 1000 && reviews[i] < 1400) {
                     ratings[i] = ratings[i] * 1.2;
-                } else if (reviews[i] >= 1400 && reviews [i] < 2000) {
+                } else if (reviews[i] >= 1400 && reviews[i] < 2000) {
                     ratings[i] = ratings[i] * 1.3;
-                } else if (reviews[i] >= 2000 && reviews [i] < 3000) {
+                } else if (reviews[i] >= 2000 && reviews[i] < 3000) {
                     ratings[i] = ratings[i] * 1.4;
                 } else {
                     ratings[i] = ratings[i] * 1.5;
@@ -290,9 +328,6 @@ $(document).ready(function () {
         });
     };
 
-    ratingGenerator("47.6062,-122.3321", "restaurant");
-    // $.ajax({
-    //     url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurant&location=47.606,-122.332&key=AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4"
+    // ratingGenerator("47.6062,-122.3321", "restaurant");
 
-
-});
+// });
