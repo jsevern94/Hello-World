@@ -29,7 +29,7 @@ $(document).ready(function () {
             country: "Australia",
         },
         {
-            city: "Barcelona",
+             city: "Barcelona",
             country: "Spain",
         },
         {
@@ -44,7 +44,7 @@ $(document).ready(function () {
             city: "San Francisco",
             country: "United States of America",
         },
-        {
+ /*       {
             city: "Bangkok",
             country: "Thailand",
         },
@@ -209,29 +209,629 @@ $(document).ready(function () {
             country: "China",
         },
         {
+            city: "Los Angeles",
+            country: "United States of America",
+        },
+        {
             city: "Lisbon",
             country: "Portugal",
         },
         {
-            city: "Los Angeles",
+            city: "Stockholm",
+            country: "Sweden",
+        },
+        {
+            city: "Kuala Lumpur",
+            country: "Malaysia",
+        },
+        {
+            city: "Damascus",
+            country: "Syria",
+        },
+        {
+            city: "Luang Prabang",
+            country: "Laos",
+        },
+        {
+            city: "Seattle",
             country: "United States of America",
-        }
-    ];
+        },
+        {
+            city: "Phnom Penh",
+            country: "Cambodia",
+        },
+        {
+            city: "St Petersburg",
+            country: "Russia",
+        },
+        {
+            city: "Cuzco",
+            country: "Peru",
+        },
+        {
+            city: "Delhi",
+            country: "India",
+        },
+        {
+            city: "Dubrovnik",
+            country: "Croatia",
+        },
+        {
+            city: "Moscow",
+            country: "Russia"
+        },
+        {
+            city: "Salvador Da Bahia",
+            country: "Brazil",
+        },
+        {
+            city: "Beijing",
+            country: "China",
+        },
+        {
+            city: "Helsinki",
+            country: "Finland",
+        },
+        {
+            city: "Kolkata",
+            country: "India",
+        },
+        {
+            city: "Santiago",
+            country: "Chile",
+        },
+        {
+            city: "Fes",
+            country: "Morocco",
+        },
+        {
+            city: "Auckland",
+            country: "New Zealand",
+        },
+        {
+            city: "Manila",
+            country: "Philippines",
+        },
+        {
+            city: "Puerto Vallarta",
+            country: "Mexico",
+        },
+        {
+            city: "Chiang Mai",
+            country: "Thailand",
+        },
+        {
+            city: "Varanasi",
+            country: "India",
+        },
+        {
+            city: "Cartagena",
+            country: "Colombia",
+        },
+        {
+            city: "Zanzibar",
+            country: "Tanzania",
+        },
+        {
+            city: "Innsbruck",
+            country: "Austria",
+        },
+        {
+            city: "York",
+            country: "United Kingdom",
+        },
+        {
+            city: "Mumbai",
+            country: "India",
+        },
+        {
+            city: "Hamburg",
+            country: "Germany",
+        },
+        {
+            city: "Oaxaca",
+            country: "Mexico",
+        },
+        {
+            city: "Galway",
+            country: "Ireland",
+        },
+        {
+            city: "Siena",
+            country: "Italy",
+        },
+        {
+            city: "Ifahan",
+            country: "Iran",
+        },
+        {
+            city: "Wellington",
+            country: "New Zealand",
+        },
+        {
+            city: "Ljubljana",
+            country: "Slovenia",
+        },
+        {
+            city: "Seoul",
+            country: "South Korea",
+        },
+        {
+            city: "San Cristobal",
+            country: "Venezuela",
+        },
+        {
+            city: "Taipei",
+            country: "Taiwan",
+        },
+        {
+            city: "Tallinn",
+            country: "Estonia",
+        },
+        {
+            city: "Lhasa",
+            country: "China",
+        },
+        {
+            city: "Bled",
+            country: "Slovenia",
+        },
+        {
+            city: "Hobart",
+            country: "Australia",
+        },
+        {
+            city: "Jaipur",
+            country: "India",
+        },
+        {
+            city: "Brussels",
+            country: "Belgium",
+        },
+        {
+            city: "La Paz",
+            country: "Bolivia",
+        },
+        {
+            city: "Quebec City",
+            country: "Canada",
+        },
+        {
+            city: "Valparaiso",
+            country: "Chile",
+        },
+        {
+            city: "Naples",
+            country: "Italy",
+        },
+        {
+            city: "Memphis",
+            country: "United States of America",
+        },
+        {
+            city: "Heidelberg",
+            country: "Germany",
+        },
+        {
+            city: "Dhaka",
+            country: "Bangladesh",
+        },
+        {
+            city: "Amman",
+            country: "Jordan",
+        },
+        {
+            city: "Monaco",
+            country: "Monaco",
+        },
+        {
+            city: "Washington DC",
+            country: "United States of America",
+        },
+        {
+            city: "Quito",
+            country: "Ecuador",
+        },
+        {
+            city: "Christchurch",
+            country: "New Zealand",
+        },
+        {
+            city: "Glasgow",
+            country: "United Kingdom",
+        },
+        {
+            city: "Muscat",
+            country: "Oman",
+        },
+        {
+            city: "Panama City",
+            country: "Panama",
+        },
+        {
+            city: "Dakar",
+            country: "Senegal",
+        },
+        {
+            city: "Bratislava",
+            country: "Slovakia",
+        },
+        {
+            city: "San Sebastian",
+            country: "Spain",
+        },
+        {
+            city: "Bern",
+            country: "Switzerland",
+        },
+        {
+            city: "San Juan",
+            country: "Puerto Rico",
+        },
+        {
+            city: "Aleppo",
+            country: "Syria",
+        },
+        {
+            city: "Dubai",
+            country: "United Arab Emirates",
+        },
+        {
+            city: "Riga",
+            country: "Latvia",
+        },
+        {
+            city: "Asmara",
+            country: "Eritrea",
+        },
+        {
+            city: "Kabul",
+            country: "Afghanistan",
+        },
+        {
+            city: "Bath",
+            country: "United Kingdom",
+        },
+        {
+            city: "Copenhagen",
+            country: "Denmark",
+        },
+        {
+            city: "Macau",
+            country: "Macau",
+        },
+        {
+            city: "Sofia",
+            country: "Bulgaria",
+        },
+        {
+            city: "Hoi An",
+            country: "Vietnam",
+        },
+        {
+            city: "Marseille",
+            country: "France",
+        },
+        {
+            city: "Zagreb",
+            country: "Croatia",
+        },
+        {
+            city: "Manchester",
+            country: "United Kingdom",
+        },
+        {
+            city: "Antigua",
+            country: "Antigua and Barbuda",
+        },
+        {
+            city: "Reykjavik",
+            country: "Iceland",
+        },
+        {
+            city: "Yogyakarta",
+            country: "Indonesia",
+        },
+        {
+            city: "Carcassone",
+            country: "France",
+        },
+        {
+            city: "Lubeck",
+            country: "Germany",
+        },
+        {
+            city: "Tel Aviv",
+            country: "Israel",
+        },
+        {
+            city: "Hiroshima",
+            country: "Japan",
+        },
+        {
+            city: "Mendoza",
+            country: "Argentina",
+        },
+        {
+            city: "Nairobi",
+            country: "Kenya",
+        },
+        {
+            city: "Beirut",
+            country: "Lebanon",
+        },
+        {
+            city: "Vilnius",
+            country: "Lithuania",
+        },
+        {
+            city: "Montevideo",
+            country: "Uruguay",
+        },
+        {
+            city: "Yangon",
+            country: "Myanmar",
+        },
+        {
+            city: "Arequipa",
+            country: "Peru",
+        },
+        {
+            city: "Bucharest",
+            country: "Romania",
+        },
+        {
+            city: "Apia",
+            country: "Samoa",
+        },
+        {
+            city: "Belgrade",
+            country: "Serbia",
+        },
+        {
+            city: "Dar Es Salaam",
+            country: "Tanzania",
+        },
+        {
+            city: "Kiev",
+            country: "Ukraine",
+        },
+        {
+            city: "Bukhara",
+            country: "Uzbekistan",
+        },
+        {
+            city: "Male",
+            country: "Maldives",
+        },
+        {
+            city: "Caracas",
+            country: "Venezuela",
+        },
+        {
+            city: "Tirana",
+            country: "Albania",
+        },
+        {
+            city: "Suva",
+            country: "Fiji",
+        },
+        {
+            city: "Tbilisi",
+            country: "Georgia",
+        },
+        {
+            city: "Agadez",
+            country: "Niger",
+        },
+        {
+            city: "Ushuaia",
+            country: "Argentina",
+        },
+        {
+            city: "Kampala",
+            country: "Uganda",
+        },
+        {
+            city: "Bogota",
+            country: "Colombia",
+        },
+        {
+            city: "Bridgetown",
+            country: "Barbados",
+        },
+        {
+            city: "Ulaanbaatar",
+            country: "Mongolia",
+        },
+        {
+            city: "Abuja",
+            country: "Nigeria",
+        },
+        {
+            city: "Laval",
+            country: "Canada",
+        },
+        {
+            city: "Sanaa",
+            country: "Yemen",
+        },
+        {
+            city: "Livingstone",
+            country: "Zambia",
+        },
+        {
+            city: "Alexandria",
+            country: "Egypt",
+        },
+        {
+            city: "Belfast",
+            country: "United Kingdom",
+        },
+        {
+            city: "Savannah",
+            country: "Georgia",
+        },
+        {
+            city: "Nuuk",
+            country: "Greenland",
+        },
+        {
+            city: "Jeddah",
+            country: "Saudi Arabia",
+        },
+        {
+            city: "Johannesburg",
+            country: "South Africa",
+        },
+        {
+            city: "Kairouan",
+            country: "Tunisia",
+        },
+        {
+            city: "Austin",
+            country: "United Staes of America",
+        },
+        {
+            city: "San Salvador",
+            country: "El Salvador",
+        },
+        {
+            city: "Cardiff",
+            country: "Wales",
+        },
+        {
+            city: "Minsk",
+            country: "Belarus",
+        },
+        {
+            city: "Thimphu",
+            country: "Bhutan",
+        },
+        {
+            city: "Khartoum",
+            country: "Sudan",
+        },
+        {
+            city: "Anchorage",
+            country: "United States of America",
+        },
+        {
+            city: "Mecca",
+            country: "Saudi Arabia",
+        },
+        {
+            city: "Aswan",
+            country: "Egypt",
+        },
+        {
+            city: "Yerevan",
+            country: "Armenia",
+        },
+        {
+            city: "Luxembourg",
+            country: "Luxembourg",
+        },
+        {
+            city: "Georgetown",
+            country: "Guyana",
+        },
+        {
+            city: "Maputo",
+            country: "Mozambique",
+        },
+        {
+            city: "Baku",
+            country: "Azerbaijan",
+        },
+        {
+            city: "Belize City",
+            country: "Belize",
+        },
+        {
+            city: "Essaouira",
+            country: "Morocco",
+        },
+        {
+            city: "Santo Domingo",
+            country: "Dominican Republic",
+        },
+        {
+            city: "Addis Ababa",
+            country: "Ethiopia",
+        },
+        {
+            city: "Pyongyang",
+            country: "North Korea",
+        },
+        {
+            city: "Lahore",
+            country: "Pakistan",
+        },
+        {
+            city: "Cayenne",
+            country: "French Guiana",
+        },
+        {
+            city: "Almaty",
+            country: "Kazakhstan",
+        },
+        {
+            city: "Mombasa",
+            country: "Kenya",
+        },
+        {
+            city: "Valletta",
+            country: "Malta",
+        },
+        {
+            city: "Antananarivo",
+            country: "Madagascar",
+        },
+        {
+            city: "Miami",
+            country: "United States of America",
+        },
+        {
+            city: "Bamako",
+            country: "Mali",
+        },
+        {
+            city: "Saint-Denis",
+            country: "Réunion",
+        },
+        {
+            city: "Granada",
+            country: "Nicaragua",
+        },
+        {
+            city: "Beira",
+            country: "Mozambique",
+        },
+        {
+            city: "Madang",
+            country: "Papua New Guinea",
+        },
+        {
+            city: "Ashgabat",
+            country: "Turkmenistan",
+        },
+ */    ];
 
-    var latlng = [];
+
 
     var findLatLng = function () {
         var citiesCopy = cities;
+        console.log(citiesCopy.length);
 
-
-        for (var i = 0; i < cities.length; i++) {
+        for (var i = 0; i < citiesCopy.length; i++) {
             var city = citiesCopy[i].city;
             var country = citiesCopy[i].country;
-            console.log("test: " + country);
 
             $.ajax({
                 url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + city + country + "&key=AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4"
             }).then(function mySuccess(response) {
+
                 var city = response.results[0].name;
                 var lat = response.results[0].geometry.location.lat;
                 var lng = response.results[0].geometry.location.lng;
@@ -257,21 +857,12 @@ $(document).ready(function () {
                 ratingGenerator(location, "park", "nature", city);
 
                 ratingGenerator(location, "museum", "culture", city);
-                ratingGenerator(location, "art_gallery", "culture", city);
+                // ratingGenerator(location, "art_gallery", "culture", city);
                 
                 ratingGenerator(location, "aquarium", "attractions", city);
                 ratingGenerator(location, "amusement_park", "attractions", city);
                 ratingGenerator(location, "zoo", "attractions", city);
                 ratingGenerator(location, "casino", "attractions", city);
-
-
-
-
-
-
-
-
-
 
             });
 
@@ -304,7 +895,7 @@ $(document).ready(function () {
     //^ fix the CORS thing later
     // url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=groceries&location=42.294,-83.721&rankedBy=distance&key=AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4"
     var ratingGenerator = function (location, type, category, city) {
-        var queryURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + type + "&location=" + location + "&radius=2500&key=" + key + "&inputType=textquery";
+        var queryURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + type + "&location=" + location + "&radius=8000&key=" + key + "&inputType=textquery";
 
         var average = 0;
         var ratings = [];
