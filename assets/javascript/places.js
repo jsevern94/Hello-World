@@ -44,7 +44,7 @@ $(document).ready(function () {
             city: "San Francisco",
             country: "United States of America",
         },
- /*       {
+        {
             city: "Bangkok",
             country: "Thailand",
         },
@@ -60,11 +60,11 @@ $(document).ready(function () {
             city: "Melbourne",
             country: "Australia",
         },
-        {
-            city: "Hong Kong",
-            country: "Hong Kong",
-        },
-        {
+        // {
+        //     city: "Hong Kong",
+        //     country: "Hong Kong",
+        // },
+       {
             city: "Kathmandu",
             country: "Nepal",
         },
@@ -96,26 +96,26 @@ $(document).ready(function () {
             city: "Montreal",
             country: "Canada",
         },
-        {
-            city: "Edinburgh",
-            country: "United Kingdom",
-        },
+        // {
+        //     city: "Edinburgh",
+        //     country: "United Kingdom",
+        // },
         {
             city: "Venice",
             country: "Italy",
         },
-        {
-            city: "Hanoi",
-            country: "Vietnam",
-        },
+        // {
+        //     city: "Hanoi",
+        //     country: "Vietnam",
+        // },
         {
             city: "Amsterdam",
             country: "Netherlands",
         },
-        {
-            city: "Singapore",
-            country: "Singapore",
-        },
+        // {
+        //     city: "Singapore",
+        //     country: "Singapore",
+        // },
         {
             city: "Tokyo",
             country: "Japan",
@@ -156,10 +156,10 @@ $(document).ready(function () {
             city: "Havana",
             country: "Cuba",
         },
-        {
-            city: "Madrid",
-            country: "Spain",
-        },
+        // {
+        //     city: "Madrid",
+        //     country: "Spain",
+        // },
         {
             city: "Munich",
             country: "Germany",
@@ -168,10 +168,10 @@ $(document).ready(function () {
             city: "Athens",
             country: "Greece",
         },
-        {
-            city: "New Orleans",
-            country: "United States of America",
-        },
+        // {
+        //     city: "New Orleans",
+        //     country: "United States of America",
+        // },
         {
             city: "Vienna",
             country: "Austria",
@@ -180,10 +180,10 @@ $(document).ready(function () {
             city: "Ho Chi Minh City",
             country: "Vietnam",
         },
-        {
-            city: "Marrakesh",
-            country: "Morocco",
-        },
+    //    {
+    //         city: "Marrakesh",
+    //         country: "Morocco",
+    //     },
         {
             city: "Sarajevo",
             country: "Bosnia and Herzegovina",
@@ -192,10 +192,10 @@ $(document).ready(function () {
             city: "Seville",
             country: "Spain",
         },
-        {
-            city: "Kyoto",
-            country: "Japan",
-        },
+        // {
+        //     city: "Kyoto",
+        //     country: "Japan",
+        // },
         {
             city: "Las Vegas",
             country: "United States of America",
@@ -264,18 +264,18 @@ $(document).ready(function () {
             city: "Salvador Da Bahia",
             country: "Brazil",
         },
-        {
-            city: "Beijing",
-            country: "China",
-        },
+        // {
+        //     city: "Beijing",
+        //     country: "China",
+        // },
         {
             city: "Helsinki",
             country: "Finland",
         },
-        {
-            city: "Kolkata",
-            country: "India",
-        },
+        // {
+        //     city: "Kolkata",
+        //     country: "India",
+        // },
         {
             city: "Santiago",
             country: "Chile",
@@ -308,10 +308,10 @@ $(document).ready(function () {
             city: "Cartagena",
             country: "Colombia",
         },
-        {
-            city: "Zanzibar",
-            country: "Tanzania",
-        },
+        // {
+        //     city: "Zanzibar",
+        //     country: "Tanzania",
+        // },
         {
             city: "Innsbruck",
             country: "Austria",
@@ -320,30 +320,30 @@ $(document).ready(function () {
             city: "York",
             country: "United Kingdom",
         },
-        {
-            city: "Mumbai",
-            country: "India",
-        },
+        // {
+        //     city: "Mumbai",
+        //     country: "India",
+        // },
         {
             city: "Hamburg",
             country: "Germany",
         },
-        {
-            city: "Oaxaca",
-            country: "Mexico",
-        },
+        // {
+        //     city: "Oaxaca",
+        //     country: "Mexico",
+        // },
         {
             city: "Galway",
             country: "Ireland",
         },
-        {
-            city: "Siena",
-            country: "Italy",
-        },
-        {
-            city: "Ifahan",
-            country: "Iran",
-        },
+        // {
+        //     city: "Siena",
+        //     country: "Italy",
+        // },
+        // {
+        //     city: "Ifahan",
+        //     country: "Iran",
+        // },
         {
             city: "Wellington",
             country: "New Zealand",
@@ -360,10 +360,10 @@ $(document).ready(function () {
             city: "San Cristobal",
             country: "Venezuela",
         },
-        {
-            city: "Taipei",
-            country: "Taiwan",
-        },
+        // {
+        //     city: "Taipei",
+        //     country: "Taiwan",
+        // },
         {
             city: "Tallinn",
             country: "Estonia",
@@ -380,10 +380,10 @@ $(document).ready(function () {
             city: "Hobart",
             country: "Australia",
         },
-        {
-            city: "Jaipur",
-            country: "India",
-        },
+        // {
+        //     city: "Jaipur",
+        //     country: "India",
+        // },
         {
             city: "Brussels",
             country: "Belgium",
@@ -420,10 +420,10 @@ $(document).ready(function () {
             city: "Amman",
             country: "Jordan",
         },
-        {
-            city: "Monaco",
-            country: "Monaco",
-        },
+        // {
+        //     city: "Monaco",
+        //     country: "Monaco",
+        // },
         {
             city: "Washington DC",
             country: "United States of America",
@@ -438,7 +438,7 @@ $(document).ready(function () {
         },
         {
             city: "Glasgow",
-            country: "United Kingdom",
+            country: "Scotland",
         },
         {
             city: "Muscat",
@@ -488,7 +488,7 @@ $(document).ready(function () {
             city: "Kabul",
             country: "Afghanistan",
         },
-        {
+      /*  {
             city: "Bath",
             country: "United Kingdom",
         },
