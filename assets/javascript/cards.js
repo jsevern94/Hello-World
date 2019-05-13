@@ -1,9 +1,9 @@
 
- //images
- 
- //
- 
  var searchTerm = "vancouver";
+
+//images
+ 
+
 
 
 // var queryUrl = "https://pixabay.com/api/?key=12446401-bf90607e0ef711dcac16707ef&q=" + searchTerm + "&image_type=photo&safesearch=true";
@@ -40,7 +40,6 @@ var url = "https://en.wikipedia.org/w/api.php?origin=*&action=query&list=search&
 // //use this in an ajax to then call this. 
 var blurbUrl = "https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&exsentences=10&redirects=1&titles=" + searchTerm;
 
-
 // //tinier snippet but has the listen annotations that cannot be clicked. 
 // var tiny = "https://en.wikipedia.org/w/api.php?action=opensearch&origin=*&search=" + searchTerm + "&limit=1&format=json";
 // $.ajax({
@@ -50,8 +49,6 @@ var blurbUrl = "https://en.wikipedia.org/w/api.php?origin=*&format=json&action=q
 //     .then(function (response) {
 //         console.log(response[2].toString());
 //     })
-
-// //google maps here!!!
 
 $.ajax({
     url: url,
@@ -66,9 +63,24 @@ $.ajax({
             method: "GET"
         })
             .then(function (response) {
-                console.log(response.query.pages[pageID].extract);
-                $("#picturesHere").append(response.query.pages[pageID].extract);
+                console.log(response);
+
+                var blurb = response.query.pages[pageID].extract;
+                
+                blurb = blurb.replace('(listen)', '');
+                blurb = blurb.replace('( )', '');
+
+                console.log(blurb);
+
+                $("#picturesHere").append(blurb);
         
             })
 
     })
+
+ 
+
+
+// //google maps here!!!
+
+
