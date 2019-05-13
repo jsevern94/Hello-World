@@ -1,5 +1,6 @@
 $(document).ready(function () {
-
+    var calcsComplete = false;
+    var placesComplete = false;
     // Your web app's Firebase configuration
     var firebaseConfig = {
         apiKey: "AIzaSyDuKxBBJIya6DvOXENE1xnfSZ2uImIWd-M",
@@ -827,7 +828,6 @@ $(document).ready(function () {
             $.ajax({
                 url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + city + country + "&key=AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4"
             }).then(function mySuccess(response) {
-
                 var city = response.results[0].name;
                 var lat = response.results[0].geometry.location.lat;
                 var lng = response.results[0].geometry.location.lng;
@@ -856,10 +856,11 @@ $(document).ready(function () {
                 // ratingGenerator(location, "art_gallery", "culture", city);
 
                 ratingGenerator(location, "aquarium", "attractions", city);
-                ratingGenerator(location, "amusement_park", "attractions", city);
+                // ratingGenerator(location, "amusement_park", "attractions", city);
                 ratingGenerator(location, "zoo", "attractions", city);
                 ratingGenerator(location, "casino", "attractions", city);
 
+                placesComplete = true;
             });
 
         };
@@ -882,8 +883,6 @@ $(document).ready(function () {
 
         }
     }
-    findLatLng();
-    dbGenerator();
 
 
     var key = "AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4";
@@ -929,11 +928,85 @@ $(document).ready(function () {
             average = total / ratings.length;
 
             database.ref("cities/" + city + "/" + category + "/" + type).update({
-                rating: average,
+                "rating": average,
             });
+
+
+            // database.ref("cities/" + city + "/" + category).update({
+            //     "combRating": combRating,
+            // });
         });
     };
 
+
+    
+    var ratingCalc = function (city, pos) {
+        
+// FOOD
+        database.ref("cities/" + city + "/food").once("value").then(function (snapshot) {
+            var sv = snapshot.val();
+            var average = (sv.restaurant.rating + sv.bakery.rating + sv.cafe.rating) / 3;
+            cities[pos].food = average;
+            $("#paris").append("<h3>" + city + "</h3>");
+            $("#paris").append("<h3>Food: " + cities[pos].food + "</h3>");
+
+        });
+// NIGHTLIFE
+        database.ref("cities/" + city + "/nightlife").once("value").then(function (snapshot) {
+            var sv = snapshot.val();
+            var average = (sv.bar.rating + sv.night_club.rating) / 2;
+            cities[pos].nightlife = average;
+            $("#paris").append("<h3>Nightlife: " + cities[pos].nightlife + "</h3>");
+        });
+// NATURE
+        database.ref("cities/" + city + "/nature").once("value").then(function (snapshot) {
+            var sv = snapshot.val();
+            var average = (sv.campground.rating + sv.park.rating) / 2;
+            cities[pos].nature = average;
+            $("#paris").append("<h3>Nature: " + cities[pos].nature + "</h3>");
+        });
+//CULTURE
+        database.ref("cities/" + city + "/culture").once("value").then(function (snapshot) {
+            var sv = snapshot.val();
+            var average = (sv.museum.rating);
+            cities[pos].culture = average;
+            $("#paris").append("<h3>Culture: " + cities[pos].culture + "</h3>");
+        });
+//ATTRACTIONS
+        database.ref("cities/" + city + "/attractions").once("value").then(function (snapshot) {
+            var sv = snapshot.val();
+            var average = (sv.aquarium.rating + sv.casino.rating + sv.zoo.rating) / 3;
+            cities[pos].attractions = average;
+            $("#paris").append("<h3>Attractions: " + cities[pos].attractions + "</h3><br>");
+        });
+
+        calcsComplete = true;
+
+    };
+
+  
+    $(document.body).on("click", "#test", function () {
+        // if (placesComplete === true) {
+        for (var i = 0; i < 2; i++) {
+            var city = cities[i].city;
+
+            ratingCalc(city, i);
+
+        };
+    // } else {
+    //     console.log("google places functions not complete yet")
+    // };
+
+    if (calcsComplete === true) {
+
+        console.log(cities[0].food)
+
+    }
+
+    });
+
+    // findLatLng();
+    // dbGenerator();
 
 
 });
