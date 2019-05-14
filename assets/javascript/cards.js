@@ -18,6 +18,8 @@ var database = firebase.database();
 
 
 var searchTerm = "London";
+$("#cardTitle").append(searchTerm);
+
 var cityLat;
 var cityLng;
 var latSelected;
@@ -43,9 +45,6 @@ database.ref("cities/" + searchTerm).once("value").then(function (snapshot) {
     }
 });
 
-//  var cityLng = database.ref.getReference("cities/"+ searchTerm + "/lng");
-//  console.log(cityLng)
-
 
 //images
 
@@ -66,13 +65,16 @@ var searchTermLowerCase = searchTerm.toLowerCase();
 var API_KEY = '12446401-bf90607e0ef711dcac16707ef';
 var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(searchTermLowerCase);
 $.getJSON(URL, function (data) {
-    if (parseInt(data.totalHits) > 0)
-        $.each(data.hits, function (i, hit) {
-            $("#picturesHere").append("<img src='" + hit.previewURL + "'>");
-        });
-    else
+    if (parseInt(data.totalHits) > 0){
+    console.log(data.totalHits);
+        for(var i=0; i<5; i++){
+            $("#picturesHere").append("<img  id='cityImage' src='" + data.hits[i].webformatURL + "'>");
+        };
+}
+    else{
         console.log('No hits');
 
+    }
     //if no hits then search coutry name
 });
 
@@ -95,6 +97,8 @@ var blurbUrl = "https://en.wikipedia.org/w/api.php?origin=*&format=json&action=q
 //         console.log(response[2].toString());
 //     })
 
+var blurb;
+
 $.ajax({
     url: url,
     method: "GET"
@@ -110,14 +114,16 @@ $.ajax({
             .then(function (response) {
                 console.log(response);
 
-                var blurb = response.query.pages[pageID].extract;
+                blurb = response.query.pages[pageID].extract;
 
                 blurb = blurb.replace('(listen)', '');
                 blurb = blurb.replace('( )', '');
+                blurb = blurb.replace('()', '');
+                blurb = blurb.replace(';', '');
 
                 console.log(blurb);
 
-                $("#picturesHere").append(blurb);
+                $("#blurbHere").append(blurb);
 
             })
 
@@ -128,30 +134,12 @@ $.ajax({
 //helpful links
 //https://developers.google.com/maps/documentation/javascript/examples/marker-labels
 //https://developers.google.com/maps/documentation/javascript/examples/marker-animations
-// var map;
-// var marker;
-
-//     function initMap() {
-//         var myLatLng = {lat: 42.3601, lng: -71.0589};
-    
-//         map = new google.maps.Map(document.getElementById('map'), {
-//           zoom: 10,
-//           center: myLatLng
-//         });
-    
-//         marker = new google.maps.Marker({
-//           position: myLatLng,
-//           map: map,
-//           title: 'Hello World!'
-//         });
-//       }
-
-//       initMap();
 
 
     var map;
     var marker;
-    console.log(cityLat + cityLng);
+    // var labels ='12345';
+    // var labelIndex = 0;
    
     function initialize(){
         var positionLoaction = new google.maps.LatLng(cityLat, cityLng);
@@ -167,30 +155,26 @@ $.ajax({
         marker = new google.maps.Marker({
             position: positionLoaction,
             map: map,
+            //this can be used when there are multiple locations to number them
+            //label: labels[labelIndex++ % labels.length],
+            title: searchTerm
           });
+
+          var infowindow = new google.maps.InfoWindow({
+            content: searchTerm
+          });
+        
+
+        marker.addListener('click', function() {
+        infowindow.open(map, marker);
+        });
+
+
         }
     
 
 
       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
