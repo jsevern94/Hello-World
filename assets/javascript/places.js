@@ -1,5 +1,5 @@
 $(document).ready(function () {
-     // Your web app's Firebase configuration
+    // Your web app's Firebase configuration
     var firebaseConfig = {
         apiKey: "AIzaSyDuKxBBJIya6DvOXENE1xnfSZ2uImIWd-M",
         authDomain: "hello-world-19f5c.firebaseapp.com",
@@ -934,10 +934,10 @@ $(document).ready(function () {
     };
 
 
-    
+
     var ratingCalc = function (city, pos) {
-        
-// FOOD
+
+        // FOOD
         database.ref("cities/" + city + "/food").once("value").then(function (snapshot) {
             var sv = snapshot.val();
             var average = (sv.restaurant.rating + sv.bakery.rating + sv.cafe.rating) / 3;
@@ -950,7 +950,7 @@ $(document).ready(function () {
 
 
         });
-// NIGHTLIFE
+        // NIGHTLIFE
         database.ref("cities/" + city + "/nightlife").once("value").then(function (snapshot) {
             var sv = snapshot.val();
             var average = (sv.bar.rating + sv.night_club.rating) / 2;
@@ -961,7 +961,7 @@ $(document).ready(function () {
             });
 
         });
-// NATURE
+        // NATURE
         database.ref("cities/" + city + "/nature").once("value").then(function (snapshot) {
             var sv = snapshot.val();
             var average = (sv.campground.rating + sv.park.rating) / 2;
@@ -972,7 +972,7 @@ $(document).ready(function () {
             });
 
         });
-//CULTURE
+        //CULTURE
         database.ref("cities/" + city + "/culture").once("value").then(function (snapshot) {
             var sv = snapshot.val();
             var average = (sv.museum.rating);
@@ -983,7 +983,7 @@ $(document).ready(function () {
             });
 
         });
-//ATTRACTIONS
+        //ATTRACTIONS
         database.ref("cities/" + city + "/attractions").once("value").then(function (snapshot) {
             var sv = snapshot.val();
             var average = (sv.aquarium.rating + sv.casino.rating + sv.zoo.rating) / 3;
@@ -999,7 +999,7 @@ $(document).ready(function () {
 
     };
 
-  
+
     $(document.body).on("click", "#test", function () {
         // if (placesComplete === true) {
         for (var i = 0; i < cities.length; i++) {
@@ -1008,36 +1008,43 @@ $(document).ready(function () {
             ratingCalc(city, i);
 
         };
-    // } else {
-    //     console.log("google places functions not complete yet")
-    // };
+        // } else {
+        //     console.log("google places functions not complete yet")
+        // };
 
     });
 
 
+    var topFood = [];
+    var topNightlife = [];
+    var topCulture = [];
+    var topNature = [];
+    var topAttractions = [];
 
-    function indexOfMax(arr) {
+    function indexOfMax(arr, top) {
         if (arr.length === 0) {
             return -1;
         }
         var maxIndex = 0;
         var max = arr[0];
-    
+
         for (var i = 1; i < arr.length; i++) {
             if (arr[i] > max) {
                 maxIndex = i;
                 max = arr[i];
             }
         }
-        console.log("City: " + cities[maxIndex].city);
-        console.log("Rating: " + arr[maxIndex]);
-        // console.log("Nightlife: " + nightlifeArray[maxIndex]);
-        // console.log("Culture: " + cultureArray[maxIndex]);
-        // console.log("Nature: " + natureArray[maxIndex]);
-        // console.log("Attractions: " + attractionsArray[maxIndex]);
+        // console.log("City: " + cities[maxIndex].city);
+        // console.log("Rating: " + arr[maxIndex]);
+        top.push({"city": cities[maxIndex].city, "rating": arr[maxIndex]})
+        // $(".results").append("<p>" + top + "<p>")
 
+        if (top.length === 5) {
+            $(".results").append("<p>The top 5 cities for Food <br>" + topFood + "<p>")
+            console.log(top);
+        }
 
-        foodArray[maxIndex] = 0;
+        arr[maxIndex] = 0;
         return maxIndex;
     }
 
@@ -1047,45 +1054,37 @@ $(document).ready(function () {
     var natureArray = [];
     var attractionsArray = [];
 
-    $("#topFood").on("click", function () {
+    $(".getTopFive").on("click", function () {
         for (var i = 0; i < cities.length; i++) {
             var city = cities[i].city;
 
-        database.ref("cities/" + city + "/finalRatings/food").once("value").then(function (snapshot) {
-            foodArray.push(snapshot.val());
-        });
-        database.ref("cities/" + city + "/finalRatings/nightlife").once("value").then(function (snapshot) {
-            nightlifeArray.push(snapshot.val());
-        });
-        database.ref("cities/" + city + "/finalRatings/culture").once("value").then(function (snapshot) {
-            cultureArray.push(snapshot.val());
-        });
-        database.ref("cities/" + city + "/finalRatings/nature").once("value").then(function (snapshot) {
-            natureArray.push(snapshot.val());
-        });
-        database.ref("cities/" + city + "/finalRatings/attractions").once("value").then(function (snapshot) {
-            attractionsArray.push(snapshot.val());
-        });
-
-        
+            database.ref("cities/" + city + "/finalRatings/food").once("value").then(function (snapshot) {
+                foodArray.push(snapshot.val());
+            });
+            database.ref("cities/" + city + "/finalRatings/nightlife").once("value").then(function (snapshot) {
+                nightlifeArray.push(snapshot.val());
+            });
+            database.ref("cities/" + city + "/finalRatings/culture").once("value").then(function (snapshot) {
+                cultureArray.push(snapshot.val());
+            });
+            database.ref("cities/" + city + "/finalRatings/nature").once("value").then(function (snapshot) {
+                natureArray.push(snapshot.val());
+            });
+            database.ref("cities/" + city + "/finalRatings/attractions").once("value").then(function (snapshot) {
+                attractionsArray.push(snapshot.val());
+            });
         }
 
         for (var j = 0; j < 5; j++) {
-            indexOfMax(foodArray);
-            indexOfMax(nightlifeArray);
-            indexOfMax(cultureArray);
-            indexOfMax(natureArray);
-            indexOfMax(attractionsArray);
-    
+            indexOfMax(foodArray, topFood);
+            indexOfMax(nightlifeArray, topNightlife);
+            indexOfMax(cultureArray, topCulture);
+            indexOfMax(natureArray, topNature);
+            indexOfMax(attractionsArray, topAttractions);
         }
 
-        // console.log(foodArray[maxIndex]);
 
-        // console.log(maxIndex);
-        // console.log(foodArray[maxIndex]);
-
-
-   });
+    });
 
 
 
