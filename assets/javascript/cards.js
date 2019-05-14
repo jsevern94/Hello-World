@@ -17,85 +17,124 @@ var database = firebase.database();
 
 
 
-var searchTerm = "London";
+var searchTerms = ["London", "Paris", "Barcelona", "Antananarivo", "Amsterdam"];
+var searchTerm = "Antananarivo";
 $("#cardTitle").append(searchTerm);
 
 var cityLat;
 var cityLng;
 var latSelected;
-var lngSelected
+var lngSelected;
+var country;
+var countryLowerCase;
+var countryURL
+var countrySelected;
+
+
 
 database.ref("cities/" + searchTerm).once("value").then(function (snapshot) {
     var sv = snapshot.val();
-    cityLat = sv.lat
-    console.log(cityLat)
+    cityLat = sv.lat;
+    console.log(cityLat);
     latSelected = true;
-    if(lngSelected){
+    if (lngSelected) {
         initialize();
     }
 });
 
 database.ref("cities/" + searchTerm).once("value").then(function (snapshot) {
     var sv = snapshot.val();
-    cityLng = sv.lng
-    console.log(cityLng)
+    cityLng = sv.lng;
+    console.log(cityLng);
     lngSelected = true;
-    if(latSelected){
+    if (latSelected) {
         initialize();
     }
 });
 
+database.ref("cities/" + searchTerm).once("value").then(function (snapshot) {
+    var sv = snapshot.val();
+    country = sv.country;
+    console.log(country)
+    countryLowerCase = country.toLowerCase();
+    console.log(countryLowerCase);
+    countryURL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(countryLowerCase) + "&safesearch=true";
+    countrySelected = true;
+    if (countrySelected) {
+       getPhotos();
+    }
+});
 
 //images
-
-// var queryUrl = "https://pixabay.com/api/?key=12446401-bf90607e0ef711dcac16707ef&q=" + searchTerm + "&image_type=photo&safesearch=true";
-
-//     $.ajax({
-//         url: queryUrl,
-//         method: "GET"
-//     })
-//         .then(function (response) {
-
-//             console.log(response);
-//         })
-
-
 var searchTermLowerCase = searchTerm.toLowerCase();
 
-var API_KEY = '12446401-bf90607e0ef711dcac16707ef';
-var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(searchTermLowerCase);
-$.getJSON(URL, function (data) {
-    if (parseInt(data.totalHits) > 0){
-    console.log(data.totalHits);
-        for(var i=0; i<5; i++){
-            $("#picturesHere").append("<img  id='cityImage' src='" + data.hits[i].webformatURL + "'>");
-        };
-}
-    else{
-        console.log('No hits');
 
-    }
-    //if no hits then search coutry name
-});
+var API_KEY = '12446401-bf90607e0ef711dcac16707ef';
+var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(searchTermLowerCase) + "&safesearch=true";
+
+var cityImageResults;
+
+function getPhotos() {
+    $.ajax({
+        url: URL,
+        method: "GET"
+    })
+        .then(function (data) {
+            console.log(data)
+            if (parseInt(data.totalHits) > 0) {
+                console.log(data.totalHits);
+                cityImageResults = data.totalHits;
+                console.log(cityImageResults);
+                if(data.totalHits < 5){
+                for (var i = 0; i < data.totalHits; i++) {
+                    $("#picturesHere").append("<img  id='cityImage' src='" + data.hits[i].imageURL + "'>");
+                    console.log(data.totalHits + "is less than 5")
+                };
+                //put loop to go through country photos here
+                console.log(countryURL);
+                $.ajax({
+                    url: countryURL,
+                    method: "GET"
+                })
+                    .then(function (data) {
+                        console.log(cityImageResults);
+                        for (var i = cityImageResults; i < 5; i++) {
+                            $("#picturesHere").append("<img  id='cityImage' src='" + data.hits[i].imageURL + "'>");
+                        };
+                    })
+            }
+            else{
+                for (var i = 0; i < 5; i++) {
+                    $("#picturesHere").append("<img  id='cityImage' src='" + data.hits[i].imageURL + "'>");
+                };
+            }
+            }
+            else {
+                console.log('No hits');
+                //put loop to go through country photos here
+                $.ajax({
+                    url: countryURL,
+                    method: "GET"
+                })
+                    .then(function (data) {
+                        for (var i = 0; i < 5; i++) {
+                            $("#picturesHere").append("<img  id='cityImage' src='" + data.hits[i].imageURL + "'>");
+                        };
+                    })
+            }
+
+        })
+}
+
 
 
 //wiki blurb
-
+//gets page id
 var url = "https://en.wikipedia.org/w/api.php?origin=*&action=query&list=search&srsearch=" + searchTerm + "&srlimit=1&format=json";
 
 
-// //use this in an ajax to then call this. 
+//gets blurb off of page
 var blurbUrl = "https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&exsentences=10&redirects=1&titles=" + searchTerm;
-
-// //tinier snippet but has the listen annotations that cannot be clicked. 
-// var tiny = "https://en.wikipedia.org/w/api.php?action=opensearch&origin=*&search=" + searchTerm + "&limit=1&format=json";
-// $.ajax({
-//     url: tiny,
-//     method: "GET"
-// })
-//     .then(function (response) {
-//         console.log(response[2].toString());
-//     })
 
 var blurb;
 
@@ -136,45 +175,45 @@ $.ajax({
 //https://developers.google.com/maps/documentation/javascript/examples/marker-animations
 
 
-    var map;
-    var marker;
-    // var labels ='12345';
-    // var labelIndex = 0;
-   
-    function initialize(){
-        var positionLoaction = new google.maps.LatLng(cityLat, cityLng);
+var map;
+var marker;
+// var labels ='12345';
+// var labelIndex = 0;
 
-        var mapOptions = {
-            center: positionLoaction,
-            zoom: 4,  
-        };
+function initialize() {
+    var positionLoaction = new google.maps.LatLng(cityLat, cityLng);
 
-        map = new google.maps.Map(document.getElementById('map'),
+    var mapOptions = {
+        center: positionLoaction,
+        zoom: 4,
+    };
+
+    map = new google.maps.Map(document.getElementById('map'),
         mapOptions);
 
-        marker = new google.maps.Marker({
-            position: positionLoaction,
-            map: map,
-            //this can be used when there are multiple locations to number them
-            //label: labels[labelIndex++ % labels.length],
-            title: searchTerm
-          });
+    marker = new google.maps.Marker({
+        position: positionLoaction,
+        map: map,
+        //this can be used when there are multiple locations to number them
+        //label: labels[labelIndex++ % labels.length],
+        title: searchTerm
+    });
 
-          var infowindow = new google.maps.InfoWindow({
-            content: searchTerm
-          });
-        
+    var infowindow = new google.maps.InfoWindow({
+        content: searchTerm
+    });
 
-        marker.addListener('click', function() {
+
+    marker.addListener('click', function () {
         infowindow.open(map, marker);
-        });
+    });
 
 
-        }
-    
+}
 
 
-      
+
+
 
 
 
