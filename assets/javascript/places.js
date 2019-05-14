@@ -1,7 +1,5 @@
 $(document).ready(function () {
-    var calcsComplete = false;
-    var placesComplete = false;
-    // Your web app's Firebase configuration
+     // Your web app's Firebase configuration
     var firebaseConfig = {
         apiKey: "AIzaSyDuKxBBJIya6DvOXENE1xnfSZ2uImIWd-M",
         authDomain: "hello-world-19f5c.firebaseapp.com",
@@ -14,7 +12,6 @@ $(document).ready(function () {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     var database = firebase.database();
-
 
     var cities = [
         {
@@ -815,8 +812,6 @@ $(document).ready(function () {
         // },
     ];
 
-
-
     var findLatLng = function () {
         var citiesCopy = cities;
         console.log(citiesCopy.length);
@@ -949,6 +944,10 @@ $(document).ready(function () {
             cities[pos].food = average;
             $("#paris").append("<h3>" + city + "</h3>");
             $("#paris").append("<h3>Food: " + cities[pos].food + "</h3>");
+            database.ref("cities/" + city + "/finalRatings").update({
+                "food": cities[pos].food,
+            });
+
 
         });
 // NIGHTLIFE
@@ -957,6 +956,10 @@ $(document).ready(function () {
             var average = (sv.bar.rating + sv.night_club.rating) / 2;
             cities[pos].nightlife = average;
             $("#paris").append("<h3>Nightlife: " + cities[pos].nightlife + "</h3>");
+            database.ref("cities/" + city + "/finalRatings").update({
+                "nightlife": cities[pos].nightlife,
+            });
+
         });
 // NATURE
         database.ref("cities/" + city + "/nature").once("value").then(function (snapshot) {
@@ -964,6 +967,10 @@ $(document).ready(function () {
             var average = (sv.campground.rating + sv.park.rating) / 2;
             cities[pos].nature = average;
             $("#paris").append("<h3>Nature: " + cities[pos].nature + "</h3>");
+            database.ref("cities/" + city + "/finalRatings").update({
+                "nature": cities[pos].nature,
+            });
+
         });
 //CULTURE
         database.ref("cities/" + city + "/culture").once("value").then(function (snapshot) {
@@ -971,6 +978,10 @@ $(document).ready(function () {
             var average = (sv.museum.rating);
             cities[pos].culture = average;
             $("#paris").append("<h3>Culture: " + cities[pos].culture + "</h3>");
+            database.ref("cities/" + city + "/finalRatings").update({
+                "culture": cities[pos].culture,
+            });
+
         });
 //ATTRACTIONS
         database.ref("cities/" + city + "/attractions").once("value").then(function (snapshot) {
@@ -978,16 +989,20 @@ $(document).ready(function () {
             var average = (sv.aquarium.rating + sv.casino.rating + sv.zoo.rating) / 3;
             cities[pos].attractions = average;
             $("#paris").append("<h3>Attractions: " + cities[pos].attractions + "</h3><br>");
+            database.ref("cities/" + city + "/finalRatings").update({
+                "attractions": cities[pos].attractions,
+            });
+
         });
 
-        calcsComplete = true;
+        // calcsComplete = true;
 
     };
 
   
     $(document.body).on("click", "#test", function () {
         // if (placesComplete === true) {
-        for (var i = 0; i < 2; i++) {
+        for (var i = 0; i < cities.length; i++) {
             var city = cities[i].city;
 
             ratingCalc(city, i);
@@ -997,14 +1012,90 @@ $(document).ready(function () {
     //     console.log("google places functions not complete yet")
     // };
 
-    if (calcsComplete === true) {
-
-        console.log(cities[0].food)
-
-    }
-
     });
 
+
+
+    function indexOfMax(arr) {
+        if (arr.length === 0) {
+            return -1;
+        }
+        var maxIndex = 0;
+        var max = arr[0];
+    
+        for (var i = 1; i < arr.length; i++) {
+            if (arr[i] > max) {
+                maxIndex = i;
+                max = arr[i];
+            }
+        }
+        console.log("City: " + cities[maxIndex].city);
+        console.log("Rating: " + arr[maxIndex]);
+        // console.log("Nightlife: " + nightlifeArray[maxIndex]);
+        // console.log("Culture: " + cultureArray[maxIndex]);
+        // console.log("Nature: " + natureArray[maxIndex]);
+        // console.log("Attractions: " + attractionsArray[maxIndex]);
+
+
+        foodArray[maxIndex] = 0;
+        return maxIndex;
+    }
+
+    var foodArray = [];
+    var nightlifeArray = [];
+    var cultureArray = [];
+    var natureArray = [];
+    var attractionsArray = [];
+
+    $("#topFood").on("click", function () {
+        for (var i = 0; i < cities.length; i++) {
+            var city = cities[i].city;
+
+        database.ref("cities/" + city + "/finalRatings/food").once("value").then(function (snapshot) {
+            foodArray.push(snapshot.val());
+        });
+        database.ref("cities/" + city + "/finalRatings/nightlife").once("value").then(function (snapshot) {
+            nightlifeArray.push(snapshot.val());
+        });
+        database.ref("cities/" + city + "/finalRatings/culture").once("value").then(function (snapshot) {
+            cultureArray.push(snapshot.val());
+        });
+        database.ref("cities/" + city + "/finalRatings/nature").once("value").then(function (snapshot) {
+            natureArray.push(snapshot.val());
+        });
+        database.ref("cities/" + city + "/finalRatings/attractions").once("value").then(function (snapshot) {
+            attractionsArray.push(snapshot.val());
+        });
+
+        
+        }
+
+        for (var j = 0; j < 5; j++) {
+            indexOfMax(foodArray);
+            indexOfMax(nightlifeArray);
+            indexOfMax(cultureArray);
+            indexOfMax(natureArray);
+            indexOfMax(attractionsArray);
+    
+        }
+
+        // console.log(foodArray[maxIndex]);
+
+        // console.log(maxIndex);
+        // console.log(foodArray[maxIndex]);
+
+
+   });
+
+
+
+    // if (calcsComplete === true) {
+
+    //     console.log(cities[0].food)
+
+    // } else {
+    //     console.log("calcs not complete yet");
+    // }
     // findLatLng();
     // dbGenerator();
 
