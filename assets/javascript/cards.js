@@ -14,7 +14,7 @@ var database = firebase.database();
 
 
 
-
+//testing
 
 
 var searchTerms = ["London", "Paris", "Barcelona", "Antananarivo", "Amsterdam"];
