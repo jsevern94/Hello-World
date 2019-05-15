@@ -18,8 +18,6 @@ var database = firebase.database();
 
 
 var searchTerms = ["London", "Paris", "Barcelona", "Antananarivo", "Amsterdam"];
-var searchTerm = "Antananarivo";
-$("#cardTitle").append(searchTerm);
 
 var cityLat;
 var cityLng;
@@ -30,67 +28,70 @@ var countryLowerCase;
 var countryURL
 var countrySelected;
 
-$(document).ready(function() {
+$(document).ready(function () {
     createCards();
+    createLargeMap();
     getData();
     getBlurb();
 
 });
 
-function getData(){
+function getData() {
     searchTerms.forEach(function (term, i) {
-database.ref("cities/" + term).once("value").then(function (snapshot) {
-    var sv = snapshot.val();
-    cityLat = sv.lat;
-    latSelected = true;
-    if (latSelected && lngSelected) {
-        initialize(term,i);
-        latSelected = false;
-        lngSelected = false;
-    }
-});
+        database.ref("cities/" + term).once("value").then(function (snapshot) {
+            var sv = snapshot.val();
+            cityLat = sv.lat;
+            latSelected = true;
+            if (latSelected && lngSelected) {
+                initialize(term, i);
+                initializeLarge(term, i);
+                latSelected = false;
+                lngSelected = false;
+            }
+        });
 
-database.ref("cities/" + term).once("value").then(function (snapshot) {
-    var sv = snapshot.val();
-    cityLng = sv.lng;
-    lngSelected = true;
-    if (latSelected && lngSelected) {
-        initialize(term, i);
-        latSelected = false;
-        lngSelected = false;
-    }
-});
+        database.ref("cities/" + term).once("value").then(function (snapshot) {
+            var sv = snapshot.val();
+            cityLng = sv.lng;
+            lngSelected = true;
+            if (latSelected && lngSelected) {
+                initialize(term, i);
+                initializeLarge(term, i);
+                latSelected = false;
+                lngSelected = false;
+            }
+        });
 
-database.ref("cities/" + term).once("value").then(function (snapshot) {
-    var sv = snapshot.val();
-    country = sv.country;
-    countryLowerCase = country.toLowerCase();
-    countryURL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(countryLowerCase) + "&safesearch=true";
-    countrySelected = true;
-    if (countrySelected) {
-        getPhotos(term, i, countryURL);
-        countrySelected = false;
-    }
-});
+        database.ref("cities/" + term).once("value").then(function (snapshot) {
+            var sv = snapshot.val();
+            country = sv.country;
+            countryLowerCase = country.toLowerCase();
+            countryURL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(countryLowerCase) + "&safesearch=true";
+            countrySelected = true;
+            if (countrySelected) {
+                getPhotos(term, i, countryURL);
+                countrySelected = false;
+            }
+        });
 
-})
+    })
 }
 
 //function to make cards
 function createCards() {
     var insert = "";
     searchTerms.forEach(function (term, i) {
-        
+
         insert +=
             `<div class="card">
                 <div class="card-image waves-effect waves-block waves-light"></div>
                 <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4" id="cardTitle">${term} <i class="material-icons right">more_vert</i><i class="right map" id="map${i}"></i></span>
+                    <span class="card-title activator grey-text text-darken-4" id="cardTitle">${term} <i class="material-icons right">expand_more</i><i class="right map" id="map${i}"></i></span>
                     <p id ="blurbHere${i}"></p>
                     <p id="pictures${i}Here"></p>
                 </div>
                 <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">${term}<i class="material-icons right">close</i></span>
+                    <span class="card-title grey-text text-darken-4">${term}<i class="material-icons right">expand_less</i></span>
                     <p></p>
                 </div>
           </div>`
@@ -100,14 +101,13 @@ function createCards() {
 
 
 //images
-
 var API_KEY = '12446401-bf90607e0ef711dcac16707ef';
 
 
 function getPhotos(term, i, countryURL) {
-        var termLowerCase = term.toLowerCase();
+    var termLowerCase = term.toLowerCase();
 
-var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(termLowerCase) + "&safesearch=true";
+    var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(termLowerCase) + "&safesearch=true";
 
     $.ajax({
         url: URL,
@@ -119,21 +119,21 @@ var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent
                 //console.log(data.totalHits);
                 var cityImageResults;
                 cityImageResults = data.totalHits;
-                console.log(cityImageResults);
+                //console.log(cityImageResults);
                 if (cityImageResults < 5) {
-                    
+
                     for (var j = 0; j < data.totalHits; j++) {
                         $(`#pictures${i}Here`).append("<img  class='cityImage' src='" + data.hits[j].imageURL + "'>");
-                        console.log(cityImageResults + " " + i);
+                        //console.log(cityImageResults + " " + i);
                     };
                     //put loop to go through country photos here
-                    console.log(cityImageResults + " " + i);
+                    //console.log(cityImageResults + " " + i);
                     $.ajax({
                         url: countryURL,
                         method: "GET"
                     })
                         .then(function (data) {
-                            console.log(countryURL + " " + i);
+                            //console.log(countryURL + " " + i);
                             for (var j = cityImageResults; j < 5; j++) {
                                 $(`#pictures${i}Here`).append("<img  class='cityImage' src='" + data.hits[j].imageURL + "'>");
                             };
@@ -160,52 +160,50 @@ var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent
             }
 
         })
-    
+
 }
 
 
 
 //wiki blurb
-
-
 var blurb;
 
 
-function getBlurb(){
+function getBlurb() {
     searchTerms.forEach(function (term, i) {
         //gets page id
-var url = "https://en.wikipedia.org/w/api.php?origin=*&action=query&list=search&srsearch=" + term + "&srlimit=1&format=json";
+        var url = "https://en.wikipedia.org/w/api.php?origin=*&action=query&list=search&srsearch=" + term + "&srlimit=1&format=json";
 
 
-//gets blurb off of page
-var blurbUrl = "https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&exsentences=10&redirects=1&titles=" + term;
-$.ajax({
-    url: url,
-    method: "GET"
-})
-    .then(function (response) {
-        var pageID = response.query.search[0].pageid;
-
+        //gets blurb off of page
+        var blurbUrl = "https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&exsentences=10&redirects=1&titles=" + term;
         $.ajax({
-            url: blurbUrl,
+            url: url,
             method: "GET"
         })
             .then(function (response) {
+                var pageID = response.query.search[0].pageid;
 
-                blurb = response.query.pages[pageID].extract;
+                $.ajax({
+                    url: blurbUrl,
+                    method: "GET"
+                })
+                    .then(function (response) {
 
-                blurb = blurb.replace('(listen)', '');
-                blurb = blurb.replace('( )', '');
-                blurb = blurb.replace('()', '');
-                //blurb = blurb.replace(';', '');
+                        blurb = response.query.pages[pageID].extract;
+
+                        blurb = blurb.replace('(listen)', '');
+                        blurb = blurb.replace('( )', '');
+                        blurb = blurb.replace('()', '');
+                        //blurb = blurb.replace(';', '');
 
 
-                $(`#blurbHere${i}`).append(blurb);
+                        $(`#blurbHere${i}`).append(blurb);
+
+                    })
 
             })
-
     })
-})
 }
 
 //google maps here!!!
@@ -216,61 +214,87 @@ $.ajax({
 
 
 var mapLarge;
+//var markerLarge;
 var marker;
-// var labels ='12345';
-// var labelIndex = 0;
+var positionLocation;
+var labels ='12345';
+var labelIndex = 0;
 
 function initialize(i, term) {
-    var map = "map-"+ term;
+    var map = "map-" + term;
     var marker = "marker-" + term;
+
     //console.log(map + " " + term)
     //console.log(cityLat+ " " + cityLat)
     //small individual map
-    var positionLocation = new google.maps.LatLng(cityLat, cityLng);
+    positionLocation = new google.maps.LatLng(cityLat, cityLng);
 
     var mapOptions = {
         center: positionLocation,
         zoom: 4,
         disableDefaultUI: true,
     };
-    console.log(map);
+
     map = new google.maps.Map(document.getElementById("map" + term),
         mapOptions);
 
     marker = new google.maps.Marker({
         position: positionLocation,
         map: map,
-        //this can be used when there are multiple locations to number them
-        //label: labels[labelIndex++ % labels.length],
-        title: term
+        title: i
     });
 
-    var infowindow = new google.maps.InfoWindow({
+    var smallInfoWindow = new google.maps.InfoWindow({
+        content: i
+    });
+
+    marker.addListener('click', function () {
+        smallInfoWindow.open(map, marker);
+    });
+
+}
+
+//large map
+function initializeLarge(i, term) {
+    var markerLarge = "markerLarge-" + term;    
+
+    positionLocation = new google.maps.LatLng(cityLat, cityLng);
+
+    console.log(markerLarge);
+    markerLarge = new google.maps.Marker({
+        position: positionLocation,
+        map: mapLarge,
+        //this can be used when there are multiple locations to number them
+        label: labels[labelIndex++ % labels.length],
+        title: i
+    });
+    console.log(markerLarge);
+
+    var largeInfoWindow = new google.maps.InfoWindow({
         content: i
     });
 
 
-    marker.addListener('click', function () {
-        infowindow.open(i, marker);
+
+    markerLarge.addListener('click', function () {
+        largeInfoWindow.open(mapLarge, markerLarge);
     });
-
-    //large map
-    // var center = new google.maps.LatLng(0, 0);
-
-    // var mapOptionsLarge = {
-    //     center: ceenter,
-    //     zoom: 1,
-    // };
-
-    // mapLarge = new google.maps.Map(document.getElementById('mapLarge'),
-    //     mapOptionsLarge);
-
-
-
 
 }
 
+function createLargeMap(){
 
+    var center = new google.maps.LatLng(20, 0);
+
+    var mapOptionsLarge = {
+        center: center,
+        zoom: 2,
+        disableDefaultUI: true,
+    };
+
+    mapLarge = new google.maps.Map(document.getElementById('mapLarge'),
+        mapOptionsLarge);
+}
 
 //from materialize : .hide-on-small-only this will be used fo the full size map
 
