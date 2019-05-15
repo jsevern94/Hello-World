@@ -849,24 +849,6 @@ for (var m = 0; m < novemberTemps.length; m++) {
     novemberTempsC.push(tempC + ", ")
 }
 
-for (var m = 0; m < decemberTemps.length; m++) {
-    var tempF = parseFloat(decemberTemps[m].split(":")[1])
-    var tempConverted = (tempF - 32) * (5 / 9);
-    var tempC = Math.max(Math.ceil(tempConverted * 10) / 10);
-    console.log(tempC);
-    decemberTempsC.push(tempC + ", ")
-}
-
-for (var m = 0; m < octoberTemps.length; m++) {
-    var tempF = parseFloat(octoberTemps[m].split(":")[1])
-    var tempConverted = (tempF - 32) * (5 / 9);
-    var tempC = Math.max(Math.ceil(tempConverted * 10) / 10);
-    console.log(tempC);
-    octoberTempsC.push(tempC + ", ")
-}
-
-
-
 // $("#p").html(decemberTempsC);
 
 
