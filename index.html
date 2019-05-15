@@ -40,14 +40,17 @@
                 <div class="card">
                     <div class="card-content">
                         <span class="card-title">Temperature</span>
-
+                        <p>Use the slider to choose your ideal vacation Temperature.</p><br>
                         <form action="#">
                             <p class="range-field">
-                                <input type="range" id="test5" min="30" max="100" />
+                                <input type="range" id="userTemp" min="30" max="100" />
                             </p>
                         </form>
-                        <a class="btn-floating halfway-fab waves-effect waves-light red"><i
-                                class="material-icons">arrow_forward</i></a>
+                        <br>
+                        <p>Temps are measured in Fahrenheit, and correspond to the daytime high</p>
+
+                        <a class="btn-floating halfway-fab waves-effect waves-light red" id="submitTemp">
+                            <i class="material-icons">chevron_right</i></a>
                     </div>
                 </div>
             </div>
@@ -56,51 +59,61 @@
                 <div class="card">
                     <div class="row">
 
-                        <div class="card-content">
+                        <div class="card-content col s12">
                             <span class="card-title">Vacation Type</span>
-
+                            <p>Select which activities you're interested in:</p>
                             <div class="switch row">
                                 <p class="col s6">Food</p>
-                                <label class="col s6">
-                                    <input type="checkbox">
+                                <label class="col s6" >
+                                    No
+                                    <input type="checkbox" class="category" id="userFood">
                                     <span class="lever"></span>
+                                    Yes
                                 </label>
                             </div>
                             <div class="switch row">
                                 <p class="col s6">Nightlife</p>
 
                                 <label class="col s6">
-                                    <input type="checkbox">
+                                    No
+                                    <input type="checkbox" class="category" id="userNightlife">
                                     <span class="lever"></span>
+                                    Yes
                                 </label>
                             </div>
                             <div class="switch row">
                                 <p class="col s6">Culture</p>
 
                                 <label class="col s6">
-                                    <input type="checkbox">
+                                    No
+                                    <input type="checkbox" class="category" id="userCulture">
                                     <span class="lever"></span>
+                                    Yes
                                 </label>
                             </div>
                             <div class="switch row">
                                 <p class="col s6">Nature</p>
 
                                 <label class="col s6">
-                                    <input type="checkbox">
+                                    No
+                                    <input type="checkbox" class="category" id="userNature">
                                     <span class="lever"></span>
+                                    Yes
                                 </label>
                             </div>
                             <div class="switch row">
                                 <p class="col s6">Tourist Attractions</p>
 
                                 <label class="col s6">
-                                    <input type="checkbox">
+                                    No
+                                    <input type="checkbox" class="category" id="userAttractions">
                                     <span class="lever"></span>
+                                    Yes
                                 </label>
                             </div>
                         </div>
-                        <a class="btn-floating halfway-fab waves-effect waves-light red"><i
-                                class="material-icons">chevron_right</i></a>
+                        <a class="btn-floating halfway-fab waves-effect waves-light red disabled" id="submitCategory">
+                                <i class="material-icons">chevron_right</i></a>
 
                     </div>
                 </div>
@@ -112,35 +125,40 @@
                     <div class="card-content">
                         <span class="card-title">Month</span>
 
-                        <div class="row">
-                            <button class="col s3">January</button>
-                            <button class="col s3">February</button>
-                            <button class="col s3">March</button>
-                            <button class="col s3">April</button>
-                        </div>
-                        <div class="row">
-                            <button class="col s3">May</button>
-                            <button class="col s3">June</button>
-                            <button class="col s3">July</button>
-                            <button class="col s3">August</button>
-                        </div>
-                        <div class="row">
-                            <button class="col s3">September</button>
-                            <button class="col s3">October</button>
-                            <button class="col s3">November</button>
-                            <button class="col s3">December</button>
-                        </div>
-                        <a class="btn-floating halfway-fab waves-effect waves-light red"><i
-                                class="material-icons">done</i></a>
+                        <div class="text-black">
+                            <div class="col s4">
+                                    <a class="btn-small waves-effect waves-light btn-flat">JAN</a>
+                                    <a class="btn-small waves-effect waves-light btn-flat">APR</a>
+                                    <a class="btn-small waves-effect waves-light btn-flat">JUL</a>
+                                    <a class="btn-small waves-effect waves-light btn-flat">OCT</a>
+
+                            </div>
+                            <div class="col s4">
+                                    <a class="btn-small waves-effect waves-light btn-flat">FEB</a>
+                                    <a class="btn-small waves-effect waves-light btn-flat">MAY</a>
+                                    <a class="btn-small waves-effect waves-light btn-flat">AUG</a>
+                                    <a class="btn-small waves-effect waves-light btn-flat">NOV</a>
+
+                            </div>
+                            <div class="col s4">
+                                    <a class="btn-small waves-effect waves-light btn-flat">MAR</a>
+                                    <a class="btn-small waves-effect waves-light btn-flat">JUN</a>
+                                    <a class="btn-small waves-effect waves-light btn-flat">SEP</a>
+                                    <a class="btn-small waves-effect waves-light btn-flat">DEC</a>
+
+                            </div>
+
+                        <a class="btn-floating halfway-fab waves-effect waves-light red disabled" id="submitMonth">
+                                <i class="material-icons">chevron_right</i></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- <h2>References array of temps per month, generates new array limited by user input</h2>
-<button id="tempLimit">Click</button><br> -->
+    <h2>References array of temps per month, generates new array limited by user input</h2>
+    <button id="tempLimit">Click</button><br> 
 
-    <!--     <h2>Generates rating arrays (based on cities limited by temp)</h2>
+    <h2>Generates rating arrays (based on cities limited by temp)</h2>
     <button id="pullTempSet">Click</button><br>
 
     <h2>Click below to get the top 5</h2>
@@ -149,7 +167,7 @@
     <div class="results"></div>
     <br>
     <button class="userPrefs" id="food">Food</button>
-    <button class="userPrefs" id="nightlife">Nightlife</button> -->
+    <button class="userPrefs" id="nightlife">Nightlife</button>
 
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->

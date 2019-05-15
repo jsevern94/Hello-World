@@ -1013,7 +1013,7 @@ $(document).ready(function () {
     var natureArray = [];
     var attractionsArray = [];
 
-    var userCategory;
+    var userCategories = [];
     var userTemp = "70";
     var userMonth = "02";
     var fakeArray = [72, 96, 98, 100, 102, 71, 60, 62, 88, 90, 92, 94, 70, 64, 66, 68, 84, 86, 74, 76, 78, 80, 82];
@@ -1021,14 +1021,75 @@ $(document).ready(function () {
     var userIndex = [];
     var userTemps = [];
 
+    var userLowTemp = 0;
+    var userHighTemp = 0;
+
     // userTemp = prompt("choose your temperature");
     // userCategory = prompt("type your travel choice (0-4)");
     // userMonth = prompt("choose your travel month by number");
+    $("#submitTemp").on("click", function () {
+        $(this).addClass("disabled");
+        $("#submitCategory").removeClass("disabled");
+        userTemp = $("#userTemp").val();
+        userLowTemp = parseInt(userTemp) - 5;
+        userHighTemp = parseInt(userTemp) + 5;
 
-    var userLowTemp = parseInt(userTemp) - 5;
-    var userHighTemp = parseInt(userTemp) + 5;
+        console.log(userTemp, userLowTemp, userHighTemp);
+        userCategories = [];
 
-    console.log(userTemp, userCategory, userMonth, userLowTemp, userHighTemp);
+    });
+
+
+    var listenUserCategories = function(id, category){
+        var isSelected = id[0].checked;
+        console.log(isSelected);
+        if (isSelected === true) {
+            userCategories.push(category)
+            console.log(userCategories);
+        } else {
+            console.log(category + " wasn't selected")
+        }
+
+    }
+    $("#submitCategory").on("click", function () {
+        $(this).addClass("disabled");
+        $("#submitMonth").removeClass("disabled");
+
+        listenUserCategories($("#userFood"), "food");
+        listenUserCategories($("#userNightlife"), "nightlife");
+        listenUserCategories($("#userCulture"), "culture");
+        listenUserCategories($("#userNature"), "nature");
+        listenUserCategories($("#userAttractions"), "attractions");
+
+
+
+        // console.log($(".category").attr("id").val())
+        // switch ($(".category").attr("id").val()) {
+        //     case "userFood":
+        //         userFood.val()
+        //         break;
+        //     case "userNightlife":
+        //         // code block
+        //         break;
+        //     case "userCulture":
+        //         // code block
+        //         break;
+        //     case "userNightlife":
+        //         // code block
+        //         break;
+        //     case "userNature":
+        //         // code block
+        //         break;
+        //     case "userAttractions":
+        //         // code block
+        //         break;
+        //     default:
+        //     // code block
+        // }
+    });
+
+
+
 
 
     var findTopFive = function () {
@@ -1097,46 +1158,46 @@ $(document).ready(function () {
         return maxIndex;
     }
 
-        //  $("#tempLimit").on("click", function () {
-        //     findTopFive();
-        // });
-    
-        var arraysFilled = false;
-        $("#pullTempSet").on("click", function () {
-            findTopFive();
+    //  $("#tempLimit").on("click", function () {
+    //     findTopFive();
+    // });
 
-            // userCities = ["Paris", "Rome", "Prague", "Venice", "Amsterdam", "Tokyo", "Florence"]
-            // userIndex = [0, 5, 12, 18, 19, 20, 21]
-            // if (placesComplete === true) {
-            for (var i = 0; i < userCities.length; i++) {
-                var city = userCities[i];
-                database.ref("cities/" + city + "/finalRatings/food").once("value").then(function (snapshot) {
-                    foodArray.push(snapshot.val());
-                });
-                database.ref("cities/" + city + "/finalRatings/nightlife").once("value").then(function (snapshot) {
-                    nightlifeArray.push(snapshot.val());
-                });
-                database.ref("cities/" + city + "/finalRatings/culture").once("value").then(function (snapshot) {
-                    cultureArray.push(snapshot.val());
-                });
-                database.ref("cities/" + city + "/finalRatings/nature").once("value").then(function (snapshot) {
-                    natureArray.push(snapshot.val());
-                });
-                database.ref("cities/" + city + "/finalRatings/attractions").once("value").then(function (snapshot) {
-                    attractionsArray.push(snapshot.val());
-                });
-    
-    
-            };
-            if (foodArray !== [] && nightlifeArray !== [] && cultureArray !== [] && natureArray !== [] && attractionsArray !== []) {
-                console.log("Arrays Filled");
-                arraysFilled = true;
-            }
-            // } else {
-            //     console.log("google places functions not complete yet")
-            // };
-        });
-     
+    var arraysFilled = false;
+    $("#pullTempSet").on("click", function () {
+        findTopFive();
+
+        // userCities = ["Paris", "Rome", "Prague", "Venice", "Amsterdam", "Tokyo", "Florence"]
+        // userIndex = [0, 5, 12, 18, 19, 20, 21]
+        // if (placesComplete === true) {
+        for (var i = 0; i < userCities.length; i++) {
+            var city = userCities[i];
+            database.ref("cities/" + city + "/finalRatings/food").once("value").then(function (snapshot) {
+                foodArray.push(snapshot.val());
+            });
+            database.ref("cities/" + city + "/finalRatings/nightlife").once("value").then(function (snapshot) {
+                nightlifeArray.push(snapshot.val());
+            });
+            database.ref("cities/" + city + "/finalRatings/culture").once("value").then(function (snapshot) {
+                cultureArray.push(snapshot.val());
+            });
+            database.ref("cities/" + city + "/finalRatings/nature").once("value").then(function (snapshot) {
+                natureArray.push(snapshot.val());
+            });
+            database.ref("cities/" + city + "/finalRatings/attractions").once("value").then(function (snapshot) {
+                attractionsArray.push(snapshot.val());
+            });
+
+
+        };
+        if (foodArray !== [] && nightlifeArray !== [] && cultureArray !== [] && natureArray !== [] && attractionsArray !== []) {
+            console.log("Arrays Filled");
+            arraysFilled = true;
+        }
+        // } else {
+        //     console.log("google places functions not complete yet")
+        // };
+    });
+
 
     var arraysFilled = false;
 
@@ -1151,7 +1212,7 @@ $(document).ready(function () {
                 indexOfMax(attractionsArray, topAttractions, "attractions");
             }
 
-            
+
         }
 
         //STORE THE USER'S RESULTS IN LOCAL STORAGE/COOKIES?
@@ -1167,7 +1228,6 @@ $(document).ready(function () {
         }
 
     });
-
 
 
     // if (calcsComplete === true) {
