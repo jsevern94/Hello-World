@@ -64,7 +64,7 @@
                             <p>Select which activities you're interested in:</p><br>
                             <div class="switch row">
                                 <p class="col s6">Food & Restaurants</p>
-                                <label class="col s6" >
+                                <label class="col s6">
                                     No
                                     <input type="checkbox" class="category" id="userFood">
                                     <span class="lever"></span>
@@ -113,7 +113,7 @@
                             </div>
                         </div>
                         <a class="btn-floating halfway-fab waves-effect waves-light red disabled" id="submitCategory">
-                                <i class="material-icons">chevron_right</i></a>
+                            <i class="material-icons">chevron_right</i></a>
 
                     </div>
                 </div>
@@ -127,48 +127,49 @@
                         <p>Click a month below to select which you'd like to travel during:</p>
                         <div class="text-black">
                             <div class="col s4">
-                                    <a class="btn-small waves-effect waves-light btn-flat month disabled">JAN</a>
-                                    <a class="btn-small waves-effect waves-light btn-flat month disabled">APR</a>
-                                    <a class="btn-small waves-effect waves-light btn-flat month disabled">JUL</a>
-                                    <a class="btn-small waves-effect waves-light btn-flat month disabled">OCT</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="0">JAN</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="3">APR</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="6">JUL</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="9">OCT</a>
 
                             </div>
                             <div class="col s4">
-                                    <a class="btn-small waves-effect waves-light btn-flat month disabled">FEB</a>
-                                    <a class="btn-small waves-effect waves-light btn-flat month disabled">MAY</a>
-                                    <a class="btn-small waves-effect waves-light btn-flat month disabled">AUG</a>
-                                    <a class="btn-small waves-effect waves-light btn-flat month disabled">NOV</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="1">FEB</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="4">MAY</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="7">AUG</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="10">NOV</a>
 
                             </div>
                             <div class="col s4">
-                                    <a class="btn-small waves-effect waves-light btn-flat month disabled">MAR</a>
-                                    <a class="btn-small waves-effect waves-light btn-flat month disabled">JUN</a>
-                                    <a class="btn-small waves-effect waves-light btn-flat month disabled">SEP</a>
-                                    <a class="btn-small waves-effect waves-light btn-flat month disabled">DEC</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="2">MAR</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="5">JUN</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="8">SEP</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="11">DEC</a>
 
                             </div>
                             <p class="hide" id="userMonth"></p>
 
-                        <a href="results.html" class="btn-floating halfway-fab waves-effect waves-light red disabled" id="submitMonth">
+                            <!-- CHANGE # TO OTHER html RESULTS PAGE -->
+                            <a href="#"
+                                class="btn-floating halfway-fab waves-effect waves-light red disabled" id="submitMonth">
                                 <i class="material-icons">chevron_right</i></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <h2>References array of temps per month, generates new array limited by user input</h2>
-    <button id="tempLimit">Click</button><br> 
+    </div> <!--  end of container -->
 
-    <h2>Generates rating arrays (based on cities limited by temp)</h2>
+    <!-- <h3>References array of temps per month, generates new array limited by user input</h3>
+    <button id="tempLimit">Click</button><br>
+
+    <h3>Generates rating arrays (based on cities limited by temp)</h3>
     <button id="pullTempSet">Click</button><br>
 
-    <h2>Click below to get the top 5</h2>
-    <button id="getTopFive">Click</button><br>
+    <h3>Click below to get the top 5</h3>
+    <button id="getTopFive">Click</button><br> -->
 
     <div class="results"></div>
-    <br>
-    <button class="userPrefs" id="food">Food</button>
-    <button class="userPrefs" id="nightlife">Nightlife</button>
 
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
