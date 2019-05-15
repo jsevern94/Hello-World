@@ -1,4 +1,19 @@
 $(document).ready(function () {
+
+    /* var slider = document.getElementById('test-slider');
+    noUiSlider.create(slider, {
+     start: [20, 80],
+     connect: true,
+     step: 1,
+     orientation: 'horizontal', // 'horizontal' or 'vertical'
+     range: {
+       'min': 0,
+       'max': 100
+     },
+     format: wNumb({
+       decimals: 0
+     })
+    }); */
     // Your web app's Firebase configuration
     var firebaseConfig = {
         apiKey: "AIzaSyDuKxBBJIya6DvOXENE1xnfSZ2uImIWd-M",
@@ -991,7 +1006,6 @@ $(document).ready(function () {
     var key = "AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4";
 
 
-
     //arr argument for indexofMax
     var foodArray = [];
     var nightlifeArray = [];
@@ -999,13 +1013,22 @@ $(document).ready(function () {
     var natureArray = [];
     var attractionsArray = [];
 
+    var userCategory;
+    var userTemp = "70";
     var userMonth = "02";
-    var userLowTemp = 70;
-    var userHighTemp = 90;
     var fakeArray = [72, 96, 98, 100, 102, 71, 60, 62, 88, 90, 92, 94, 70, 64, 66, 68, 84, 86, 74, 76, 78, 80, 82];
     var userCities = [];
     var userIndex = [];
     var userTemps = [];
+
+    // userTemp = prompt("choose your temperature");
+    // userCategory = prompt("type your travel choice (0-4)");
+    // userMonth = prompt("choose your travel month by number");
+
+    var userLowTemp = parseInt(userTemp) - 5;
+    var userHighTemp = parseInt(userTemp) + 5;
+
+    console.log(userTemp, userCategory, userMonth, userLowTemp, userHighTemp);
 
 
     var findTopFive = function () {
@@ -1074,45 +1097,51 @@ $(document).ready(function () {
         return maxIndex;
     }
 
-    $("#tempLimit").on("click", function () {
-        findTopFive();
-    });
+        //  $("#tempLimit").on("click", function () {
+        //     findTopFive();
+        // });
+    
+        var arraysFilled = false;
+        $("#pullTempSet").on("click", function () {
+            findTopFive();
+
+            // userCities = ["Paris", "Rome", "Prague", "Venice", "Amsterdam", "Tokyo", "Florence"]
+            // userIndex = [0, 5, 12, 18, 19, 20, 21]
+            // if (placesComplete === true) {
+            for (var i = 0; i < userCities.length; i++) {
+                var city = userCities[i];
+                database.ref("cities/" + city + "/finalRatings/food").once("value").then(function (snapshot) {
+                    foodArray.push(snapshot.val());
+                });
+                database.ref("cities/" + city + "/finalRatings/nightlife").once("value").then(function (snapshot) {
+                    nightlifeArray.push(snapshot.val());
+                });
+                database.ref("cities/" + city + "/finalRatings/culture").once("value").then(function (snapshot) {
+                    cultureArray.push(snapshot.val());
+                });
+                database.ref("cities/" + city + "/finalRatings/nature").once("value").then(function (snapshot) {
+                    natureArray.push(snapshot.val());
+                });
+                database.ref("cities/" + city + "/finalRatings/attractions").once("value").then(function (snapshot) {
+                    attractionsArray.push(snapshot.val());
+                });
+    
+    
+            };
+            if (foodArray !== [] && nightlifeArray !== [] && cultureArray !== [] && natureArray !== [] && attractionsArray !== []) {
+                console.log("Arrays Filled");
+                arraysFilled = true;
+            }
+            // } else {
+            //     console.log("google places functions not complete yet")
+            // };
+        });
+     
 
     var arraysFilled = false;
-    $("#pullTempSet").on("click", function () {
-        // userCities = ["Paris", "Rome", "Prague", "Venice", "Amsterdam", "Tokyo", "Florence"]
-        // userIndex = [0, 5, 12, 18, 19, 20, 21]
-        // if (placesComplete === true) {
-        for (var i = 0; i < userCities.length; i++) {
-            var city = userCities[i];
-            database.ref("cities/" + city + "/finalRatings/food").once("value").then(function (snapshot) {
-                foodArray.push(snapshot.val());
-            });
-            database.ref("cities/" + city + "/finalRatings/nightlife").once("value").then(function (snapshot) {
-                nightlifeArray.push(snapshot.val());
-            });
-            database.ref("cities/" + city + "/finalRatings/culture").once("value").then(function (snapshot) {
-                cultureArray.push(snapshot.val());
-            });
-            database.ref("cities/" + city + "/finalRatings/nature").once("value").then(function (snapshot) {
-                natureArray.push(snapshot.val());
-            });
-            database.ref("cities/" + city + "/finalRatings/attractions").once("value").then(function (snapshot) {
-                attractionsArray.push(snapshot.val());
-            });
-
-
-        };
-        if (foodArray !== [] && nightlifeArray !== [] && cultureArray !== [] && natureArray !== [] && attractionsArray !== []) {
-            console.log("Arrays Filled");
-            arraysFilled = true;
-        }
-        // } else {
-        //     console.log("google places functions not complete yet")
-        // };
-    });
 
     $("#getTopFive").on("click", function () {
+
         if (arraysFilled === true) {
             for (var j = 0; j < 5; j++) {
                 indexOfMax(foodArray, topFood, "food");
@@ -1121,11 +1150,23 @@ $(document).ready(function () {
                 indexOfMax(natureArray, topNature, "nature");
                 indexOfMax(attractionsArray, topAttractions, "attractions");
             }
+
+            
+        }
+
+        //STORE THE USER'S RESULTS IN LOCAL STORAGE/COOKIES?
+        //CREATE A COMBO ARRAY OR ADD RATING SYSTEM BASED ON THE USER PREFERENCES
+    })
+
+
+    $(".userPrefs").on("click", function () {
+        for (var i = 0; i < 5; i++) {
+            $(".results").append("<h3>Food: " + topFood[i].city + " : " + topFood[i].rating + "</h3>")
+            $(".results").append("<h3>Nightlife: " + topNightlife[i].city + " : " + topNightlife[i].rating + "</h3>")
+
         }
 
     });
-
-
 
 
 

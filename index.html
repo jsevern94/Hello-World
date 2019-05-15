@@ -1,48 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  
-        <!-- Added a link to our external reset stylesheet-->
-        <!-- <link rel="stylesheet" type="text/css" href="assets/css/reset.css"> -->
 
-        <!-- Added a link to Bootstrap-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-        
-        <!-- Added a link to our external stylesheet-->
-        <!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css"> -->
+    <!-- Added a link to our external reset stylesheet-->
+    <!-- <link rel="stylesheet" type="text/css" href="assets/css/reset.css"> -->
 
-    
+    <!-- Added a link to Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <!-- Added a link to our external stylesheet-->
+    <!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css"> -->
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Document</title>
+
+    <style>
+
+    </style>
 </head>
+
 <body>
-<h1>Hello World!</h1>
-<p>Open the console to see the magic</p>
-
-<h2>References array of temps per month, generates new array limited by user input</h2>
-<button id="tempLimit">Click</button><br>
-
-<h2>Generates rating arrays based on cities limited by temp</h2>
-<button id="pullTempSet">Click</button><br>
-
-<h2>Click below to get the top 5 based on ratings</h2>
-<button id="getTopFive">Click</button><br>
-
-<div class="results"></div>
+    <h1>Hello World!</h1>
 
 
-<h2 id="paris"></h2>
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
-<!-- Added link to the jQuery Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <div class="container">
+        <div class="row">
+
+            <div class="col s4 m6">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Temperature</span>
+
+                        <form action="#">
+                            <p class="range-field">
+                                <input type="range" id="test5" min="30" max="100" />
+                            </p>
+                        </form>
+                        <a class="btn-floating halfway-fab waves-effect waves-light red"><i
+                                class="material-icons">arrow_forward</i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s4 m6">
+                <div class="card">
+                    <div class="row">
+
+                        <div class="card-content">
+                            <span class="card-title">Vacation Type</span>
+
+                            <div class="switch row">
+                                <p class="col s6">Food</p>
+                                <label class="col s6">
+                                    <input type="checkbox">
+                                    <span class="lever"></span>
+                                </label>
+                            </div>
+                            <div class="switch row">
+                                <p class="col s6">Nightlife</p>
+
+                                <label class="col s6">
+                                    <input type="checkbox">
+                                    <span class="lever"></span>
+                                </label>
+                            </div>
+                            <div class="switch row">
+                                <p class="col s6">Culture</p>
+
+                                <label class="col s6">
+                                    <input type="checkbox">
+                                    <span class="lever"></span>
+                                </label>
+                            </div>
+                            <div class="switch row">
+                                <p class="col s6">Nature</p>
+
+                                <label class="col s6">
+                                    <input type="checkbox">
+                                    <span class="lever"></span>
+                                </label>
+                            </div>
+                            <div class="switch row">
+                                <p class="col s6">Tourist Attractions</p>
+
+                                <label class="col s6">
+                                    <input type="checkbox">
+                                    <span class="lever"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <a class="btn-floating halfway-fab waves-effect waves-light red"><i
+                                class="material-icons">chevron_right</i></a>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s4 m6">
+                <div class="card">
+
+                    <div class="card-content">
+                        <span class="card-title">Month</span>
+
+                        <div class="row">
+                            <button class="col s3">January</button>
+                            <button class="col s3">February</button>
+                            <button class="col s3">March</button>
+                            <button class="col s3">April</button>
+                        </div>
+                        <div class="row">
+                            <button class="col s3">May</button>
+                            <button class="col s3">June</button>
+                            <button class="col s3">July</button>
+                            <button class="col s3">August</button>
+                        </div>
+                        <div class="row">
+                            <button class="col s3">September</button>
+                            <button class="col s3">October</button>
+                            <button class="col s3">November</button>
+                            <button class="col s3">December</button>
+                        </div>
+                        <a class="btn-floating halfway-fab waves-effect waves-light red"><i
+                                class="material-icons">done</i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <h2>References array of temps per month, generates new array limited by user input</h2>
+<button id="tempLimit">Click</button><br> -->
+
+    <!--     <h2>Generates rating arrays (based on cities limited by temp)</h2>
+    <button id="pullTempSet">Click</button><br>
+
+    <h2>Click below to get the top 5</h2>
+    <button id="getTopFive">Click</button><br>
+
+    <div class="results"></div>
+    <br>
+    <button class="userPrefs" id="food">Food</button>
+    <button class="userPrefs" id="nightlife">Nightlife</button> -->
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>  
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4&libraries=places"></script>  
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
+    <!-- Added link to the jQuery Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4&libraries=places"></script>
     <script src="assets/javascript/places.js" type="text/javascript"></script>
-    
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
 </body>
+
 </html>
