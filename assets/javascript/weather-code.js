@@ -764,6 +764,29 @@ var decemberTemps = ["Paris:47.7", "New York:43.5", "Sydney:79.8", "Barcelona:58
 
 
 
+var januaryTempsC = [];
+
+var februaryTempsC = [];
+
+var marchTempsC = [];
+
+var aprilTempsC = [];
+
+var mayTempsC = [];
+
+var juneTempsC = [];
+
+var julyTempsC = [];
+
+var augustTempsC = [];
+
+var septemberTempsC = [];
+
+var octoberTempsC = [];
+
+var novemberTempsC = [];
+
+var decemberTempsC = [];
 
 function cityWeather(city, month, startDate, endDate, pos) {
     var apiKey = "305d321add43432d946225042190805"
@@ -818,7 +841,11 @@ function cityWeather(city, month, startDate, endDate, pos) {
 // console.log(novemberTemps.length);
 // console.log(decemberTemps.length);
 
-
+for (var m = 0; m < januaryTemps.length; m++) {
+var tempF = parseFloat(januaryTemps[m].split(":")[1])
+var tempC = (tempF-32) * (5/9);
+console.log(tempC)
+}
 
 
 function renderChart(cityIndex) {
@@ -837,18 +864,18 @@ function renderChart(cityIndex) {
             type: "column",
             legendText: "Month",
             dataPoints: [
-                { y: parseInt(januaryTemps[cityIndex].split(":")[1]), label: "January" },
-                { y: parseInt(februaryTemps[cityIndex].split(":")[1]), label: "February" },
-                { y: parseInt(marchTemps[cityIndex].split(":")[1]), label: "March" },
-                { y: parseInt(aprilTemps[cityIndex].split(":")[1]), label: "April" },
-                { y: parseInt(mayTemps[cityIndex].split(":")[1]), label: "May" },
-                { y: parseInt(juneTemps[cityIndex].split(":")[1]), label: "June" },
-                { y: parseInt(julyTemps[cityIndex].split(":")[1]), label: "July" },
-                { y: parseInt(augustTemps[cityIndex].split(":")[1]), label: "August" },
-                { y: parseInt(septemberTemps[cityIndex].split(":")[1]), label: "September" },
-                { y: parseInt(octoberTemps[cityIndex].split(":")[1]), label: "October" },
-                { y: parseInt(novemberTemps[cityIndex].split(":")[1]), label: "November" },
-                { y: parseInt(decemberTemps[cityIndex].split(":")[1]), label: "December" }
+                { y: parseFloat(januaryTemps[cityIndex].split(":")[1]), label: "January" },
+                { y: parseFloat(februaryTemps[cityIndex].split(":")[1]), label: "February" },
+                { y: parseFloat(marchTemps[cityIndex].split(":")[1]), label: "March" },
+                { y: parseFloat(aprilTemps[cityIndex].split(":")[1]), label: "April" },
+                { y: parseFloat(mayTemps[cityIndex].split(":")[1]), label: "May" },
+                { y: parseFloat(juneTemps[cityIndex].split(":")[1]), label: "June" },
+                { y: parseFloat(julyTemps[cityIndex].split(":")[1]), label: "July" },
+                { y: parseFloat(augustTemps[cityIndex].split(":")[1]), label: "August" },
+                { y: parseFloat(septemberTemps[cityIndex].split(":")[1]), label: "September" },
+                { y: parseFloat(octoberTemps[cityIndex].split(":")[1]), label: "October" },
+                { y: parseFloat(novemberTemps[cityIndex].split(":")[1]), label: "November" },
+                { y: parseFloat(decemberTemps[cityIndex].split(":")[1]), label: "December" }
             ]
         }]
     });
@@ -856,7 +883,7 @@ function renderChart(cityIndex) {
 
 }
 
-renderChart(5)
+renderChart(154)
 
 
 function findFlights(place) {
