@@ -68,7 +68,8 @@ database.ref("cities/" + term).once("value").then(function (snapshot) {
     countryURL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(countryLowerCase) + "&safesearch=true";
     countrySelected = true;
     if (countrySelected) {
-        getPhotos(term, i);
+        getPhotos(term, i, countryURL);
+        countrySelected = false;
     }
 });
 
@@ -101,9 +102,9 @@ function createCards() {
 //images
 
 var API_KEY = '12446401-bf90607e0ef711dcac16707ef';
-var cityImageResults;
 
-function getPhotos(term, i) {
+
+function getPhotos(term, i, countryURL) {
         var termLowerCase = term.toLowerCase();
 
 var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(termLowerCase) + "&safesearch=true";
@@ -116,21 +117,23 @@ var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent
             //console.log(data)
             if (parseInt(data.totalHits) > 0) {
                 //console.log(data.totalHits);
+                var cityImageResults;
                 cityImageResults = data.totalHits;
                 console.log(cityImageResults);
-                if (data.totalHits < 5) {
+                if (cityImageResults < 5) {
+                    
                     for (var j = 0; j < data.totalHits; j++) {
                         $(`#pictures${i}Here`).append("<img  class='cityImage' src='" + data.hits[j].imageURL + "'>");
-                        //console.log(data.totalHits + "is less than 5")
+                        console.log(cityImageResults + " " + i);
                     };
                     //put loop to go through country photos here
-                    //console.log(countryURL);
+                    console.log(cityImageResults + " " + i);
                     $.ajax({
                         url: countryURL,
                         method: "GET"
                     })
                         .then(function (data) {
-                            //console.log(cityImageResults);
+                            console.log(countryURL + " " + i);
                             for (var j = cityImageResults; j < 5; j++) {
                                 $(`#pictures${i}Here`).append("<img  class='cityImage' src='" + data.hits[j].imageURL + "'>");
                             };
@@ -143,7 +146,7 @@ var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent
                 }
             }
             else {
-                //console.log('No hits');
+                console.log('No hits');
                 //put loop to go through country photos here
                 $.ajax({
                     url: countryURL,
@@ -157,6 +160,7 @@ var URL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent
             }
 
         })
+    
 }
 
 
