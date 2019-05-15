@@ -4,9 +4,10 @@ body {
     padding: 0;
 }
 
-#map, #cityImage {
+#map, .cityImage, #map0, #map1, #map2, #map3, #map4 {
     height: 200px;
     width: 200px;
   }
+
 
   
