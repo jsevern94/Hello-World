@@ -1,3 +1,4 @@
+
 var config = {
     apiKey: "AIzaSyDuKxBBJIya6DvOXENE1xnfSZ2uImIWd-M",
     authDomain: "hello-world-19f5c.firebaseapp.com",

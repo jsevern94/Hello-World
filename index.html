@@ -7,26 +7,186 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- Added a link to our external reset stylesheet-->
+
     <link rel="stylesheet" type="text/css" href="assets/style/reset.css">
 
-    <!-- Added a link to Bootstrap-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-
+  
     <!-- Added a link to our external stylesheet-->
+
+   
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  
     <link rel="stylesheet" type="text/css" href="assets/style/style.css">
-
-    <!--Added a link to jquery-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-    <!--Added link to firebase-->
-    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Hello World!</title>
+
+    <style>
+
+    </style>
 </head>
 
 <body>
-    <!--Added link to our javascript-->
-    <script src="assets/javascript/app.js"></script>
+    <h1>Hello World!</h1>
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col s4 m6">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Temperature</span>
+                        <p>Use the slider to choose your ideal vacation Temperature.</p><br>
+                        <form action="#">
+                            <p class="range-field">
+                                <input type="range" id="userTemp" min="30" max="100" />
+                            </p>
+                        </form>
+                        <br>
+                        <p>Temps are measured in Fahrenheit, and correspond to the daytime high</p>
+
+                        <a class="btn-floating halfway-fab waves-effect waves-light red" id="submitTemp">
+                            <i class="material-icons">chevron_right</i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s4 m6">
+                <div class="card">
+                    <div class="row">
+
+                        <div class="card-content col s12">
+                            <span class="card-title">Vacation Type</span>
+                            <p>Select which activities you're interested in:</p><br>
+                            <div class="switch row">
+                                <p class="col s6">Food & Restaurants</p>
+                                <label class="col s6">
+                                    No
+                                    <input type="checkbox" class="category" id="userFood">
+                                    <span class="lever"></span>
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="switch row">
+                                <p class="col s6">Bars & Nightlife</p>
+
+                                <label class="col s6">
+                                    No
+                                    <input type="checkbox" class="category" id="userNightlife">
+                                    <span class="lever"></span>
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="switch row">
+                                <p class="col s6">History & Culture</p>
+
+                                <label class="col s6">
+                                    No
+                                    <input type="checkbox" class="category" id="userCulture">
+                                    <span class="lever"></span>
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="switch row">
+                                <p class="col s6">Parks & Nature</p>
+
+                                <label class="col s6">
+                                    No
+                                    <input type="checkbox" class="category" id="userNature">
+                                    <span class="lever"></span>
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="switch row">
+                                <p class="col s6">Tourist Attractions</p>
+
+                                <label class="col s6">
+                                    No
+                                    <input type="checkbox" class="category" id="userAttractions">
+                                    <span class="lever"></span>
+                                    Yes
+                                </label>
+                            </div>
+                        </div>
+                        <a class="btn-floating halfway-fab waves-effect waves-light red disabled" id="submitCategory">
+                            <i class="material-icons">chevron_right</i></a>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s4 m6">
+                <div class="card">
+
+                    <div class="card-content">
+                        <span class="card-title">Month</span>
+                        <p>Click a month below to select which you'd like to travel during:</p>
+                        <div class="text-black">
+                            <div class="col s4">
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="0">JAN</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="3">APR</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="6">JUL</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="9">OCT</a>
+
+                            </div>
+                            <div class="col s4">
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="1">FEB</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="4">MAY</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="7">AUG</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="10">NOV</a>
+
+                            </div>
+                            <div class="col s4">
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="2">MAR</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="5">JUN</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="8">SEP</a>
+                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="11">DEC</a>
+
+                            </div>
+                            <p class="hide" id="userMonth"></p>
+
+                            <!-- CHANGE # TO OTHER html RESULTS PAGE -->
+                            <a href="#"
+                                class="btn-floating halfway-fab waves-effect waves-light red disabled" id="submitMonth">
+                                <i class="material-icons">chevron_right</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!--  end of container -->
+
+    <!-- <h3>References array of temps per month, generates new array limited by user input</h3>
+    <button id="tempLimit">Click</button><br>
+
+    <h3>Generates rating arrays (based on cities limited by temp)</h3>
+    <button id="pullTempSet">Click</button><br>
+
+    <h3>Click below to get the top 5</h3>
+    <button id="getTopFive">Click</button><br> -->
+
+    <div class="results"></div>
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
+    <!-- Added link to the jQuery Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4&libraries=places"></script>
+    <script src="assets/javascript/places.js" type="text/javascript"></script>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 
 </body>
 
