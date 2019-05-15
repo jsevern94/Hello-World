@@ -150,10 +150,6 @@ var cities = [
         city: "Buenos Aires",
         country: "Argentina",
     },
-    // {
-    //     city: "Rio De Janeiro",
-    //     country: "Brazil",
-    // },
     {
         city: "Berlin",
         country: "Germany",
@@ -186,10 +182,6 @@ var cities = [
         city: "Dublin",
         country: "Ireland",
     },
-    // {
-    //     city: "Mexico City",
-    //     country: "México",
-    // },
     {
         city: "Kraków",
         country: "Poland",
@@ -302,10 +294,6 @@ var cities = [
         city: "Moscow",
         country: "Russia"
     },
-    // {
-    //     city: "Salvador Da Bahia",
-    //     country: "Brazil",
-    // },
     {
         city: "Helsinki",
         country: "Finland",
@@ -326,10 +314,6 @@ var cities = [
         city: "Manila",
         country: "Philippines",
     },
-    // {
-    //     city: "Puerto Vallarta",
-    //     country: "Mexico",
-    // },
     {
         city: "Chiang Mai",
         country: "Thailand",
@@ -446,10 +430,6 @@ var cities = [
         city: "Muscat",
         country: "Oman",
     },
-    // {
-    //     city: "Panama City",
-    //     country: "Panama",
-    // },
     {
         city: "Dakar",
         country: "Senegal",
@@ -754,139 +734,9 @@ var cities = [
         city: "Beira",
         country: "Mozambique",
     },
-    // {
-    //     city: "Madang",
-    //     country: "Papua New Guinea",
-    // },
-    // {
-    //     city: "Jaipur",
-    //     country: "India",
-    // },
-    // {
-    //     city: "Monaco",
-    //     country: "Monaco",
-    // },
-    // {
-    //     city: "Zanzibar",
-    //     country: "Tanzania",
-    // },
-    // {
-    //     city: "Beijing",
-    //     country: "China",
-    // },
-    // {
-    //     city: "Kyoto",
-    //     country: "Japan",
-    // },
-    // {
-    //     city: "Marrakesh",
-    //     country: "Morocco",
-    // },
-    // {
-    //     city: "Kolkata",
-    //     country: "India",
-    // },
-    // {
-    //     city: "Mumbai",
-    //     country: "India",
-    // },
-    // {
-    //     city: "Oaxaca",
-    //     country: "Mexico",
-    // },
-    // {
-    //     city: "Siena",
-    //     country: "Italy",
-    // },
-    // {
-    //     city: "Ifahan",
-    //     country: "Iran",
-    // },
-    // {
-    //     city: "Taipei",
-    //     country: "Taiwan",
-    // },
-    // {
-    //     city: "Madrid",
-    //     country: "Spain",
-    // },
-    // {
-    //     city: "Hanoi",
-    //     country: "Vietnam",
-    // },
-    // {
-    //     city: "Edinburgh",
-    //     country: "United Kingdom",
-    // },
-    // {
-    //     city: "Hong Kong",
-    //     country: "Hong Kong",
-    // },
-    // {
-    //     city: "Singapore",
-    //     country: "Singapore",
-    // },
-    // {
-    //     city: "New Orleans",
-    //     country: "United States of America",
-    // },
-    // {
-    //     city: "Bath",
-    //     country: "United Kingdom",
-    // },
-    // {
-    //     city: "Macau",
-    //     country: "Macau",
-    // },
-    // {
-    //     city: "Hoi An",
-    //     country: "Vietnam",
-    // },
-    // {
-    //     city: "Lubeck",
-    //     country: "Germany",
-    // },
-    // {
-    //     city: "Hiroshima",
-    //     country: "Japan",
-    // },
-    // {
-    //     city: "Agadez",
-    //     country: "Niger",
-    // },
-    // {
-    //     city: "Sanaa",
-    //     country: "Yemen",
-    // },
-    // {
-    //     city: "Belfast",
-    //     country: "United Kingdom",
-    // },
-    // {
-    //     city: "Thimphu",
-    //     country: "Bhutan",
-    // },
-    // {
-    //     city: "Anchorage",
-    //     country: "United States of America",
-    // },
-    // {
-    //     city: "Luxembourg",
-    //     country: "Luxembourg",
-    // },
-    // {
-    //     city: "Addis Ababa",
-    //     country: "Ethiopia",
-    // },
-    // {
-    //     city: "Ashgabat",
-    //     country: "Turkmenistan",
-    // },
-    // {
-    //     city: "Bukhara",
-    //     country: "Uzbekistan",
-    // },
 ];
+
+
 
 var januaryTemps = ["Paris:49", "New York:35.3", "Sydney:81.8", "Barcelona:57.7", "London:47.6", "Rome:57.1", "San Francisco:57.6", "Bangkok:90.1", "Cape Town:78", "Istanbul:49.6", "Melbourne:78.3", "Kathmandu:58.2", "Prague:41.7", "Vancouver:42.7", "Buenos Aires:89.1", "Berlin:41", "Jerusalem:62.1", "Montreal:21.7", "Venice:48", "Amsterdam:45", "Tokyo:48", "Florence:49.7", "Dublin:47", "Krakow:37.5", "Toronto:27.6", "Cairo:64.5", "Budapest:41.2", "Chicago:29.1", "Havana:75.5", "Munich:42.8", "Athens:56.1", "Vienna:41.8", "Ho Chi Minh City:89.9", "Sarajevo:39.7", "Seville:60.3", "Las Vegas:57.1", "Perth:81.8", "Shanghai:46", "Los Angeles:70.3", "Lisbon:59.1", "Stockholm:33.7", "Kuala Lumpur:85.3", "Damascus:54.2", "Luang Prabang:77.4", "Seattle:47", "Phnom Penh:89.5", "St. Petersburg:28", "Cuzco:57.6", "Delhi:71.6", "Dubrovnik:51.5", "Moscow:25.8", "Helsinki:32", "Santiago:77.8", "Fes:57.9", "Auckland:74.6", "Manila:85.2", "Chiang Mai:85.8", "Varanasi:73.1", "Cartagena:88.2", "Innsbruck:30.9", "York:43.6", "Hamburg:41.1", "Galway:47", "Wellington:69.7", "Ljubljana:45.7", "Seoul:29.3", "San Cristobal:76.2", "Tallinn:32.3", "Lhasa:39.5", "Bled:39.1", "Hobart:70.8", "Brussels:46.3", "La Paz:51.1", "Quebec City:17.5", "Valparaiso:70.2", "Naples:57.1", "Memphis:43.4", "Heidelberg:46.2", "Dhaka:77.2", "Amman:55", "Washington:40.7", "Quito:59.4", "Christchurch:74.2", "Glasgow:40.6", "Muscat:74.3", "Dakar:73.6", "Bratislava:42", "San Sebastian:67.9", "Bern:43.8", "San Juan:80.8", "Aleppo:56", "Dubai:72.6", "Riga:32.3", "Asmara:73.1", "Kabul:42", "Copenhagen:38.7", "Sofia:40", "Marseille:55.6", "Zagreb:46", "Manchester:43.4", "Antigua:79.3", "Reykjavik:32.8", "Yogyakarta:81.2", "Carcassonne:49.9", "Tel Aviv-Yafo:61.9", "Mendoza:82.4", "Nairobi:79.5", "Beirut:59.3", "Vilnius:31.2", "Montevideo:82.5", "Yangon:88.7", "Arequipa:59.2", "Bucharest:39.3", "Apia:84.2", "Belgrade:45.4", "Dar es Salaam:87", "Kyiv:31.2", "Malé:81.5", "Caracas:76.4", "Tirana:51", "Suva:86", "Tbilisi:42.2", "Ushuaia:52.6", "Kampala:84", "Bogota:68.3", "Bridgetown:81", "Ulaanbaatar:-3.1", "Abuja:98.3", "Laval:21.5", "Livingstone:91", "Alexandria:63.8", "Savannah:54", "Nuuk:13.4", "Jeddah:79.9", "Johannesburg:84.6", "Kairouan:65.4", "Austin:56.3", "San Salvador:89", "Cardiff:48.8", "Minsk:29.2", "Khartoum:84", "Mecca:81", "Aswan:72.5", "Yerevan:40.3", "Georgetown:84.8", "Maputo:86.3", "Baku:44.9", "Belize City:78", "Essaouira:62.9", "Santo Domingo:82.1", "Lahore:72.6", "Cayenne:81.5", "Almaty:15", "Mombasa:87", "Valletta:60.8", "Antananarivo:75.9", "Miami:71.4", "Bamako:91.8", "Saint-Denis:74.3", "Granada:87.9", "Beira:85"];
 
@@ -912,7 +762,7 @@ var novemberTemps = ["Paris:51.1", "New York:48.8", "Sydney:73.8", "Barcelona:61
 
 var decemberTemps = ["Paris:47.7", "New York:43.5", "Sydney:79.8", "Barcelona:58.7", "London:49.4", "Rome:56.4", "San Francisco:56.6", "Bangkok:90.6", "Cape Town:74.3", "Istanbul:49.6", "Melbourne:75.9", "Kathmandu:59.3", "Prague:40.5", "Vancouver:42.4", "Buenos Aires:81.3", "Berlin:42.5", "Jerusalem:64.8", "Montreal:28", "Venice:46.1", "Amsterdam:45.9", "Tokyo:54.5", "Florence:48.4", "Dublin:50", "Krakow:38.3", "Toronto:38.3", "Cairo:66", "Budapest:37.7", "Chicago:36.4", "Havana:80.8", "Munich:40.5", "Athens:54.7", "Vienna:38.8", "Ho Chi Minh City:89.7", "Sarajevo:36.2", "Seville:64.3", "Las Vegas:51.5", "Perth:79", "Shanghai:53", "Los Angeles:66.2", "Lisbon:61.6", "Stockholm:35.2", "Kuala Lumpur:88.2", "Damascus:56.7", "Luang Prabang:78.7", "Seattle:46.2", "Phnom Penh:89.8", "St. Petersburg:27.4", "Cuzco:61.1", "Delhi:72.4", "Dubrovnik:51", "Moscow:22.1", "Helsinki:33.1", "Santiago:76.1", "Fes:65.6", "Auckland:69.1", "Manila:86.1", "Chiang Mai:86.3", "Varanasi:75.5", "Cartagena:89", "Innsbruck:29.6", "York:46", "Hamburg:43.7", "Galway:49.6", "Wellington:64.2", "Ljubljana:43.1", "Seoul:36.4", "San Cristobal:77", "Tallinn:32.9", "Lhasa:30", "Bled:38.7", "Hobart:68.2", "Brussels:46.4", "La Paz:54.3", "Quebec City:24", "Valparaiso:69.3", "Naples:57.2", "Memphis:51.1", "Heidelberg:44.3", "Dhaka:78.4", "Amman:57", "Washington:46.9", "Quito:61.1", "Christchurch:66", "Glasgow:44.2", "Muscat:78.3", "Dakar:79.8", "Bratislava:39.1", "San Sebastian:72", "Bern:42", "San Juan:81.7", "Aleppo:57", "Dubai:77.9", "Riga:33.9", "Asmara:74.8", "Kabul:45.4", "Copenhagen:42", "Sofia:37", "Marseille:55", "Zagreb:41.6", "Manchester:46.3", "Antigua:80.1", "Reykjavik:38.3", "Yogyakarta:80.7", "Carcassonne:50.9", "Tel Aviv-Yafo:65.1", "Mendoza:80.7", "Nairobi:77", "Beirut:62.7", "Vilnius:30.9", "Montevideo:75.1", "Yangon:89", "Arequipa:64.7", "Bucharest:36.7", "Apia:84.5", "Belgrade:40.3", "Dar es Salaam:88.3", "Kyiv:29.6", "Malé:82.9", "Caracas:76.3", "Tirana:50.3", "Suva:82.5", "Tbilisi:44.3", "Ushuaia:53", "Kampala:80.1", "Bogota:67.7", "Bridgetown:81.3", "Ulaanbaatar:-0.2", "Abuja:98.6", "Laval:27.6", "Livingstone:93.4", "Alexandria:66", "Savannah:63.2", "Nuuk:27.9", "Jeddah:82", "Johannesburg:86.2", "Kairouan:65.1", "Austin:59.5", "San Salvador:88.9", "Cardiff:51.4", "Minsk:29.4", "Khartoum:86.2", "Mecca:82.7", "Aswan:72.7", "Yerevan:43.5", "Georgetown:83.8", "Maputo:89.4", "Baku:50.4", "Belize City:81.7", "Essaouira:69.2", "Santo Domingo:83.6", "Lahore:72.1", "Cayenne:81.7", "Almaty:23.5", "Mombasa:87.3", "Valletta:62.8", "Antananarivo:81.1", "Miami:76.2", "Bamako:93", "Saint-Denis:73.9", "Granada:86.8", "Beira:86.6"];
 
-var someArray = [];
+
 
 
 function cityWeather(city, month, startDate, endDate, pos) {
@@ -947,14 +797,14 @@ function cityWeather(city, month, startDate, endDate, pos) {
                 }
             }
             console.log(city + " " + month + " weather: " + userWeather);
-            someArray[pos] = '"' + justCity + ":" + userWeather + '"' + ", "
-            $("#p").html(someArray);
-            })
-        };
+            decemberTemps[pos] = '"' + justCity + ":" + userWeather + '"' + ", "
+            $("#p").html(decemberTemps);
+        })
+};
 
-for (var j = 0; j < months.length; j++) {
-    cityWeather("Saint-Denis, Reunion", months[j].name, months[j].startDate, months[j].endDate, j);
-}
+// for (var j = 0; j < cities.length; j++) {
+//     cityWeather(cities[j].city + ", " + cities[j].country, December.name, December.startDate, December.endDate, j);
+// }
 // console.log(januaryTemps.length);
 // console.log(februaryTemps.length);
 // console.log(marchTemps.length);
@@ -967,6 +817,47 @@ for (var j = 0; j < months.length; j++) {
 // console.log(octoberTemps.length);
 // console.log(novemberTemps.length);
 // console.log(decemberTemps.length);
+
+
+
+
+function renderChart(cityIndex) {
+
+    console.log(januaryTemps[cityIndex].split(":")[1])
+    var chart = new CanvasJS.Chart("chartContainer", {
+        animationEnabled: true,
+        title: {
+            text: cities[cityIndex].city + " Temperature By Month"
+        },
+        axisY: {
+            title: "Temp (F)"
+        },
+        data: [{
+            color: "#01579b",
+            type: "column",
+            legendText: "Month",
+            dataPoints: [
+                { y: parseInt(januaryTemps[cityIndex].split(":")[1]), label: "January" },
+                { y: parseInt(februaryTemps[cityIndex].split(":")[1]), label: "February" },
+                { y: parseInt(marchTemps[cityIndex].split(":")[1]), label: "March" },
+                { y: parseInt(aprilTemps[cityIndex].split(":")[1]), label: "April" },
+                { y: parseInt(mayTemps[cityIndex].split(":")[1]), label: "May" },
+                { y: parseInt(juneTemps[cityIndex].split(":")[1]), label: "June" },
+                { y: parseInt(julyTemps[cityIndex].split(":")[1]), label: "July" },
+                { y: parseInt(augustTemps[cityIndex].split(":")[1]), label: "August" },
+                { y: parseInt(septemberTemps[cityIndex].split(":")[1]), label: "September" },
+                { y: parseInt(octoberTemps[cityIndex].split(":")[1]), label: "October" },
+                { y: parseInt(novemberTemps[cityIndex].split(":")[1]), label: "November" },
+                { y: parseInt(decemberTemps[cityIndex].split(":")[1]), label: "December" }
+            ]
+        }]
+    });
+    chart.render();
+
+}
+
+renderChart(5)
+
 
 function findFlights(place) {
     var city = place;
