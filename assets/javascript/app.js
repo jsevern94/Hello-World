@@ -1,344 +1,121 @@
-// if (topCities.length <= 5) {
-//     $(".results").append("<p>The top 5 cities for " + category + "<br>" + topCities + "<p>")
 
-// }
-// foodArray[maxIndex] = 0;
+var config = {
+    apiKey: "AIzaSyDuKxBBJIya6DvOXENE1xnfSZ2uImIWd-M",
+    authDomain: "hello-world-19f5c.firebaseapp.com",
+    databaseURL: "https://hello-world-19f5c.firebaseio.com",
+    projectId: "hello-world-19f5c",
+    storageBucket: "hello-world-19f5c.appspot.com",
+    messagingSenderId: "969652105932"
+};
 
+firebase.initializeApp(config);
 
+var database = firebase.database();
 
-    //top argument for indexofMax
-    var topFood = [];
-    var topNightlife = [];
-    var topCulture = [];
-    var topNature = [];
-    var topAttractions = [];
-
-    var printResults = function (category) {
-        database.ref("userInput/").push(category, topFood);
-    };
-
-
-    function indexOfMax(arr, top, category) {
-        if (arr.length === 0) {
-            return -1;
-        }
-        var maxIndex = 0;
-        var max = arr[0];
-
-        for (var i = 1; i < arr.length; i++) {
-            if (arr[i] > max) {
-                maxIndex = i;
-                max = arr[i];
-            }
-        }
-        // console.log("City: " + cities[maxIndex].city);
-        // console.log("Rating: " + arr[maxIndex]);
-        top.push({ "city": cities[maxIndex].city, "rating": arr[maxIndex] })
-        if (top.length === 5) {
-            console.log(top);
-            printResults(category);
-        }
-
-        arr[maxIndex] = 0;
-        return maxIndex, top;
+var months = [
+    {
+        name: "January",
+        startDate: "2018-01-01",
+        endDate: "2018-01-31"
+    },
+    {
+        name: "February",
+        startDate: "2018-02-01",
+        endDate: "2018-02-28"
+    },
+    {
+        name: "March",
+        startDate: "2018-03-01",
+        endDate: "2018-03-31"
+    },
+    {
+        name: "April",
+        startDate: "2018-04-01",
+        endDate: "2018-04-30"
+    },
+    {
+        name: "May",
+        startDate: "2018-05-01",
+        endDate: "2018-05-31"
+    },
+    {
+        name: "June",
+        startDate: "2018-06-01",
+        endDate: "2018-06-30"
+    },
+    {
+        name: "July",
+        startDate: "2018-07-01",
+        endDate: "2018-07-31"
+    },
+    {
+        name: "August",
+        startDate: "2018-08-01",
+        endDate: "2018-08-31"
+    },
+    {
+        name: "September",
+        
+        startDate: "2018-09-01",
+        endDate: "2018-09-30"
+    },
+    {
+        name: "October",
+        startDate: "2018-10-01",
+        endDate: "2018-10-31"
+    },
+    {
+        name: "November",
+        startDate: "2018-11-01",
+        endDate: "2018-11-30"
+    },
+    {
+        name: "December",
+        startDate: "2018-12-01",
+        endDate: "2018-12-31"
     }
-
-    var userMonth = "02";
-    var userLowTemp = 70;
-    var userHighTemp = 80;
-    var topCities = [];
-
-    //arr argument for indexofMax
-    var foodArray = [];
-    var nightlifeArray = [];
-    var cultureArray = [];
-    var natureArray = [];
-    var attractionsArray = [];
-    var tempArray = [];
-
-
-    $(".getTopFive").on("click", function () {
-
-        for (var i = 0; i < 5; i++) {
-            var city = cities[i].city;
-
-            database.ref("cities/" + city + "/finalRatings/food").once("value").then(function (snapshot) {
-                foodArray.push(snapshot.val());
+    ]
+    var January = months[0];
+    var February = months[1];
+    var March = months[2];
+    var April = months[3];
+    var May = months[4];
+    var June = months[5];
+    var July = months[6];
+    var August = months[7];
+    var September = months[8];
+    var October = months[9];
+    var November = months[10];
+    var December = months[11];
+    
+    
+    function cityWeather(city, month, startDate, endDate) {
+        var apiKey = "305d321add43432d946225042190805"
+        var queryURL = "https://api.worldweatheronline.com/premium/v1/past-weather.ashx?key=" + apiKey + "&q=" + city + "&format=json&date=" + startDate + "&enddate=" + endDate + "&tp=24"
+    
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        })
+            .then(function (response) {
+                var results = response.data.weather;
+                console.log(results);
+                var avgWeather = 0;
+                var total = 0;
+                for (var i = 0; i < results.length; i++) {
+                    total += parseInt(results[i].maxtempF)
+                    avgWeather = total / results.length;
+                }
+                console.log(city + " " + month + " weather: " + avgWeather);
             });
-            // database.ref("cities/" + city + "/finalRatings/nightlife").once("value").then(function (snapshot) {
-            //     nightlifeArray.push(snapshot.val());
-            // });
-            // database.ref("cities/" + city + "/finalRatings/culture").once("value").then(function (snapshot) {
-            //     cultureArray.push(snapshot.val());
-            // });
-            // database.ref("cities/" + city + "/finalRatings/nature").once("value").then(function (snapshot) {
-            //     natureArray.push(snapshot.val());
-            // });
-            // database.ref("cities/" + city + "/finalRatings/attractions").once("value").then(function (snapshot) {
-            //     attractionsArray.push(snapshot.val());
-            // });
-
-            
-            //JONAH'S TEMPERATURE REFERENCE
-            database.ref("cities/" + city + "/temps/" + userMonth)).once('value', function (snapshot) {
-                var sv = snapshot.val();
-                tempArray.push(sv);
-                console.log()
-            });
-        }
-
-        for (var j = 0; j < 5; j++) {
-            indexOfMax(foodArray, topFood, "food");
-            // indexOfMax(nightlifeArray, topNightlife, "nightlife");
-            // indexOfMax(cultureArray, topCulture, "culture");
-            // indexOfMax(natureArray, topNature, "nature");
-            // indexOfMax(attractionsArray, topAttractions, "attractions");
-        }
-
-
-
-    });
-
-
-    // if (calcsComplete === true) {
-
-    //     console.log(cities[0].food)
-
-    // } else {
-    //     console.log("calcs not complete yet");
-    // }
-
-    // UNCOMMENT FUNCTIONS TO CREATE DATABASE IN FB - BE CAREFUL, WILL DELETE TEMPS
-    // findLatLng();
-    // dbGenerator();
-
-
-});
-
-
-
-
-
-
-
-
-  //top argument for indexofMax
-  var topFood = [];
-  var topNightlife = [];
-  var topCulture = [];
-  var topNature = [];
-  var topAttractions = [];
-
-  var printResults = function (category) {
-      database.ref("userInput/").push(category, topFood);
-  };
-
-
-  function indexOfMax(arr, top, category) {
-      if (arr.length === 0) {
-          return -1;
-      }
-      var maxIndex = 0;
-      var max = arr[0];
-
-      for (var i = 1; i < arr.length; i++) {
-          if (arr[i] > max) {
-              maxIndex = i;
-              max = arr[i];
-          }
-      }
-      // console.log("City: " + cities[maxIndex].city);
-      // console.log("Rating: " + arr[maxIndex]);
-      top.push({ "city": cities[maxIndex].city, "rating": arr[maxIndex] })
-      if (top.length === 5) {
-          console.log(top);
-          printResults(category);
-      }
-
-      arr[maxIndex] = 0;
-      return maxIndex, top;
-  }
-
-  var userMonth = "02";
-  var userLowTemp = 70;
-  var userHighTemp = 80;
-  var topCities = [];
-
-  //arr argument for indexofMax
-  var foodArray = [];
-  var nightlifeArray = [];
-  var cultureArray = [];
-  var natureArray = [];
-  var attractionsArray = [];
-  var tempArray = [];
-var currentyCityTemp = 0;
-
-  $(".getTopFive").on("click", function () {
-
-      for (var i = 0; i < cities.length; i++) {
-          var city = cities[i].city;
-      //     database.ref("cities/" + city + "/temps/" + userMonth).once('value', function (snapshot) {
-              
-      //         var sv = snapshot.val();
-      //         console.log(sv)
-
-      //         // currentyCityTemp = sv;
-      //         // return currentyCityTemp;
-      //     });
-      // }
-
-      //     console.log("test" + i)
-      //     if (currentCityTemp > userLowTemp && currentyCityTemp < userHighTemp) {
-
-
-
-
-          
-          database.ref("cities/" + city + "/finalRatings/food").once("value").then(function (snapshot) {
-              foodArray.push(snapshot.val());
-          });
-          // database.ref("cities/" + city + "/finalRatings/nightlife").once("value").then(function (snapshot) {
-          //     nightlifeArray.push(snapshot.val());
-          // });
-          // database.ref("cities/" + city + "/finalRatings/culture").once("value").then(function (snapshot) {
-          //     cultureArray.push(snapshot.val());
-          // });
-          // database.ref("cities/" + city + "/finalRatings/nature").once("value").then(function (snapshot) {
-          //     natureArray.push(snapshot.val());
-          // });
-          // database.ref("cities/" + city + "/finalRatings/attractions").once("value").then(function (snapshot) {
-          //     attractionsArray.push(snapshot.val());
-          // });
-
-          
-          //JONAH'S TEMPERATURE REFERENCE
-          
-      };
-
-
-      for (var j = 0; j < 5; j++) {
-          indexOfMax(foodArray, topFood, "food");
-          // indexOfMax(nightlifeArray, topNightlife, "nightlife");
-          // indexOfMax(cultureArray, topCulture, "culture");
-          // indexOfMax(natureArray, topNature, "nature");
-          // indexOfMax(attractionsArray, topAttractions, "attractions");
-      }
-
-
-
-  });
-
-
-  // if (calcsComplete === true) {
-
-  //     console.log(cities[0].food)
-
-  // } else {
-  //     console.log("calcs not complete yet");
-  // }
-
-  // UNCOMMENT FUNCTIONS TO CREATE DATABASE IN FB - BE CAREFUL, WILL DELETE TEMPS
-  findLatLng();
-  dbGenerator();
-
-
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var topFood = [];
-    var topNightlife = [];
-    var topCulture = [];
-    var topNature = [];
-    var topAttractions = [];
-
-    function indexOfMax(arr, top) {
-        if (arr.length === 0) {
-            return -1;
-        }
-        var maxIndex = 0;
-        var max = arr[0];
-
-        for (var i = 1; i < arr.length; i++) {
-            if (arr[i] > max) {
-                maxIndex = i;
-                max = arr[i];
-            }
-        }
-        // console.log("City: " + cities[maxIndex].city);
-        // console.log("Rating: " + arr[maxIndex]);
-        top.push({"city": cities[maxIndex].city, "rating": arr[maxIndex]})
-        // $(".results").append("<p>" + top + "<p>")
-
-        if (top.length === 5) {
-            $(".results").append("<p>The top 5 cities for Food <br>" + topFood + "<p>")
-            console.log(top);
-        }
-
-        arr[maxIndex] = 0;
-        return maxIndex;
     }
-
-    var foodArray = [];
-    var nightlifeArray = [];
-    var cultureArray = [];
-    var natureArray = [];
-    var attractionsArray = [];
-
-    $(".getTopFive").on("click", function () {
-        for (var i = 0; i < cities.length; i++) {
-            var city = cities[i].city;
-
-            database.ref("cities/" + city + "/finalRatings/food").once("value").then(function (snapshot) {
-                foodArray.push(snapshot.val());
-            });
-            database.ref("cities/" + city + "/finalRatings/nightlife").once("value").then(function (snapshot) {
-                nightlifeArray.push(snapshot.val());
-            });
-            database.ref("cities/" + city + "/finalRatings/culture").once("value").then(function (snapshot) {
-                cultureArray.push(snapshot.val());
-            });
-            database.ref("cities/" + city + "/finalRatings/nature").once("value").then(function (snapshot) {
-                natureArray.push(snapshot.val());
-            });
-            database.ref("cities/" + city + "/finalRatings/attractions").once("value").then(function (snapshot) {
-                attractionsArray.push(snapshot.val());
-            });
-        }
-
-        for (var j = 0; j < 5; j++) {
-            indexOfMax(foodArray, topFood);
-            indexOfMax(nightlifeArray, topNightlife);
-            indexOfMax(cultureArray, topCulture);
-            indexOfMax(natureArray, topNature);
-            indexOfMax(attractionsArray, topAttractions);
-        }
-
-
-    });
-
-
-
-    // if (calcsComplete === true) {
-
-    //     console.log(cities[0].food)
-
-    // } else {
-    //     console.log("calcs not complete yet");
-    // }
-    // findLatLng();
-    // dbGenerator();
-
-
-});
+    
+    cityWeather("Budapest, Hungary", January.name, January.startDate, January.endDate);
+    cityWeather("Minsk, Belarus", April.name, April.startDate, April.endDate);
+    cityWeather("Seattle, USA", August.name, August.startDate, August.endDate);
+    
+    function findFlights(place) {
+        var city = place;
+        var apiKey = MvKNAIoHaObHGFQaA6KAZ7Cx2gkkV2h1;
+        //check bookmarks for how to do oAuth and use new technology
+    }

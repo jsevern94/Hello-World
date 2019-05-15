@@ -1,0 +1,17 @@
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#map, .cityImage, #map0, #map1, #map2, #map3, #map4 {
+    height: 200px;
+    width: 200px;
+  }
+
+
+#mapLarge {
+    height: 500px;
+    width: 80%;
+    margin: auto;
+}
