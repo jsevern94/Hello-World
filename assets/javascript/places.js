@@ -1042,18 +1042,13 @@ $(document).ready(function () {
 
     var listenUserCategories = function(id, category){
         var isSelected = id[0].checked;
-        console.log(isSelected);
         if (isSelected === true) {
             userCategories.push(category)
-            console.log(userCategories);
-        } else {
-            console.log(category + " wasn't selected")
         }
-
     }
+
     $("#submitCategory").on("click", function () {
         $(this).addClass("disabled");
-        $("#submitMonth").removeClass("disabled");
 
         listenUserCategories($("#userFood"), "food");
         listenUserCategories($("#userNightlife"), "nightlife");
@@ -1061,34 +1056,26 @@ $(document).ready(function () {
         listenUserCategories($("#userNature"), "nature");
         listenUserCategories($("#userAttractions"), "attractions");
 
+        console.log(userCategories);
 
-
-        // console.log($(".category").attr("id").val())
-        // switch ($(".category").attr("id").val()) {
-        //     case "userFood":
-        //         userFood.val()
-        //         break;
-        //     case "userNightlife":
-        //         // code block
-        //         break;
-        //     case "userCulture":
-        //         // code block
-        //         break;
-        //     case "userNightlife":
-        //         // code block
-        //         break;
-        //     case "userNature":
-        //         // code block
-        //         break;
-        //     case "userAttractions":
-        //         // code block
-        //         break;
-        //     default:
-        //     // code block
-        // }
+        $(".month").removeClass("disabled");
     });
 
+    $(".month").on("click", function() {
+        $("#userMonth").empty();
+        userMonth = $(this).text();
+        $("#userMonth").removeClass("hide");
 
+        $("#userMonth").append("<br><p>Selected Month: " + userMonth + "</p>");
+        $("#submitMonth").removeClass("disabled");
+
+    });
+
+    $("#submitMonth").on("click", function() {
+
+        console.log(userMonth);
+
+    });
 
 
 
