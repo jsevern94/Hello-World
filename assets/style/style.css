@@ -25,11 +25,14 @@ body {
 
 .cityImage {
     height: 200px;
-    width: 300px;
+    width: 200px;
+    padding: 1 rem;
 }
+
 .map{
     float: right;
 }
+
 
 @media screen and (max-width: 640px){
 

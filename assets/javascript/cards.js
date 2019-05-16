@@ -16,6 +16,7 @@ var database = firebase.database();
 
 //testing
 
+    
 
 var searchTerms = ["London", "Paris", "Barcelona", "Antananarivo", "Amsterdam"];
 
@@ -103,11 +104,29 @@ function createCards() {
                 </div>
                 <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4">${term}<i class="material-icons right">expand_less</i></span>
-                    <p></p>
+                    <div class="row">
+                        <div class="col s12">
+                            <ul class="tabs">
+                                <li class="tab col s2"><a class="active" href="#test1${i}"><i class="material-icons">local_dining</i></a></li>
+                                <li class="tab col s2"><a href="#test2${i}"><i class="material-icons">local_bar</i></a></li>
+                                <li class="tab col s2"><a href="#test3${i}"><i class="material-icons">local_activity</i></a></li>
+                                <li class="tab col s2"><a href="#test4${i}"><i class="material-icons">local_florist</i></a></li>
+                                <li class="tab col s2"><a  href="#test5${i}"><i class="material-icons">palette</i></a></li>
+                            </ul>
+                        </div>
+                            <div id="test1${i}" class="col s12">Food</div>
+                            <div id="test2${i}" class="col s12">Night Life</div>
+                            <div id="test3${i}" class="col s12">Attractions</div>
+                            <div id="test4${i}" class="col s12">Nature</div>
+                            <div id="test5${i}" class="col s12">Culture</div>
+                    </div>  
                 </div>
           </div>`
     })
     $("#multipleCards").html(insert);
+    var elem = $('.tabs');
+     var options = {};
+     instance = M.Tabs.init(elem, options);
 }
 
 
