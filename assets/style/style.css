@@ -13,9 +13,9 @@ body {
     margin: 2rem auto;
 }
 
-.resultsCards{
-    margin: 1rem;
-}
+/* .nonactiveCard{
+    height: 65rem;
+} */
 
 #resultsCardTitle{
     font-size: 3rem;
@@ -27,13 +27,16 @@ body {
     height: 200px;
     width: 200px;
     padding: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 
 .map{
     float: right;
 }
 
+.activeCard {
+    font-size: 1.5rem;
+}
 
 @media screen and (max-width: 640px){
 

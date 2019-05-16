@@ -16,9 +16,9 @@ var database = firebase.database();
 
 //testing
 
-    
 
-var searchTerms = ["London", "Paris", "Barcelona", "Antananarivo", "Amsterdam"];
+
+var searchTerms = ["London", "Paris", "Barcelona", "Antananarivo", "Amsterdam", "Tokyo", "Berlin", "Abuja"];
 
 var cityLat;
 var cityLng;
@@ -28,12 +28,14 @@ var country;
 var countryLowerCase;
 var countryURL
 var countrySelected;
+var displayCardSelected;
 
 $(document).ready(function () {
     createCards();
     createLargeMap();
     getData();
     getBlurb();
+
 
 });
 
@@ -83,8 +85,33 @@ function createCards() {
     var insert = "";
     searchTerms.forEach(function (term, i) {
 
+        var display;
+        if (i <= 0) {
+            display = `<div class="col s12 m12 activeCard" id="card${i}">`
+        }
+        else {
+            display = `<div class="col s12 m6 nonactiveCard" id="card${i}">`
+        }
+
+        // var createRow;
+        // if (i%2 !== 0 && i!==0){
+        // createRow = "<div class='row'>"
+        // }
+        // else{
+        //     createRow = "";
+        // }
+
+
+        // var closeRow;
+        // if (i%2 == 0 ){
+        //     closeRow = "</div>"
+        //     }
+        // else{
+        //     closeRow = "";
+        // }
+
         insert +=
-            `<div class="col s12 m6">
+            `${display}
             <div class="card resultsCards hoverable">
                 
                     <div class="card-content">
@@ -94,7 +121,7 @@ function createCards() {
                             
                             </span>
                         
-                        <div class="row">
+                        <div class="text row">
                         <div class="map" id="map${i}" style="height: 200px; width: 200px; margin: .5rem;"></div>
                             <div id ="blurbHere${i}"></div>
                         </div>
@@ -124,13 +151,40 @@ function createCards() {
                     </div>
                 </div>
           </div>`
+
     })
-    $("#multipleCards").html(insert);
+
+    // if (i <= 0) {
+    //     console.log(i);
+    //     $("#displayCard").append(insert);
+    //     //$("#multipleCards").append(insert);
+    //     $(`#card${i}`).removeClass("m6");
+    //     $(`#card${i}`).addClass("m12 activeCard");
+
+    // }
+
+    $("#multipleCards").append(insert);
+    
+
+
+
+    //js for tabs
     var elem = $('.tabs');
-     var options = {};
-     instance = M.Tabs.init(elem, options);
+    var options = {};
+    instance = M.Tabs.init(elem, options);
+
+
+
+
 }
 
+function assignInitialDisplayCard(i) {
+    if (i <= 0) {
+        console.log(`image${i}`)
+        $(`.image${i}`).removeClass("m6")
+        $(`.image${i}`).addClass("m3")
+    }
+};
 
 //images
 var API_KEY = '12446401-bf90607e0ef711dcac16707ef';
@@ -155,7 +209,8 @@ function getPhotos(term, i, countryURL) {
                 if (cityImageResults < 4) {
 
                     for (var j = 0; j < data.totalHits; j++) {
-                        $(`#pictures${i}Here`).append("<img  class='cityImage col s6' src='" + data.hits[j].imageURL + "'>");
+                        $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m6 image" + i + "' src='" + data.hits[j].imageURL + "'>");
+                        assignInitialDisplayCard(i);
                         //console.log(cityImageResults + " " + i);
                     };
                     //put loop to go through country photos here
@@ -167,13 +222,15 @@ function getPhotos(term, i, countryURL) {
                         .then(function (data) {
                             //console.log(countryURL + " " + i);
                             for (var j = cityImageResults; j < 4; j++) {
-                                $(`#pictures${i}Here`).append("<img  class='cityImage col s6' src='" + data.hits[j].imageURL + "'>");
+                                $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m6 image" + i + "'  src='" + data.hits[j].imageURL + "'>");
+                                assignInitialDisplayCard(i);
                             };
                         })
                 }
                 else {
                     for (var j = 0; j < 4; j++) {
-                        $(`#pictures${i}Here`).append("<img  class='cityImage col s6' src='" + data.hits[j].imageURL + "'>");
+                        $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m6 image" + i + "'  src='" + data.hits[j].imageURL + "'>");
+                        assignInitialDisplayCard(i);
                     };
                 }
             }
@@ -186,7 +243,8 @@ function getPhotos(term, i, countryURL) {
                 })
                     .then(function (data) {
                         for (var j = 0; j < 4; j++) {
-                            $(`#pictures${i}Here`).append("<img  class='cityImage col s6' src='" + data.hits[j].imageURL + "'>");
+                            $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m6 image" + i + "' src='" + data.hits[j].imageURL + "'>");
+                            assignInitialDisplayCard(i);
                         };
                     })
             }
@@ -249,7 +307,7 @@ var mapLarge;
 //var markerLarge;
 var marker;
 var positionLocation;
-var labels ='12345';
+var labels = '12345';
 var labelIndex = 0;
 
 function initialize(i, term) {
@@ -289,7 +347,7 @@ function initialize(i, term) {
 
 //large map
 function initializeLarge(i, term) {
-    var markerLarge = "markerLarge-" + term;    
+    var markerLarge = "markerLarge-" + term;
 
     positionLocation = new google.maps.LatLng(cityLat, cityLng);
 
@@ -300,7 +358,7 @@ function initializeLarge(i, term) {
         //this can be used when there are multiple locations to number them
         label: labels[labelIndex++ % labels.length],
         title: i,
-        
+
     });
     console.log(markerLarge);
 
@@ -316,7 +374,7 @@ function initializeLarge(i, term) {
 
 }
 
-function createLargeMap(){
+function createLargeMap() {
 
     var center = new google.maps.LatLng(20, 0);
 
