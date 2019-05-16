@@ -18,7 +18,7 @@ var database = firebase.database();
 
 
 
-var searchTerms = ["London", "Paris", "Barcelona", "Antananarivo", "Amsterdam", "Tokyo", "Berlin", "Abuja"];
+var searchTerms = ["London", "Paris", "Barcelona", "Antananarivo", "Amsterdam", "Tokyo", "Berlin"];
 
 var cityLat;
 var cityLng;
@@ -93,64 +93,67 @@ function createCards() {
             display = `<div class="col s12 m6 nonactiveCard" id="card${i}">`
         }
 
-        // var createRow;
-        // if (i%2 !== 0 && i!==0){
-        // createRow = "<div class='row'>"
-        // }
-        // else{
-        //     createRow = "";
-        // }
+        //create rows on odd cards
+        var createRow;
+        if (i%2 !== 0 && i!==0){
+        createRow = "<div class='row'>"
+        }
+        else{
+            createRow = "";
+        }
 
-
-        // var closeRow;
-        // if (i%2 == 0 ){
-        //     closeRow = "</div>"
-        //     }
-        // else{
-        //     closeRow = "";
-        // }
+        //close rows on even cards
+        var closeRow;
+        if (i%2 == 0 ){
+            closeRow = "</div>"
+            }
+        else{
+            closeRow = "";
+        }
 
         insert +=
-            `${display}
-            <div class="card resultsCards hoverable">
-                
-                    <div class="card-content">
-
+            `${createRow}
+                ${display}
+                    <div class="card resultsCards hoverable">
                         
-                            <span class="card-title activator grey-text text-darken-4" id="resultsCardTitle">${term} <i class="material-icons right">expand_more</i>
-                            
-                            </span>
-                        
-                        <div class="text row">
-                        <div class="map" id="map${i}" style="height: 200px; width: 200px; margin: .5rem;"></div>
-                            <div id ="blurbHere${i}"></div>
-                        </div>
+                            <div class="card-content">
 
-                        <div class="allpictures row">
-                            <div id="pictures${i}Here"></div>
-                        </div>
-                    </div>
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">${term}<i class="material-icons right">expand_less</i></span>
-                        <div class="row">
-                            <div class="col s12">
-                                <ul class="tabs">
-                                    <li class="tab col s2"><a class="active" href="#test1${i}"><i class="material-icons">local_dining</i></a></li>
-                                    <li class="tab col s2"><a href="#test2${i}"><i class="material-icons">local_bar</i></a></li>
-                                    <li class="tab col s2"><a href="#test3${i}"><i class="material-icons">local_activity</i></a></li>
-                                    <li class="tab col s2"><a href="#test4${i}"><i class="material-icons">local_florist</i></a></li>
-                                    <li class="tab col s2"><a  href="#test5${i}"><i class="material-icons">palette</i></a></li>
-                                </ul>
+                                
+                                    <span class="card-title activator grey-text text-darken-4" id="resultsCardTitle">${term} <i class="material-icons right">expand_more</i>
+                                    
+                                    </span>
+                                
+                                <div class="text row">
+                                <div class="map" id="map${i}" style="height: 200px; width: 200px; margin: .5rem;"></div>
+                                    <div id ="blurbHere${i}"></div>
+                                </div>
+
+                                <div class="allpictures row">
+                                    <div id="pictures${i}Here"></div>
+                                </div>
                             </div>
-                                <div id="test1${i}" class="col s12">Food</div>
-                                <div id="test2${i}" class="col s12">Night Life</div>
-                                <div id="test3${i}" class="col s12">Attractions</div>
-                                <div id="test4${i}" class="col s12">Nature</div>
-                                <div id="test5${i}" class="col s12">Culture</div>
-                        </div>  
-                    </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">${term}<i class="material-icons right">expand_less</i></span>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <ul class="tabs">
+                                            <li class="tab col s2"><a class="active" href="#test1${i}"><i class="material-icons">local_dining</i></a></li>
+                                            <li class="tab col s2"><a href="#test2${i}"><i class="material-icons">local_bar</i></a></li>
+                                            <li class="tab col s2"><a href="#test3${i}"><i class="material-icons">local_activity</i></a></li>
+                                            <li class="tab col s2"><a href="#test4${i}"><i class="material-icons">local_florist</i></a></li>
+                                            <li class="tab col s2"><a  href="#test5${i}"><i class="material-icons">palette</i></a></li>
+                                        </ul>
+                                    </div>
+                                        <div id="test1${i}" class="col s12">Food</div>
+                                        <div id="test2${i}" class="col s12">Night Life</div>
+                                        <div id="test3${i}" class="col s12">Attractions</div>
+                                        <div id="test4${i}" class="col s12">Nature</div>
+                                        <div id="test5${i}" class="col s12">Culture</div>
+                                </div>  
+                            </div>
+                        </div>
                 </div>
-          </div>`
+          ${closeRow}`
 
     })
 
