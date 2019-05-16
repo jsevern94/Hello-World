@@ -84,42 +84,44 @@ function createCards() {
     searchTerms.forEach(function (term, i) {
 
         insert +=
-            `<div class="card resultsCards hoverable">
+            `<div class="col s12 m6">
+            <div class="card resultsCards hoverable">
                 
-                <div class="card-content">
+                    <div class="card-content">
 
-                    
-                        <span class="card-title activator grey-text text-darken-4" id="resultsCardTitle">${term} <i class="material-icons right">expand_more</i>
                         
-                        </span>
-                    
-                    <div class="row">
-                    <div class="map" id="map${i}" style="height: 200px; width: 200px; margin: .5rem;"></div>
-                        <div id ="blurbHere${i}"></div>
-                    </div>
-
-                    <div class="allpictures row">
-                        <div id="pictures${i}Here"></div>
-                    </div>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">${term}<i class="material-icons right">expand_less</i></span>
-                    <div class="row">
-                        <div class="col s12">
-                            <ul class="tabs">
-                                <li class="tab col s2"><a class="active" href="#test1${i}"><i class="material-icons">local_dining</i></a></li>
-                                <li class="tab col s2"><a href="#test2${i}"><i class="material-icons">local_bar</i></a></li>
-                                <li class="tab col s2"><a href="#test3${i}"><i class="material-icons">local_activity</i></a></li>
-                                <li class="tab col s2"><a href="#test4${i}"><i class="material-icons">local_florist</i></a></li>
-                                <li class="tab col s2"><a  href="#test5${i}"><i class="material-icons">palette</i></a></li>
-                            </ul>
+                            <span class="card-title activator grey-text text-darken-4" id="resultsCardTitle">${term} <i class="material-icons right">expand_more</i>
+                            
+                            </span>
+                        
+                        <div class="row">
+                        <div class="map" id="map${i}" style="height: 200px; width: 200px; margin: .5rem;"></div>
+                            <div id ="blurbHere${i}"></div>
                         </div>
-                            <div id="test1${i}" class="col s12">Food</div>
-                            <div id="test2${i}" class="col s12">Night Life</div>
-                            <div id="test3${i}" class="col s12">Attractions</div>
-                            <div id="test4${i}" class="col s12">Nature</div>
-                            <div id="test5${i}" class="col s12">Culture</div>
-                    </div>  
+
+                        <div class="allpictures row">
+                            <div id="pictures${i}Here"></div>
+                        </div>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">${term}<i class="material-icons right">expand_less</i></span>
+                        <div class="row">
+                            <div class="col s12">
+                                <ul class="tabs">
+                                    <li class="tab col s2"><a class="active" href="#test1${i}"><i class="material-icons">local_dining</i></a></li>
+                                    <li class="tab col s2"><a href="#test2${i}"><i class="material-icons">local_bar</i></a></li>
+                                    <li class="tab col s2"><a href="#test3${i}"><i class="material-icons">local_activity</i></a></li>
+                                    <li class="tab col s2"><a href="#test4${i}"><i class="material-icons">local_florist</i></a></li>
+                                    <li class="tab col s2"><a  href="#test5${i}"><i class="material-icons">palette</i></a></li>
+                                </ul>
+                            </div>
+                                <div id="test1${i}" class="col s12">Food</div>
+                                <div id="test2${i}" class="col s12">Night Life</div>
+                                <div id="test3${i}" class="col s12">Attractions</div>
+                                <div id="test4${i}" class="col s12">Nature</div>
+                                <div id="test5${i}" class="col s12">Culture</div>
+                        </div>  
+                    </div>
                 </div>
           </div>`
     })
@@ -153,7 +155,7 @@ function getPhotos(term, i, countryURL) {
                 if (cityImageResults < 4) {
 
                     for (var j = 0; j < data.totalHits; j++) {
-                        $(`#pictures${i}Here`).append("<img  class='cityImage col  s12 m3 l3' src='" + data.hits[j].imageURL + "'>");
+                        $(`#pictures${i}Here`).append("<img  class='cityImage col s6' src='" + data.hits[j].imageURL + "'>");
                         //console.log(cityImageResults + " " + i);
                     };
                     //put loop to go through country photos here
@@ -165,13 +167,13 @@ function getPhotos(term, i, countryURL) {
                         .then(function (data) {
                             //console.log(countryURL + " " + i);
                             for (var j = cityImageResults; j < 4; j++) {
-                                $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m3 l3' src='" + data.hits[j].imageURL + "'>");
+                                $(`#pictures${i}Here`).append("<img  class='cityImage col s6' src='" + data.hits[j].imageURL + "'>");
                             };
                         })
                 }
                 else {
                     for (var j = 0; j < 4; j++) {
-                        $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m3 l3' src='" + data.hits[j].imageURL + "'>");
+                        $(`#pictures${i}Here`).append("<img  class='cityImage col s6' src='" + data.hits[j].imageURL + "'>");
                     };
                 }
             }
@@ -184,7 +186,7 @@ function getPhotos(term, i, countryURL) {
                 })
                     .then(function (data) {
                         for (var j = 0; j < 4; j++) {
-                            $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m3 l3' src='" + data.hits[j].imageURL + "'>");
+                            $(`#pictures${i}Here`).append("<img  class='cityImage col s6' src='" + data.hits[j].imageURL + "'>");
                         };
                     })
             }
