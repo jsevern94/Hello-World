@@ -28,7 +28,6 @@ var country;
 var countryLowerCase;
 var countryURL
 var countrySelected;
-var displayCardSelected;
 
 $(document).ready(function () {
     createCards();
@@ -85,17 +84,18 @@ function createCards() {
     var insert = "";
     searchTerms.forEach(function (term, i) {
 
-        var display;
-        if (i <= 0) {
-            display = `<div class="col s12 m12 activeCard" id="card${i}">`
-        }
-        else {
-            display = `<div class="col s12 m6 nonactiveCard" id="card${i}">`
-        }
+        // var display;
+        // if (i <= 0) {
+        //     display = `<div class="col s12 m12 activeCard" id="card${i}" card="${i}">`
+        // }
+        // else {
+        //     display = ``
+        // }
 
+    
         //create rows on odd cards
         var createRow;
-        if (i%2 !== 0 && i!==0){
+        if (i%2 !== 0){
         createRow = "<div class='row'>"
         }
         else{
@@ -113,8 +113,8 @@ function createCards() {
 
         insert +=
             `${createRow}
-                ${display}
-                    <div class="card resultsCards hoverable">
+            <div class="resultsCards col s12 m6 nonactiveCard" id="card${i}" cardNum="${i}">
+                    <div class="card hoverable">
                         
                             <div class="card-content">
 
@@ -181,13 +181,7 @@ function createCards() {
 
 }
 
-function assignInitialDisplayCard(i) {
-    if (i <= 0) {
-        console.log(`image${i}`)
-        $(`.image${i}`).removeClass("m6")
-        $(`.image${i}`).addClass("m3")
-    }
-};
+
 
 //images
 var API_KEY = '12446401-bf90607e0ef711dcac16707ef';
@@ -213,7 +207,7 @@ function getPhotos(term, i, countryURL) {
 
                     for (var j = 0; j < data.totalHits; j++) {
                         $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m6 image" + i + "' src='" + data.hits[j].imageURL + "'>");
-                        assignInitialDisplayCard(i);
+                        //assignInitialDisplayCard(i);
                         //console.log(cityImageResults + " " + i);
                     };
                     //put loop to go through country photos here
@@ -226,14 +220,14 @@ function getPhotos(term, i, countryURL) {
                             //console.log(countryURL + " " + i);
                             for (var j = cityImageResults; j < 4; j++) {
                                 $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m6 image" + i + "'  src='" + data.hits[j].imageURL + "'>");
-                                assignInitialDisplayCard(i);
+                                //assignInitialDisplayCard(i);
                             };
                         })
                 }
                 else {
                     for (var j = 0; j < 4; j++) {
                         $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m6 image" + i + "'  src='" + data.hits[j].imageURL + "'>");
-                        assignInitialDisplayCard(i);
+                        //assignInitialDisplayCard(i);
                     };
                 }
             }
@@ -247,7 +241,7 @@ function getPhotos(term, i, countryURL) {
                     .then(function (data) {
                         for (var j = 0; j < 4; j++) {
                             $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m6 image" + i + "' src='" + data.hits[j].imageURL + "'>");
-                            assignInitialDisplayCard(i);
+                            //assignInitialDisplayCard(i);
                         };
                     })
             }
@@ -392,24 +386,31 @@ function createLargeMap() {
         mapOptionsLarge);
 }
 
-//from materialize : .hide-on-small-only this will be used fo the full size map
 
-//use hoverable for cards
+$("#multipleCards").on("click", ".nonactiveCard", function () {
+    
+    $(".activeCard").removeClass("m12");
+    $(".activeCard").addClass("m6");
+    console.log($(".activeCard").attr("cardNum"));
+    $(".image" + $(".activeCard").attr("cardNum")).addClass("m6");
+    $(".image" + $(".activeCard").attr("cardNum")).removeClass("m3");
+    $(".activeCard").removeClass("activeCard");
+    
 
-//use breadcrumbs for quiz
+    $(this).addClass("activeCard");
+    $(this).removeClass("m6");
+    $(this).addClass("m12");
+    console.log($(this).attr("cardNum"));
+    $(".image" + $(this).attr("cardNum")).removeClass("m6");
+    $(".image" + $(this).attr("cardNum")).addClass("m3");
+    
 
-//use icons on cards for different prefeeerencees
+})
 
-//use collapsible for details
-
-//make images class materrial box?
-
-//use scrollspy to scroll to different cards from map
-
-//can use tooltips to explain any element that we ceate that might be seen as confusing
-
-//look into flowtext and truncate for the card and how they will change as the page changes
-
-
-
-
+// function assignInitialDisplayCard(i) {
+//     if (i <= 0) {
+//         console.log(`image${i}`)
+//         $(`.image${i}`).removeClass("m6")
+//         $(`.image${i}`).addClass("m3")
+//     }
+// };

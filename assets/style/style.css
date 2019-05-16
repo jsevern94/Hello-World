@@ -13,12 +13,13 @@ body {
     margin: 2rem auto;
 }
 
-/* .nonactiveCard{
-    height: 65rem;
-} */
 
 #resultsCardTitle{
     font-size: 3rem;
+}
+
+#resultsCard{
+    text-align: left;
 }
 
 
