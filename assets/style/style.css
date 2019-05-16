@@ -4,14 +4,37 @@ body {
     padding: 0;
 }
 
-#map, .cityImage, #map0, #map1, #map2, #map3, #map4 {
-    height: 200px;
-    width: 200px;
-  }
+
 
 
 #mapLarge {
     height: 500px;
     width: 80%;
-    margin: auto;
+    margin: 2rem auto;
 }
+
+.resultsCards{
+    margin: 1rem;
+}
+
+#resultsCardTitle{
+    font-size: 3rem;
+}
+
+
+
+.cityImage {
+    height: 200px;
+    width: 300px;
+}
+.map{
+    float: right;
+}
+
+@media screen and (max-width: 640px){
+
+    .map {
+        float: none;
+    }
+}
+

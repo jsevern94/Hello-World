@@ -83,12 +83,23 @@ function createCards() {
     searchTerms.forEach(function (term, i) {
 
         insert +=
-            `<div class="card">
-                <div class="card-image waves-effect waves-block waves-light"></div>
+            `<div class="card resultsCards hoverable">
+                
                 <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4" id="cardTitle">${term} <i class="material-icons right">expand_more</i><i class="right map" id="map${i}"></i></span>
-                    <p id ="blurbHere${i}"></p>
-                    <p id="pictures${i}Here"></p>
+
+                    
+                        <span class="card-title activator grey-text text-darken-4" id="resultsCardTitle">${term} <i class="material-icons right">expand_more</i>
+                        
+                        </span>
+                    
+                    <div class="row">
+                    <div class="map" id="map${i}" style="height: 200px; width: 200px; margin: .5rem;"></div>
+                        <div id ="blurbHere${i}"></div>
+                    </div>
+
+                    <div class="allpictures row">
+                        <div id="pictures${i}Here"></div>
+                    </div>
                 </div>
                 <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4">${term}<i class="material-icons right">expand_less</i></span>
@@ -120,10 +131,10 @@ function getPhotos(term, i, countryURL) {
                 var cityImageResults;
                 cityImageResults = data.totalHits;
                 //console.log(cityImageResults);
-                if (cityImageResults < 5) {
+                if (cityImageResults < 4) {
 
                     for (var j = 0; j < data.totalHits; j++) {
-                        $(`#pictures${i}Here`).append("<img  class='cityImage' src='" + data.hits[j].imageURL + "'>");
+                        $(`#pictures${i}Here`).append("<img  class='cityImage col  s12 m3 l3' src='" + data.hits[j].imageURL + "'>");
                         //console.log(cityImageResults + " " + i);
                     };
                     //put loop to go through country photos here
@@ -134,14 +145,14 @@ function getPhotos(term, i, countryURL) {
                     })
                         .then(function (data) {
                             //console.log(countryURL + " " + i);
-                            for (var j = cityImageResults; j < 5; j++) {
-                                $(`#pictures${i}Here`).append("<img  class='cityImage' src='" + data.hits[j].imageURL + "'>");
+                            for (var j = cityImageResults; j < 4; j++) {
+                                $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m3 l3' src='" + data.hits[j].imageURL + "'>");
                             };
                         })
                 }
                 else {
-                    for (var j = 0; j < 5; j++) {
-                        $(`#pictures${i}Here`).append("<img  class='cityImage' src='" + data.hits[j].imageURL + "'>");
+                    for (var j = 0; j < 4; j++) {
+                        $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m3 l3' src='" + data.hits[j].imageURL + "'>");
                     };
                 }
             }
@@ -153,8 +164,8 @@ function getPhotos(term, i, countryURL) {
                     method: "GET"
                 })
                     .then(function (data) {
-                        for (var j = 0; j < 5; j++) {
-                            $(`#pictures${i}Here`).append("<img  class='cityImage' src='" + data.hits[j].imageURL + "'>");
+                        for (var j = 0; j < 4; j++) {
+                            $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m3 l3' src='" + data.hits[j].imageURL + "'>");
                         };
                     })
             }
@@ -176,7 +187,7 @@ function getBlurb() {
 
 
         //gets blurb off of page
-        var blurbUrl = "https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&exsentences=10&redirects=1&titles=" + term;
+        var blurbUrl = "https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&exsentences=6&redirects=1&titles=" + term;
         $.ajax({
             url: url,
             method: "GET"
@@ -241,7 +252,8 @@ function initialize(i, term) {
     marker = new google.maps.Marker({
         position: positionLocation,
         map: map,
-        title: i
+        title: i,
+        mapTypeId: 'terrain'
     });
 
     var smallInfoWindow = new google.maps.InfoWindow({
@@ -266,7 +278,8 @@ function initializeLarge(i, term) {
         map: mapLarge,
         //this can be used when there are multiple locations to number them
         label: labels[labelIndex++ % labels.length],
-        title: i
+        title: i,
+        
     });
     console.log(markerLarge);
 
@@ -290,6 +303,7 @@ function createLargeMap(){
         center: center,
         zoom: 2,
         disableDefaultUI: true,
+        mapTypeId: 'terrain'
     };
 
     mapLarge = new google.maps.Map(document.getElementById('mapLarge'),
