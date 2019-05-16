@@ -1,7 +1,17 @@
-body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+body { 
+    background-image: url("../images/background-img.webp");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: 'Vollkorn', serif;
+}
+
+.nav-wrapper{
+    background-color: #01579b !important;
+   }
+
+   #logo-image {
+    height: 64px;
 }
 
 #map, .cityImage, #map0, #map1, #map2, #map3, #map4 {
