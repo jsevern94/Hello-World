@@ -28,12 +28,12 @@ h1 {
     position: relative;
 }
 
-h4 {
+h3 {
     z-index: 1;
     position: relative;
 }
 
-h1, h4 {
+h1, h3 {
     text-shadow:
         -1px -1px 0 white,
         1px -1px 0 white,
