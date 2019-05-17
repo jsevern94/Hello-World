@@ -838,6 +838,10 @@ $(document).ready(function () {
 
     var months = [januaryTemps, februaryTemps, marchTemps, aprilTemps, mayTemps, juneTemps, julyTemps, augustTemps, septemberTemps, octoberTemps, septemberTemps, novemberTemps, decemberTemps];
 
+    /******GOOGLE PLACES API KEY*************************************** */
+    var key = "";
+
+
     /*********THIS IS THE FUNCTION TO FIND THE LATITUTE AND LONGITUDE OF EACH CITY*********************** */
     var findLatLng = function () {
         var citiesCopy = cities;
@@ -945,6 +949,7 @@ $(document).ready(function () {
 
     $("#calc").on("click", function(){
         detailGenerator("Paris", "food", "restaurant")
+        //ADD LOOP TO GO THROUGH CITIESS LIST AND CALL FOR EACH CATEGORY
     });
 
     var detailGenerator = function (city, category, type) {
@@ -963,10 +968,21 @@ $(document).ready(function () {
          $.ajax({
             url: queryURL,
         }).then(function mySuccess(response) {
+            var nameArray = [];
+            var addressArray = [];
+            var ratingsArray = [];
+        // for (var i = 0; i < response.results.length; i++) {
 
+        for (var i = 0; i < 2; i++) {
+                nameArray.push(response.results[i].name);
+                addressArray.push(response.results[i].formatted_address);
+                ratingsArray.push(response.results[i].rating);
+
+        }
             console.log(response.results.val);
             console.log(city, category, type);
 
+            //STILL NEED TO APPEND TO FIREBASE
             // database.ref("cities/" + city + "/" + category + "/" + type).update({
             //     "rating": average,
             // });   
@@ -1050,8 +1066,6 @@ $(document).ready(function () {
         // calcsComplete = true;
     };
 
-    /******GOOGLE PLACES API KEY*************************************** */
-    var key = "";
 
     var userCategory;
     var userTemp = "70";
