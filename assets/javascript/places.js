@@ -1025,7 +1025,7 @@ $(document).ready(function () {
     var natureArray = [];
     var attractionsArray = [];
 
-    var userCategories = [];
+    var userCategory;
     var userTemp = "70";
     var userMonth = "02";
     var selectedArray = [72, 96, 98, 100, 102, 71, 60, 62, 88, 90, 92, 94, 70, 64, 66, 68, 84, 86, 74, 76, 78, 80, 82];
@@ -1049,22 +1049,30 @@ $(document).ready(function () {
 
         //activates the vacation type submit button
         $("#submitCategory").removeClass("disabled");
-        //resets the array that vacation types are stored to
-        userCategories = [];
+        $(".category").removeAttr("disabled");
+
     });
+
+    // $(".cat").on("click", function(){
+    //     userCategory = $(this).attr("checked");
+    // });
+
 
     /***** THIS FUNCTION LISTENS TO THE USER'S PREFERENCES*******************************8 */
     var listenUserCategories = function (id, category) {
         var isSelected = id[0].checked;
         if (isSelected === true) {
-            userCategories.push(category)
+            userCategory = category;
         }
+
     }
 
     /*********ON CLICK EVENT FOR THE VACATION TYPE SWITCHES****************************/
     $("#submitCategory").on("click", function () {
         //Disables the VACATION TYPE submit button so the user can't press it again
         $(this).addClass("disabled");
+
+        // console.log($(".category").val("checked"));
 
         //CALLS FUNCTION THAT LISTENS TO EACH SWITCH
         listenUserCategories($("#userFood"), "food");
@@ -1073,7 +1081,7 @@ $(document).ready(function () {
         listenUserCategories($("#userNature"), "nature");
         listenUserCategories($("#userAttractions"), "attractions");
 
-        console.log(userCategories);
+        console.log(userCategory);
 
         //activates the MONTH submit button
         $(".month").removeClass("disabled");
@@ -1119,7 +1127,7 @@ $(document).ready(function () {
     var topAttractions = [];
 
     var topCity = [];
-    var comboRating = [];
+    var topRating = [];
 
 
     var getFinalRatings = false;
@@ -1129,13 +1137,7 @@ $(document).ready(function () {
         //Disables the VACATION TYPE submit button so the user can't press it again
         $(this).addClass("disabled");
         getTopFiveRatings();
-
-        // userList(userCategories[0]);
-        // userList(userCategories[1]);
-        // userList(userCategories[2]);
-        // userList(userCategories[3]);
-        // userList(userCategories[4]);
-  
+        // myForm.submit();
     });
 
     var limitByTemps = function (callback) {
@@ -1265,9 +1267,12 @@ $(document).ready(function () {
             cultureMax = highestCulture[0];
             attractionsMax = highestAttractions[0];
 
-            console.log(foodMax, nightlifeMax, natureMax, cultureMax, attractionsMax);
-            console.log(topFood, topNightlife, topCulture, topNature, topAttractions);
+// for (var k = 0; k < ) {
 
+// }
+            // console.log(foodMax, nightlifeMax, natureMax, cultureMax, attractionsMax);
+            console.log(topFood, topNightlife, topCulture, topNature, topAttractions);
+            console.log(topFood[0].city);
             callback;
             // console.log(topFood[0].city);
             // console.log(topFood[0].rating);
@@ -1292,43 +1297,6 @@ $(document).ready(function () {
             // if (city )
         }
     };
-    // var multiRankedArray = [];
-    // /*************Generate user-unique list of top cities based on input**************************** */
-    // var userList = function(arr) {
-    //     // var testList = [
-    //     //     {city: "St Petersburg", rating: 6.059499999999999}, 
-    //     //     {city: "London", rating: 5.981},
-    //     //     {city: "Amsterdam", rating: 5.928},
-    //     //     {city: "Moscow", rating: 5.8525},
-    //     //     {city: "Buenos Aires", rating: 5.826999999999999},
-    //     //     {city: "Barcelona", rating: 5.714499999999998},
-    //     //     {city: "Florence", rating: 5.541499999999999},
-    //     //     {city: "Stockholm", rating: 5.376499999999999},
-    //     //     {city: "Santiago", rating: 5.3545},
-    //     //     {city: "Lisbon", rating: 5.2509999999999994},
-    //     //     {city: "San Francisco", rating: 4.912500000000001},
-    //     //     {city: "Saint-Denis", rating: 4.7655},
-    //     //     {city: "Munich", rating: 4.755},
-    //     //     {city: "Toronto", rating: 4.607499999999999},
-    //     //     {city: "Chicago", rating: 4.551}
-    //     // ];
-    //     // console.log(testList[0].rating);
-    //     // console.log(arr[0].rating);
-    //     if (arr) {
-    //         for (var i = 0; i < arr.length; i++) {
-    //             var highest = arr[0].rating;
-    //             var rankedArrayNum = [];
-    //             var rankedArrayCity = [];
-    //             console.log(arr);
-    //             rankedArrayNum.push(arr[i].ranking / highest)
-    //             rankedArrayCity.push(arr[i].city)
-
-    //             multiRankedArray.push({number: rankedArrayNum[i]}, {city: rankedArrayCity[i]});
-    //             // console.log(arr[i].city);
-    //             // console.log(arr[i].rating);
-    //         }
-    //         // console.log(multiRankedArray);
-    //     }
 
     // };
     //grab the top city from each list, set as denomenator

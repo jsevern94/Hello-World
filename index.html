@@ -62,7 +62,45 @@
                         <div class="card-content col s12">
                             <span class="card-title">Vacation Type</span>
                             <p>Select which activities you're interested in:</p><br>
-                            <div class="switch row">
+                            <form action="#">
+                                <p>
+                                    <label class="cat">
+                                        <input class="with-gap category" id="userFood" name="group1" type="radio"
+                                            disabled="disabled" />
+                                        <span>Food & Restaurants</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input class="with-gap category" id="userNightlife" name="group1" type="radio"
+                                            disabled="disabled" />
+                                        <span>Bars & Nightlife</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input class="with-gap category" id="userCulture" name="group1" type="radio"
+                                            disabled="disabled" />
+                                        <span>History & Culture</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input class="with-gap category" id="userNature" name="group1" type="radio"
+                                            disabled="disabled" />
+                                        <span>Parks & Nature</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input class="with-gap category" id="userAttractions" name="group1" type="radio"
+                                            disabled="disabled" />
+                                        <span>Tourist Attractions</span>
+                                    </label>
+                                </p>
+                            </form>
+                            <!-- UNCOMMENT TO SEE SWITCH OPTIONS
+                         <div class="switch row">
                                 <p class="col s6">Food & Restaurants</p>
                                 <label class="col s6">
                                     No
@@ -110,7 +148,7 @@
                                     <span class="lever"></span>
                                     Yes
                                 </label>
-                            </div>
+                            </div> -->
                         </div>
                         <a class="btn-floating halfway-fab waves-effect waves-light red disabled" id="submitCategory">
                             <i class="material-icons">chevron_right</i></a>
