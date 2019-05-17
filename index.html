@@ -10,43 +10,42 @@
 
     <link rel="stylesheet" type="text/css" href="assets/style/reset.css">
 
-  
+
     <!-- Added a link to our external stylesheet-->
 
-   
+
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  
+
     <link rel="stylesheet" type="text/css" href="assets/style/style.css">
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Hello World!</title>
-
+ 
     <style>
 
     </style>
 </head>
 
 <body>
-        <div class="navbar-fixed">
-                <nav>
-                    <div class="nav-wrapper">
-                        <a href="#!" class="brand-logo"><i class="material-icons"></i><img id="logo-image" src="assets/images/logo.png"></a>
-                        <ul class="right hide-on-med-and-down">
-                            <li><a href="homepage.html">Home</a></li>
-                            <li><a href="#">World Map</a></li>
-                            <li><a href="aboutus.html">About Us</a></li>
-                        </ul>
-                    </div>
-                </nav>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#!" class="brand-logo"><i class="material-icons"></i><img id="logo-image"
+                        src="assets/images/logo.png"></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="homepage.html">Home</a></li>
+                    <li><a href="#">World Map</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                </ul>
             </div>
-    <h1>Hello World!</h1>
-
+        </nav>
+    </div>
 
     <div class="container">
         <div class="row">
@@ -56,7 +55,7 @@
                     <div class="card-content">
                         <span class="card-title">Temperature</span>
                         <p>Use the slider to choose your ideal vacation Temperature.</p><br>
-                        <form action="#">
+                        <form id="tempslider" action="#">
                             <p class="range-field">
                                 <input type="range" id="userTemp" min="30" max="100" />
                             </p>
@@ -135,7 +134,7 @@
             </div>
 
             <div class="col s12 m6">
-                <div class="card">
+                <div class="card" id="months">
 
                     <div class="card-content">
                         <span class="card-title">Month</span>
@@ -165,8 +164,8 @@
                             <p class="hide" id="userMonth"></p>
 
                             <!-- CHANGE # TO OTHER html RESULTS PAGE -->
-                            <a href="#"
-                                class="btn-floating halfway-fab waves-effect waves-light red disabled" id="submitMonth">
+                            <a href="results.html" class="btn-floating halfway-fab waves-effect waves-light red disabled"
+                                id="submitMonth">
                                 <i class="material-icons">chevron_right</i></a>
                         </div>
                     </div>
@@ -205,3 +204,13 @@
 </body>
 
 </html>
+
+
+
+<!--
+1. When month is selected,  cities with acceptable temps are put into an array
+2. Rating for each city is pulled for each user category and put into arrays by category, and calculated into fraction
+3. Fractions are added together and divided by usercategories.length
+4. Run Page's function to take the highest average and put it into a new array based on overall rating.
+
+-->

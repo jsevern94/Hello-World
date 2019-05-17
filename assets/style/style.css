@@ -14,6 +14,47 @@ body {
     height: 64px;
 }
 
+.halfway-fab {
+    background-color: #01579b !important;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    background-color: #01579b;
+  }
+  /* input[type=range]::-moz-range-thumb {
+    background-color: #01579b;
+  } */
+  /* input[type=range]::-ms-thumb {
+    background-color: #01579b;
+  } */
+
+  input[type=range] + .thumb {
+    background-color: #01579b;
+  }
+
+  .switch label input[type=checkbox]:checked+.lever {
+    background-color: #42a5f5;
+  }
+  
+  .switch label input[type=checkbox]:checked+.lever:after {
+    background-color: #01579b;
+  }
+
+  .btn-flat:hover {
+    background-color: #42a5f5 !important;
+  }
+  .btn-flat:active{
+    background-color: #42a5f5!important;
+  }
+  .btn-flat:focus{
+    background-color: #42a5f5!important;
+  }
+
+#months {
+    height: 200px;
+}
+
+
 #map, .cityImage, #map0, #map1, #map2, #map3, #map4 {
     height: 200px;
     width: 200px;
