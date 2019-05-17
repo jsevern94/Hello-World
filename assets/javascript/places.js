@@ -1019,17 +1019,13 @@ $(document).ready(function () {
     };
 
     var key = "AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4";
-    var foodArray = [];
-    var nightlifeArray = [];
-    var cultureArray = [];
-    var natureArray = [];
-    var attractionsArray = [];
 
     var userCategory;
     var userTemp = "70";
     var userMonth = "02";
     var selectedArray = [72, 96, 98, 100, 102, 71, 60, 62, 88, 90, 92, 94, 70, 64, 66, 68, 84, 86, 74, 76, 78, 80, 82];
     var userCities = [];
+    var ratingsArray = [];
     var userIndex = [];
     var userTemps = [];
 
@@ -1053,26 +1049,19 @@ $(document).ready(function () {
 
     });
 
-    // $(".cat").on("click", function(){
-    //     userCategory = $(this).attr("checked");
-    // });
-
-
     /***** THIS FUNCTION LISTENS TO THE USER'S PREFERENCES*******************************8 */
     var listenUserCategories = function (id, category) {
         var isSelected = id[0].checked;
         if (isSelected === true) {
             userCategory = category;
         }
-
     }
 
     /*********ON CLICK EVENT FOR THE VACATION TYPE SWITCHES****************************/
     $("#submitCategory").on("click", function () {
         //Disables the VACATION TYPE submit button so the user can't press it again
         $(this).addClass("disabled");
-
-        // console.log($(".category").val("checked"));
+        $(".category").attr("disabled", "disabled");
 
         //CALLS FUNCTION THAT LISTENS TO EACH SWITCH
         listenUserCategories($("#userFood"), "food");
@@ -1085,6 +1074,7 @@ $(document).ready(function () {
 
         //activates the MONTH submit button
         $(".month").removeClass("disabled");
+        $("#monthText").addClass("red-text")
     });
 
     var splitCities = [];
@@ -1101,7 +1091,9 @@ $(document).ready(function () {
         //clears the div so if the user clicks multiple buttons it clears each time, and displays it
         $("#userMonth").empty();
         $("#userMonth").removeClass("hide");
-        $(".month").addClass("disabled");
+        // $(".month").addClass("disabled");
+        $("#monthText").removeClass("red-text")
+
 
         $("#userMonth").append("<br><p>Selected Month: " + selectedMonth + "</p>");
 
@@ -1120,14 +1112,8 @@ $(document).ready(function () {
     });
 
 
-    var topFood = [];
-    var topNightlife = [];
-    var topCulture = [];
-    var topNature = [];
-    var topAttractions = [];
-
-    var topCity = [];
-    var topRating = [];
+    var topCities = [];
+    var topRatings = [];
 
 
     var getFinalRatings = false;
@@ -1138,6 +1124,9 @@ $(document).ready(function () {
         $(this).addClass("disabled");
         getTopFiveRatings();
         // myForm.submit();
+
+        console.log(topCities, topRatings);
+
     });
 
     var limitByTemps = function (callback) {
@@ -1152,22 +1141,12 @@ $(document).ready(function () {
                 userCities.push(city);
             };
         };
-        // for (var i = 0; i< userCities.length)
-        console.log("userCities: ", userCities, ">ALL CITIES WITHIN TEMP RANGE");
-        // console.log("user index: ", userIndex, ">INDEX OF ITEM COMPARED TO INITIAL TEMP ARRAY");
-
 
         callback;
     };
 
-    var highestFood = [];
-    var highestNightlife = [];
-    var highestNature = [];
-    var highestCulture = [];
-    var highestAttractions = [];
-
     //**********IN THIS FUNCTION IS WHERE WE CALL THE FUNCTION THAT APPENDS THE CARDS*********************
-    function indexOfMax(arr, top, highest) {
+    function indexOfMax(arr, cities) {
         if (arr.length === 0) {
             return -1;
         }
@@ -1181,106 +1160,42 @@ $(document).ready(function () {
             }
         }
 
-        // var city = userCities[maxIndex];
-        // var rating = arr[maxIndex];
-        top.push({ "city": userCities[maxIndex], "rating": arr[maxIndex] });
-
-        if (highest.length === 0) {
-            highest.push(arr[maxIndex]);
-        }; 
-        // for (var i = 0; i < topCity.length; i++) {
-        //     if (topCity[i] !== city) {
-        //         topCity.push(city);
-        //         topRating.push(rating);
-        //     }
-        // }
+        topCities.push(cities[maxIndex]);
+        var top = arr[maxIndex]
+        topRatings.push(top);
 
         arr[maxIndex] = 0;
-
     }
 
     var callFinalRatings = function () {
         
         for (var i = 0; i < userCities.length; i++) {
             var city = userCities[i];
-            database.ref("cities/" + city + "/finalRatings/food").once("value").then(function (snapshot) {
+            database.ref("cities/" + city + "/finalRatings/" + userCategory).once("value").then(function (snapshot) {
                 var sv = snapshot.val();
-                foodArray.push(sv);
+            ratingsArray.push(sv);
             });
-            database.ref("cities/" + city + "/finalRatings/nightlife").once("value").then(function (snapshot) {
-                nightlifeArray.push(snapshot.val());
-            });
-            database.ref("cities/" + city + "/finalRatings/culture").once("value").then(function (snapshot) {
-                cultureArray.push(snapshot.val());
-            });
-            database.ref("cities/" + city + "/finalRatings/nature").once("value").then(function (snapshot) {
-                natureArray.push(snapshot.val());
-            });
-            database.ref("cities/" + city + "/finalRatings/attractions").once("value").then(function (snapshot) {
-                attractionsArray.push(snapshot.val());
-            });
-
         };
         getFinalRatings = true;
     }
 
-
-    var foodMax;
-    var nightlifeMax;
-    var natureMax;
-    var cultureMax;
-    var attractionsMax;
+    var maxRating;
     var getTopFiveRatings = function (callback) {
-        // indexOfMax(foodArray, topFood, "food", 0);
         if (getFinalRatings === true) {
-            console.log(userCategories);
-            for (var i = 0; i < userCategories.length; i++) {
                 for (var j = 0; j < userCities.length; j++) {
-                    switch (userCategories[i]) {
-                        case "food":
-                            indexOfMax(foodArray, topFood, highestFood);
-                            break;
-                        case "nightlife":
-                            indexOfMax(nightlifeArray, topNightlife, highestNightlife);
-                            break;
-                        case "culture":
-                            indexOfMax(cultureArray, topCulture, highestCulture);
-                            break;
-                        case "nature":
-                            indexOfMax(natureArray, topNature, highestNature);
-                            break;
-                        case "attractions":
-                            indexOfMax(attractionsArray, topAttractions, highestAttractions);
-                            break;
-                    }
-
-                }
-
-                // topCity.push(top);
-
-                // console.log(foodArray, nightlifeArray, cultureArray, natureArray, attractionsArray)
-                
+                    indexOfMax(ratingsArray, userCities);
+                 }; 
             };
-            foodMax = highestFood[0];
-            nightlifeMax = highestNightlife[0];
-            natureMax = highestNature[0];
-            cultureMax = highestCulture[0];
-            attractionsMax = highestAttractions[0];
+            maxRating = topRatings[0];
 
-// for (var k = 0; k < ) {
+            for (var k = 0; k < userCities.length; k++) {
 
-// }
-            // console.log(foodMax, nightlifeMax, natureMax, cultureMax, attractionsMax);
-            console.log(topFood, topNightlife, topCulture, topNature, topAttractions);
-            console.log(topFood[0].city);
+            }
+
             callback;
-            // console.log(topFood[0].city);
-            // console.log(topFood[0].rating);
 
-            // userList(topFood[0])
-            // return topFood, topNightlife, topCulture, topNature, topAttractions;
         };
-    };
+
 
     var standardize = function(arr, max) {
         if (arr.length > 0) {
@@ -1290,21 +1205,8 @@ $(document).ready(function () {
         }
     }; 
     
-    var combine = function(){
-        for (var i = 0; i < userCities.length; i++) {
-            var city = topFood[i].city;
-            // for (var j = 0;)
-            // if (city )
-        }
-    };
-
-    // };
-    //grab the top city from each list, set as denomenator
-    // console.log(topFood[0])
-    //loop through the rest, push
 
     $("#calc").on("click", function(){
-        // console.log(topFood, topNightlife, topCulture, topNature, topAttractions);
 
         standardize(topFood, foodMax);
         standardize(topNightlife, nightlifeMax);
