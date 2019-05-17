@@ -1,0 +1,110 @@
+body { 
+    background-image: url("../images/background-img.webp");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: 'Vollkorn', serif;
+}
+
+.nav-wrapper{
+    background-color: #01579b !important;
+   }
+
+
+button { 
+    margin-top: 100px;
+    background-color: #01579b !important;
+    font-family: 'Vollkorn', serif !important;
+}
+
+.main {
+    margin-top: 40px;
+}
+
+h1 { 
+    margin-bottom: 100px;
+    font-size: 100px;
+    z-index: 1;
+    position: relative;
+}
+
+h3 {
+    z-index: 1;
+    position: relative;
+}
+
+h1, h3 {
+    text-shadow:
+        -1px -1px 0 white,
+        1px -1px 0 white,
+        -1px 1px 0 white,
+        1px 1px 0 white;
+}
+
+ .center {
+    margin-top: 100px;
+ }
+
+ a{
+    color: white;
+    text-decoration: none;
+}
+
+#logo-image {
+    height: 64px;
+}
+
+.cb-slideshow{ 
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 0; 
+}
+
+.cb-slideshow li span{ 
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    color: transparent;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: none;
+    opacity: 0;
+    z-index: 10;
+    animation: imageAnimation 36s linear infinite 0s; 
+}
+.cb-slideshow li:nth-child(1) span { 
+    background-image: url(../images/background-img1.jpg) 
+}
+.cb-slideshow li:nth-child(2) span { 
+    background-image: url(../images/background-img2.jpg);
+    animation-delay: 6s; 
+}
+.cb-slideshow li:nth-child(3) span { 
+    background-image: url(../images/background-img3.jpg);
+    animation-delay: 12s; 
+}
+.cb-slideshow li:nth-child(4) span { 
+    background-image: url(../images/background-img4.jpg);
+    animation-delay: 18s; 
+}
+.cb-slideshow li:nth-child(5) span { 
+    background-image: url(../images/background-img5.jpg);
+    animation-delay: 24s; 
+}
+.cb-slideshow li:nth-child(6) span { 
+    background-image: url(../images/background-img6.jpg);
+    animation-delay: 30s; 
+}
+
+@keyframes imageAnimation { 
+    0% { opacity: 0; animation-timing-function: ease-in; }
+    8% { opacity: 1; animation-timing-function: ease-out; }
+    17% { opacity: 1 }
+    25% { opacity: 0 }
+    100% { opacity: 0 }
+}

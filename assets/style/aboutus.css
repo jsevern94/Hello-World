@@ -1,0 +1,39 @@
+body { 
+    background-image: url("../images/background-img.webp");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: 'Vollkorn', serif;
+}
+
+.nav-wrapper{
+    background-color: #01579b !important;
+   }
+
+
+button { 
+    margin-top: 100px;
+    background-color: #01579b !important;
+    font-family: 'Vollkorn', serif !important;
+}
+
+.main {
+    margin-top: 60px;
+}
+
+h1 { 
+    margin-bottom: 100px;
+    font-size: 100px;
+    z-index: 1;
+    position: relative;
+}
+
+#logo-image {
+    height: 64px;
+}
+
+.btn {
+    margin: 0 auto;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
