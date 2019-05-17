@@ -28,9 +28,17 @@ var countryLowerCase;
 var countryURL
 var countrySelected;
 
+var cityFood;
+var cityNightlife;
+var cityCulture;
+var cityNature;
+var cityAttractions
+
+
 //everything loads on doc ready
 $(document).ready(function () {
     createCards();
+    getInitialData();
     createLargeMap();
     getData();
     getBlurb();
@@ -40,42 +48,65 @@ $(document).ready(function () {
 });
 
 function getInitialData(){
-    for(var i=0; i<searchTerms.length; i++){
-        var city = searchTerms[i];
-        database.ref("cities/" + city + "/food").once("value").then(function (snapshot) {
+        searchTerms.forEach(function (term, i) {
+        database.ref("cities/" + term + "/food").once("value").then(function (snapshot) {
             var sv = snapshot.val();
-            console.log(sv);
+            //this will be changed to sv.details
             //sv is going to be the details added later. 
             //this sv needs to go to the food section for the specific card
+            cityFood = sv;
+            console.log(cityFood);
+            console.log(`#food${i}`);
+            $(`#food${i}`).append("<br> Bakery Rating: " + cityFood.bakery.rating);  
+            $(`#food${i}`).append("<br> Cafe Rating: " + cityFood.cafe.rating); 
+            $(`#food${i}`).append("<br> Restaurant Rating: " + cityFood.restaurant.rating);
         });
-        database.ref("cities/" + city + "/nightlife").once("value").then(function (snapshot) {
+    
+        
+        database.ref("cities/" + term + "/nightlife").once("value").then(function (snapshot) {
             var sv = snapshot.val();
-            console.log(sv);
             //sv is going to be the details added later. 
             //this sv needs to go to the food section for the specific card
+            cityNightlife = sv;
+            console.log(cityNightlife);
+            $(`#nightlife${i}`).append("<br> Bar Rating: " + cityNightlife.bar.rating); 
+            $(`#nightlife${i}`).append("<br> Night Club Rating: " + cityNightlife.night_club.rating);
         });
-        database.ref("cities/" + city + "/culture").once("value").then(function (snapshot) {
+
+
+        database.ref("cities/" + term + "/attractions").once("value").then(function (snapshot) {
             var sv = snapshot.val();
-            console.log(sv);
-            //sv is going to be the details added later. 
-            //this sv needs to go to the food section for the specific card
-        });
-        database.ref("cities/" + city + "/nature").once("value").then(function (snapshot) {
-            var sv = snapshot.val();
-            console.log(sv);
-            //sv is going to be the details added later. 
-            //this sv needs to go to the food section for the specific card
-        });
-        database.ref("cities/" + city + "/attractions").once("value").then(function (snapshot) {
-            var sv = snapshot.val();
-            console.log(sv);
             //sv is going to be the details added later. 
             //this sv needs to go to the food section for the specific card
             //will add in /details at the end of the datbase
+            cityAttractions = sv;
+            console.log(cityAttractions);
+            $(`#attractions${i}`).append("<br> Aquarium Rating: " + cityAttractions.aquarium.rating);
+            $(`#attractions${i}`).append("<br> Casino Rating: " + cityAttractions.casino.rating);
+            $(`#attractions${i}`).append("<br> Zoo Rating: " + cityAttractions.zoo.rating);
         });
-    };
+        database.ref("cities/" + term + "/nature").once("value").then(function (snapshot) {
+            var sv = snapshot.val();
+            //sv is going to be the details added later. 
+            //this sv needs to go to the food section for the specific card
+            cityNature = sv;
+            console.log(cityNature);
+            $(`#nature${i}`).append("<br> Park Rating: " + cityNature.park.rating);
+            $(`#nature${i}`).append("<br> Campground Rating: " + cityNature.campground.rating);
+        });
+        database.ref("cities/" + term + "/culture").once("value").then(function (snapshot) {
+            var sv = snapshot.val();
+            //sv is going to be the details added later. 
+            //this sv needs to go to the food section for the specific card
+            cityCulture = sv;
+            console.log(cityCulture);
+            console.log(`#culture${i}`);
+            $(`#culture${i}`).append("<br> Museum Rating: " + cityCulture.museum.rating);
+        });
+
+})
 }
-getInitialData();
+
 
 
 //gets data from database
@@ -201,20 +232,20 @@ function createCards() {
                                 <div class="row">
                                     <div class="col s12">
                                         <ul class="tabs">
-                                            <li class="tab col s2"><a class="active" href="#test1${i}"><i class="material-icons">local_dining</i></a></li>
-                                            <li class="tab col s2"><a href="#test2${i}"><i class="material-icons">local_bar</i></a></li>
-                                            <li class="tab col s2"><a href="#test3${i}"><i class="material-icons">local_activity</i></a></li>
-                                            <li class="tab col s2"><a href="#test4${i}"><i class="material-icons">local_florist</i></a></li>
-                                            <li class="tab col s2"><a  href="#test5${i}"><i class="material-icons">palette</i></a></li>
-                                            <li class="tab col s2"><a  href="#test6${i}"><i class="material-icons">cloud</i></a></li>
+                                            <li class="tab col s2"><a class="active" href="#food${i}"><i class="material-icons">local_dining</i></a></li>
+                                            <li class="tab col s2"><a href="#nightlife${i}"><i class="material-icons">local_bar</i></a></li>
+                                            <li class="tab col s2"><a href="#attractions${i}"><i class="material-icons">local_activity</i></a></li>
+                                            <li class="tab col s2"><a href="#nature${i}"><i class="material-icons">local_florist</i></a></li>
+                                            <li class="tab col s2"><a  href="#culture${i}"><i class="material-icons">palette</i></a></li>
+                                            <li class="tab col s2"><a  href="#graph${i}"><i class="material-icons">cloud</i></a></li>
                                         </ul>
                                     </div>
-                                        <div id="test1${i}" class="col s12">Food</div>
-                                        <div id="test2${i}" class="col s12">Night Life</div>
-                                        <div id="test3${i}" class="col s12">Attractions</div>
-                                        <div id="test4${i}" class="col s12">Nature</div>
-                                        <div id="test5${i}" class="col s12">Culture</div>
-                                        <div id="test6${i}" class="col s12"></div>
+                                        <div id="food${i}" class="col s12"></div>
+                                        <div id="nightlife${i}" class="col s12"></div>
+                                        <div id="attractions${i}" class="col s12"></div>
+                                        <div id="nature${i}" class="col s12"></div>
+                                        <div id="culture${i}" class="col s12"></div>
+                                        <div id="graph${i}" class="col s12">graph</div>
                                 </div>  
                             </div>
                         </div>
