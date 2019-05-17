@@ -846,9 +846,9 @@ $(document).ready(function () {
         for (var i = 0; i < citiesCopy.length; i++) {
             var city = citiesCopy[i].city;
             var country = citiesCopy[i].country;
-
+            // var key = ""
             $.ajax({
-                url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + city + country + "&key=AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4"
+                url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + city + country + "&key=" + key;
             }).then(function mySuccess(response) {
                 var city = response.results[0].name;
                 var lat = response.results[0].geometry.location.lat;
@@ -904,7 +904,7 @@ $(document).ready(function () {
             url: queryURL,
         }).then(function mySuccess(response) {
             var total = 0;
-
+            
             for (var i = 0; i < response.results.length; i++) {
                 ratings.push(response.results[i].rating);
                 reviews.push(response.results[i].user_ratings_total);
@@ -941,6 +941,38 @@ $(document).ready(function () {
             // });
         });
     };
+
+
+    $("#calc").on("click", function(){
+        detailGenerator("Paris", "food", "restaurant")
+    });
+
+    var detailGenerator = function (city, category, type) {
+        var lat = 0;
+        var lng = 0;
+        var location;
+
+        database.ref("cities/" + city).once("value").then(function (snapshot) {
+            lat = snapshot.val().lat;
+            lng = snapshot.val().lng;
+            location = lat + "," + lng;
+
+        var queryURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + type + "&location=" + location + "&radius=8000&key=" + key + "&inputType=textquery";
+
+
+         $.ajax({
+            url: queryURL,
+        }).then(function mySuccess(response) {
+
+            console.log(response.results.val);
+            console.log(city, category, type);
+
+            // database.ref("cities/" + city + "/" + category + "/" + type).update({
+            //     "rating": average,
+            // });   
+           });  
+        });
+    }; 
 
     /*********  THIS IS THE FUNCTION TO WRITE THE LOCAL DATA TO FIREBASE*********************** */
     var dbGenerator = function () {
@@ -1018,7 +1050,8 @@ $(document).ready(function () {
         // calcsComplete = true;
     };
 
-    var key = "AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4";
+    /******GOOGLE PLACES API KEY*************************************** */
+    var key = "";
 
     var userCategory;
     var userTemp = "70";
@@ -1070,8 +1103,6 @@ $(document).ready(function () {
         listenUserCategories($("#userNature"), "nature");
         listenUserCategories($("#userAttractions"), "attractions");
 
-        console.log(userCategory);
-
         //activates the MONTH submit button
         $(".month").removeClass("disabled");
         $("#monthText").addClass("red-text")
@@ -1111,10 +1142,8 @@ $(document).ready(function () {
         callFinalRatings();
     });
 
-
     var topCities = [];
     var topRatings = [];
-
 
     var getFinalRatings = false;
     /*********ON CLICK EVENT FOR THE MONTH BUTTONS****************************/
@@ -1122,7 +1151,9 @@ $(document).ready(function () {
 
         //Disables the VACATION TYPE submit button so the user can't press it again
         $(this).addClass("disabled");
+
         getTopFiveRatings();
+        
         // myForm.submit();
 
         console.log(topCities, topRatings);
@@ -1167,19 +1198,20 @@ $(document).ready(function () {
         arr[maxIndex] = 0;
     }
 
-    var callFinalRatings = function () {
+    var callFinalRatings = function (callback) {
         
         for (var i = 0; i < userCities.length; i++) {
             var city = userCities[i];
             database.ref("cities/" + city + "/finalRatings/" + userCategory).once("value").then(function (snapshot) {
                 var sv = snapshot.val();
-            ratingsArray.push(sv);
+                ratingsArray.push(sv);
             });
         };
         getFinalRatings = true;
+        callback;
     }
 
-    var maxRating;
+    // var maxRating;
     var getTopFiveRatings = function (callback) {
         if (getFinalRatings === true) {
                 for (var j = 0; j < userCities.length; j++) {
@@ -1188,35 +1220,41 @@ $(document).ready(function () {
             };
             maxRating = topRatings[0];
 
-            for (var k = 0; k < userCities.length; k++) {
+            database.ref("userCities").set({
+                "cities": topCities,
+                "ratings": topRatings,
+                "month": userMonth,
+                "category": userCategory,
+            }),
 
+            database.ref("userCities/cities/0").once("value").then(function (snapshot) {
+                var sv = snapshot.val();
+                console.log(sv);
+            });
+
+/*             for (var k = 0; k < topCities.length; k++) {
+                database.ref("").push({
+                    "city": topCities[k],
+                    "rating": topRatings[k],
+
+                });
             }
-
+ */
             callback;
-
         };
+        // ratingGenerator(location, "restaurant", "food", city);
 
-
-    var standardize = function(arr, max) {
-        if (arr.length > 0) {
-            for (var i = 0; i < arr.length; i++) {
-                arr[i].rating = (arr[i].rating / max);
-            };
-        }
-    }; 
-    
-
-    $("#calc").on("click", function(){
-
-        standardize(topFood, foodMax);
-        standardize(topNightlife, nightlifeMax);
-        standardize(topCulture, cultureMax);
-        standardize(topNature, natureMax);
-        standardize(topAttractions, attractionsMax);
-
-        console.log(topFood, topNightlife, topCulture, topNature, topAttractions);
-
-    });
+            
+ 
+        //if we want to divide by highest rating
+        /*     var standardize = function(arr, max) {
+                if (arr.length > 0) {
+                    for (var i = 0; i < arr.length; i++) {
+                        arr[i].rating = (arr[i].rating / max);
+                    };
+                }
+            }; 
+         */    
     /*********************UNCOMMENT THESE AND REFRESH PAGE TO RELOAD DATA FROM GOOGLE AND INTO FIREBASE********************************** */
     // findLatLng();
     // dbGenerator();
