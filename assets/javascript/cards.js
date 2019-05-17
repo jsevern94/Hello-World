@@ -13,13 +13,10 @@ var database = firebase.database();
 
 
 
-
-//testing
-
-
-
+//these need to be changed out with the values I get from the quiz
 var searchTerms = ["London", "Paris", "Barcelona", "Antananarivo", "Amsterdam", "Tokyo", "Berlin"];
 
+//other vaiables
 var cityLat;
 var cityLng;
 var latSelected;
@@ -29,6 +26,7 @@ var countryLowerCase;
 var countryURL
 var countrySelected;
 
+//everything loads on doc ready
 $(document).ready(function () {
     createCards();
     createLargeMap();
@@ -38,12 +36,16 @@ $(document).ready(function () {
 
 });
 
+
+//gets data from database
 function getData() {
+    //used fo map
     searchTerms.forEach(function (term, i) {
         database.ref("cities/" + term).once("value").then(function (snapshot) {
             var sv = snapshot.val();
             cityLat = sv.lat;
             latSelected = true;
+            //triggers map
             if (latSelected && lngSelected) {
                 initialize(term, i);
                 initializeLarge(term, i);
@@ -51,11 +53,13 @@ function getData() {
                 lngSelected = false;
             }
         });
-
+        
+        //used for map
         database.ref("cities/" + term).once("value").then(function (snapshot) {
             var sv = snapshot.val();
             cityLng = sv.lng;
             lngSelected = true;
+            //triggers map
             if (latSelected && lngSelected) {
                 initialize(term, i);
                 initializeLarge(term, i);
@@ -64,12 +68,14 @@ function getData() {
             }
         });
 
+        //used for images if country is needed.
         database.ref("cities/" + term).once("value").then(function (snapshot) {
             var sv = snapshot.val();
             country = sv.country;
             countryLowerCase = country.toLowerCase();
             countryURL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(countryLowerCase) + "&safesearch=true";
             countrySelected = true;
+           //triggers pictues
             if (countrySelected) {
                 getPhotos(term, i, countryURL);
                 countrySelected = false;
@@ -84,6 +90,7 @@ function createCards() {
     var insert = "";
     searchTerms.forEach(function (term, i) {
 
+        
         // var display;
         // if (i <= 0) {
         //     display = `<div class="col s12 m12 activeCard" id="card${i}" card="${i}">`
@@ -92,27 +99,28 @@ function createCards() {
         //     display = ``
         // }
 
-    
+    // this created rows for every 2 card
         //create rows on odd cards
-        var createRow;
-        if (i%2 !== 0){
-        createRow = "<div class='row'>"
-        }
-        else{
-            createRow = "";
-        }
+        // var createRow;
+        // if (i%2 !== 0){
+        // createRow = "<div class='row'>"
+        // }
+        // else{
+        //     createRow = "";
+        // }
 
-        //close rows on even cards
-        var closeRow;
-        if (i%2 == 0 ){
-            closeRow = "</div>"
-            }
-        else{
-            closeRow = "";
-        }
+        // //close rows on even cards
+        // var closeRow;
+        // if (i%2 == 0){
+        //     closeRow = "</div>"
+        //     }
+        // else{
+        //     closeRow = "";
+        // }
 
+        //this is where everything is inseted into
         insert +=
-            `${createRow}
+            `
             <div class="resultsCards col s12 m6 nonactiveCard" id="card${i}" cardNum="${i}">
                     <div class="card hoverable">
                         
@@ -153,19 +161,11 @@ function createCards() {
                             </div>
                         </div>
                 </div>
-          ${closeRow}`
+          `
 
     })
 
-    // if (i <= 0) {
-    //     console.log(i);
-    //     $("#displayCard").append(insert);
-    //     //$("#multipleCards").append(insert);
-    //     $(`#card${i}`).removeClass("m6");
-    //     $(`#card${i}`).addClass("m12 activeCard");
-
-    // }
-
+    //puts the card where they should go. 
     $("#multipleCards").append(insert);
     
 
@@ -197,33 +197,33 @@ function getPhotos(term, i, countryURL) {
         method: "GET"
     })
         .then(function (data) {
-            //console.log(data)
+            
             if (parseInt(data.totalHits) > 0) {
-                //console.log(data.totalHits);
                 var cityImageResults;
                 cityImageResults = data.totalHits;
-                //console.log(cityImageResults);
+                
+                //if there are less than 4 images to another ajax call to get more images under th larger term of counties
                 if (cityImageResults < 4) {
 
                     for (var j = 0; j < data.totalHits; j++) {
                         $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m6 image" + i + "' src='" + data.hits[j].imageURL + "'>");
-                        //assignInitialDisplayCard(i);
-                        //console.log(cityImageResults + " " + i);
+                        
                     };
-                    //put loop to go through country photos here
-                    //console.log(cityImageResults + " " + i);
+                    
+                    
                     $.ajax({
                         url: countryURL,
                         method: "GET"
                     })
                         .then(function (data) {
-                            //console.log(countryURL + " " + i);
+                            //start adding country images after last city image
                             for (var j = cityImageResults; j < 4; j++) {
                                 $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m6 image" + i + "'  src='" + data.hits[j].imageURL + "'>");
-                                //assignInitialDisplayCard(i);
+                                
                             };
                         })
                 }
+                //if there are enough city images display the 1st 4
                 else {
                     for (var j = 0; j < 4; j++) {
                         $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m6 image" + i + "'  src='" + data.hits[j].imageURL + "'>");
@@ -231,6 +231,8 @@ function getPhotos(term, i, countryURL) {
                     };
                 }
             }
+
+            //if there are not hits display country imags for all 4
             else {
                 console.log('No hits');
                 //put loop to go through country photos here
@@ -241,7 +243,7 @@ function getPhotos(term, i, countryURL) {
                     .then(function (data) {
                         for (var j = 0; j < 4; j++) {
                             $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m6 image" + i + "' src='" + data.hits[j].imageURL + "'>");
-                            //assignInitialDisplayCard(i);
+    
                         };
                     })
             }
@@ -264,6 +266,8 @@ function getBlurb() {
 
         //gets blurb off of page
         var blurbUrl = "https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&exsentences=6&redirects=1&titles=" + term;
+        
+        //gets unique page id
         $.ajax({
             url: url,
             method: "GET"
@@ -271,6 +275,7 @@ function getBlurb() {
             .then(function (response) {
                 var pageID = response.query.search[0].pageid;
 
+                //uses unique page id to get blub
                 $.ajax({
                     url: blurbUrl,
                     method: "GET"
@@ -294,26 +299,19 @@ function getBlurb() {
 }
 
 //google maps here!!!
-//helpful links
-//https://developers.google.com/maps/documentation/javascript/examples/marker-labels
-//https://developers.google.com/maps/documentation/javascript/examples/marker-animations
 
-
-
+//maps variables
 var mapLarge;
-//var markerLarge;
 var marker;
 var positionLocation;
-var labels = '12345';
+var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 var labelIndex = 0;
 
+//small individual map
 function initialize(i, term) {
     var map = "map-" + term;
     var marker = "marker-" + term;
-
-    //console.log(map + " " + term)
-    //console.log(cityLat+ " " + cityLat)
-    //small individual map
+    
     positionLocation = new google.maps.LatLng(cityLat, cityLng);
 
     var mapOptions = {
@@ -352,9 +350,10 @@ function initializeLarge(i, term) {
     markerLarge = new google.maps.Marker({
         position: positionLocation,
         map: mapLarge,
-        //this can be used when there are multiple locations to number them
+        //adds diffrent labels to each marker
         label: labels[labelIndex++ % labels.length],
         title: i,
+        value: term
 
     });
     console.log(markerLarge);
@@ -367,6 +366,19 @@ function initializeLarge(i, term) {
 
     markerLarge.addListener('click', function () {
         largeInfoWindow.open(mapLarge, markerLarge);
+
+        $(".activeCard").removeClass("m12");
+        $(".activeCard").addClass("m6");
+        $(".image" + $(".activeCard").attr("cardNum")).addClass("m6");
+        $(".image" + $(".activeCard").attr("cardNum")).removeClass("m3");
+        $(".activeCard").removeClass("activeCard");
+        
+    
+        $("#card"+this.value).addClass("activeCard");
+        $("#card"+this.value).removeClass("m6");
+        $("#card"+this.value).addClass("m12");
+        $(".image" + $("#card"+this.value).attr("cardNum")).removeClass("m6");
+        $(".image" + $("#card"+this.value).attr("cardNum")).addClass("m3");
     });
 
 }
@@ -406,6 +418,9 @@ $("#multipleCards").on("click", ".nonactiveCard", function () {
     
 
 })
+
+
+
 
 // function assignInitialDisplayCard(i) {
 //     if (i <= 0) {
