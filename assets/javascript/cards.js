@@ -121,7 +121,7 @@ function createCards() {
         //this is where everything is inseted into
         insert +=
             `
-            <div class="resultsCards col s12 m6 nonactiveCard" id="card${i}" cardNum="${i}">
+            <div class="resultsCards col s12 m6 nonactiveCard" id="card${i}" cardNum="${i}" class="section scrollspy">
                     <div class="card hoverable">
                         
                             <div class="card-content">
@@ -353,13 +353,16 @@ function initializeLarge(i, term) {
         //adds diffrent labels to each marker
         label: labels[labelIndex++ % labels.length],
         title: i,
-        value: term
+        value: term,
+
 
     });
     console.log(markerLarge);
+var content= `<a href="#card${term}">${i}</a>`;
+
 
     var largeInfoWindow = new google.maps.InfoWindow({
-        content: i
+        content: content,
     });
 
 
@@ -367,6 +370,7 @@ function initializeLarge(i, term) {
     markerLarge.addListener('click', function () {
         largeInfoWindow.open(mapLarge, markerLarge);
 
+        //when clicking on marker it expands the text below
         $(".activeCard").removeClass("m12");
         $(".activeCard").addClass("m6");
         $(".image" + $(".activeCard").attr("cardNum")).addClass("m6");
@@ -393,6 +397,8 @@ function createLargeMap() {
         disableDefaultUI: true,
         mapTypeId: 'terrain'
     };
+
+    $('.scrollspy').scrollSpy();
 
     mapLarge = new google.maps.Map(document.getElementById('mapLarge'),
         mapOptionsLarge);
