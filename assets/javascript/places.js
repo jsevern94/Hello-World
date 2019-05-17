@@ -852,7 +852,7 @@ $(document).ready(function () {
             var country = citiesCopy[i].country;
             // var key = ""
             $.ajax({
-                url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + city + country + "&key=" + key;
+                url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + city + country + "&key=" + key,
             }).then(function mySuccess(response) {
                 var city = response.results[0].name;
                 var lat = response.results[0].geometry.location.lat;
@@ -947,12 +947,14 @@ $(document).ready(function () {
     };
 
 
-    $("#calc").on("click", function(){
+/*     $("#calc").on("click", function(){
         detailGenerator("Paris", "food", "restaurant")
         //ADD LOOP TO GO THROUGH CITIESS LIST AND CALL FOR EACH CATEGORY
     });
 
     var detailGenerator = function (city, category, type) {
+        var key = "";
+
         var lat = 0;
         var lng = 0;
         var location;
@@ -971,8 +973,8 @@ $(document).ready(function () {
             var nameArray = [];
             var addressArray = [];
             var ratingsArray = [];
-        // for (var i = 0; i < response.results.length; i++) {
-
+        
+            // for (var i = 0; i < response.results.length; i++) { --> CHANGE LOOP WHEN READY TO ACTUALLY PULL ALL RESULTS
         for (var i = 0; i < 2; i++) {
                 nameArray.push(response.results[i].name);
                 addressArray.push(response.results[i].formatted_address);
@@ -982,14 +984,20 @@ $(document).ready(function () {
             console.log(response.results.val);
             console.log(city, category, type);
 
-            //STILL NEED TO APPEND TO FIREBASE
-            // database.ref("cities/" + city + "/" + category + "/" + type).update({
-            //     "rating": average,
-            // });   
+            // STILL NEED TO APPEND TO FIREBASE
+            database.ref("cities/" + city + "/details/" + category + "/" + type).update({
+                "name": nameArray,
+                "address": addressArray,
+                "ratings": ratingsArray,
+            });
+            
+            //SO......
+            // database.ref("cities/" + city + /details).once("value").then(function(snapshot) {var sv = snapshot.value})
+            //SHOULD GIVE YOU ALL THE DETAILS FOR THAT CITY
            });  
         });
     }; 
-
+ */
     /*********  THIS IS THE FUNCTION TO WRITE THE LOCAL DATA TO FIREBASE*********************** */
     var dbGenerator = function () {
         for (var j = 0; j < cities.length; j++) {
@@ -1158,6 +1166,7 @@ $(document).ready(function () {
 
     var topCities = [];
     var topRatings = [];
+    var topTemps = [];
 
     var getFinalRatings = false;
     /*********ON CLICK EVENT FOR THE MONTH BUTTONS****************************/
@@ -1181,17 +1190,19 @@ $(document).ready(function () {
         for (var k = 0; k < splitCities.length; k++) {
             var city = splitCities[k];
             if (splitTemps[k] >= userLowTemp && splitTemps[k] <= userHighTemp) {
-                userTemps.push(userTemps[k]);
+                userTemps.push(splitTemps[k]);
                 userIndex.push(k);
                 userCities.push(city);
             };
         };
-
         callback;
+        console.log(userCities);
+        console.log(userTemps);
+
     };
 
     //**********IN THIS FUNCTION IS WHERE WE CALL THE FUNCTION THAT APPENDS THE CARDS*********************
-    function indexOfMax(arr, cities) {
+    function indexOfMax(arr, cities, temps) {
         if (arr.length === 0) {
             return -1;
         }
@@ -1208,6 +1219,7 @@ $(document).ready(function () {
         topCities.push(cities[maxIndex]);
         var top = arr[maxIndex]
         topRatings.push(top);
+        topTemps.push(temps[maxIndex]);
 
         arr[maxIndex] = 0;
     }
@@ -1227,18 +1239,20 @@ $(document).ready(function () {
 
     // var maxRating;
     var getTopFiveRatings = function (callback) {
+        console.log(userTemps);
         if (getFinalRatings === true) {
                 for (var j = 0; j < userCities.length; j++) {
-                    indexOfMax(ratingsArray, userCities);
+                    indexOfMax(ratingsArray, userCities, userTemps);
                  }; 
             };
             maxRating = topRatings[0];
 
-            database.ref("userCities").set({
+            database.ref("userCities").update({
                 "cities": topCities,
                 "ratings": topRatings,
                 "month": userMonth,
                 "category": userCategory,
+                "temps": topTemps,
             }),
 
             database.ref("userCities/cities/0").once("value").then(function (snapshot) {
