@@ -14,7 +14,9 @@ var database = firebase.database();
 
 
 //these need to be changed out with the values I get from the quiz
+// there will need to be a firebasee call to get this array 
 var searchTerms = ["London", "Paris", "Barcelona", "Antananarivo", "Tokyo"];
+//referance array of objects based on user choices and index through the firebase object ex top food
 
 //other vaiables
 var cityLat;
@@ -36,6 +38,44 @@ $(document).ready(function () {
 
 
 });
+
+function getInitialData(){
+    for(var i=0; i<searchTerms.length; i++){
+        var city = searchTerms[i];
+        database.ref("cities/" + city + "/food").once("value").then(function (snapshot) {
+            var sv = snapshot.val();
+            console.log(sv);
+            //sv is going to be the details added later. 
+            //this sv needs to go to the food section for the specific card
+        });
+        database.ref("cities/" + city + "/nightlife").once("value").then(function (snapshot) {
+            var sv = snapshot.val();
+            console.log(sv);
+            //sv is going to be the details added later. 
+            //this sv needs to go to the food section for the specific card
+        });
+        database.ref("cities/" + city + "/culture").once("value").then(function (snapshot) {
+            var sv = snapshot.val();
+            console.log(sv);
+            //sv is going to be the details added later. 
+            //this sv needs to go to the food section for the specific card
+        });
+        database.ref("cities/" + city + "/nature").once("value").then(function (snapshot) {
+            var sv = snapshot.val();
+            console.log(sv);
+            //sv is going to be the details added later. 
+            //this sv needs to go to the food section for the specific card
+        });
+        database.ref("cities/" + city + "/attractions").once("value").then(function (snapshot) {
+            var sv = snapshot.val();
+            console.log(sv);
+            //sv is going to be the details added later. 
+            //this sv needs to go to the food section for the specific card
+            //will add in /details at the end of the datbase
+        });
+    };
+}
+getInitialData();
 
 
 //gets data from database
@@ -85,6 +125,19 @@ function getData() {
 
     })
 }
+
+
+
+	 
+	 //Call with ratingGenerator(location, "restaurant", "food", city);
+	 
+// 	 var location = lat + "," + lng;
+// 	//GET LAT AND LNG FROM FIREBASE
+             
+
+//       //food, nature, nightlife, culture, attractions
+//       ratingGenerator(location, "restaurant", "food", city);
+// }
 
 //function to make cards
 function createCards() {
@@ -153,6 +206,7 @@ function createCards() {
                                             <li class="tab col s2"><a href="#test3${i}"><i class="material-icons">local_activity</i></a></li>
                                             <li class="tab col s2"><a href="#test4${i}"><i class="material-icons">local_florist</i></a></li>
                                             <li class="tab col s2"><a  href="#test5${i}"><i class="material-icons">palette</i></a></li>
+                                            <li class="tab col s2"><a  href="#test6${i}"><i class="material-icons">cloud</i></a></li>
                                         </ul>
                                     </div>
                                         <div id="test1${i}" class="col s12">Food</div>
@@ -160,6 +214,7 @@ function createCards() {
                                         <div id="test3${i}" class="col s12">Attractions</div>
                                         <div id="test4${i}" class="col s12">Nature</div>
                                         <div id="test5${i}" class="col s12">Culture</div>
+                                        <div id="test6${i}" class="col s12"></div>
                                 </div>  
                             </div>
                         </div>
@@ -354,7 +409,7 @@ function initializeLarge(i, term) {
     markerLarge = new google.maps.Marker({
         position: positionLocation,
         map: mapLarge,
-        //adds diffrent labels to each marker
+        //adds different labels to each marker
         label: labels[labelIndex++ % labels.length],
         title: i,
         value: term,
@@ -362,7 +417,8 @@ function initializeLarge(i, term) {
 
     });
     console.log(markerLarge);
-var content= `<a href="#displayCard">${i}</a>`;
+    //change this to display card to then have it properly open up the display card. 
+var content= `<a href="#card${term}">${i}</a>`;
 
 
     var largeInfoWindow = new google.maps.InfoWindow({
@@ -375,21 +431,21 @@ var content= `<a href="#displayCard">${i}</a>`;
         largeInfoWindow.open(mapLarge, markerLarge);
 
         //when clicking on marker it expands the text below
-        $(".activeCard").removeClass("m12");
-    $(".activeCard").addClass("m6");
-    //console.log($(".activeCard").attr("cardNum"));
-    $(".image" + $(".activeCard").attr("cardNum")).addClass("m6");
-    $(".image" + $(".activeCard").attr("cardNum")).removeClass("m3");
-    $(".activeCard").removeClass("activeCard");
-    $("#displayCard").empty();
+    //     $(".activeCard").removeClass("m12");
+    // $(".activeCard").addClass("m6");
+    // //console.log($(".activeCard").attr("cardNum"));
+    // $(".image" + $(".activeCard").attr("cardNum")).addClass("m6");
+    // $(".image" + $(".activeCard").attr("cardNum")).removeClass("m3");
+    // $(".activeCard").removeClass("activeCard");
+    // $("#displayCard").empty();
     
-    $("#card"+this.value).clone().addClass("activeCard").removeClass("nonactiveCard").appendTo("#displayCard");
-    $(".activeCard").removeClass("m6");
-    $(".activeCard").addClass("m12");
-    //console.log($(".activeCard").attr("cardNum"));
-     $(".image" + $(".activeCard").attr("cardNum")).removeClass("m6");
-     $(".image" + $(".activeCard").attr("cardNum")).addClass("m3");
-    });
+    // $("#card"+this.value).clone().addClass("activeCard").removeClass("nonactiveCard").appendTo("#displayCard");
+    // $(".activeCard").removeClass("m6");
+    // $(".activeCard").addClass("m12");
+    // //console.log($(".activeCard").attr("cardNum"));
+    //  $(".image" + $(".activeCard").attr("cardNum")).removeClass("m6");
+    //  $(".image" + $(".activeCard").attr("cardNum")).addClass("m3");
+     });
 
 }
 
@@ -411,25 +467,25 @@ function createLargeMap() {
 }
 
 
-$("#multipleCards").on("click", ".nonactiveCard", function () {
+// $("#multipleCards").on("click", ".nonactiveCard", function () {
     
-    $(".activeCard").removeClass("m12");
-    $(".activeCard").addClass("m6");
-    //console.log($(".activeCard").attr("cardNum"));
-    $(".image" + $(".activeCard").attr("cardNum")).addClass("m6");
-    $(".image" + $(".activeCard").attr("cardNum")).removeClass("m3");
-    $(".activeCard").removeClass("activeCard");
-    $("#displayCard").empty();
+//     $(".activeCard").removeClass("m12");
+//     $(".activeCard").addClass("m6");
+//     //console.log($(".activeCard").attr("cardNum"));
+//     $(".image" + $(".activeCard").attr("cardNum")).addClass("m6");
+//     $(".image" + $(".activeCard").attr("cardNum")).removeClass("m3");
+//     $(".activeCard").removeClass("activeCard");
+//     $("#displayCard").empty();
     
-    $(this).clone().addClass("activeCard").removeClass("nonactiveCard").appendTo("#displayCard");
-    $(".activeCard").removeClass("m6");
-    $(".activeCard").addClass("m12");
-    //console.log($(".activeCard").attr("cardNum"));
-     $(".image" + $(".activeCard").attr("cardNum")).removeClass("m6");
-     $(".image" + $(".activeCard").attr("cardNum")).addClass("m3");
+//     $(this).clone().addClass("activeCard").removeClass("nonactiveCard").appendTo("#displayCard");
+//     $(".activeCard").removeClass("m6");
+//     $(".activeCard").addClass("m12");
+//     //console.log($(".activeCard").attr("cardNum"));
+//      $(".image" + $(".activeCard").attr("cardNum")).removeClass("m6");
+//      $(".image" + $(".activeCard").attr("cardNum")).addClass("m3");
     
 
-})
+// })
 
 
     
