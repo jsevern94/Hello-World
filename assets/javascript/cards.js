@@ -14,7 +14,7 @@ var database = firebase.database();
 
 
 //these need to be changed out with the values I get from the quiz
-var searchTerms = ["London", "Paris", "Barcelona", "Antananarivo", "Amsterdam", "Tokyo", "Berlin"];
+var searchTerms = ["London", "Paris", "Barcelona", "Antananarivo", "Tokyo"];
 
 //other vaiables
 var cityLat;
@@ -32,6 +32,7 @@ $(document).ready(function () {
     createLargeMap();
     getData();
     getBlurb();
+    $('.scrollspy').scrollSpy();
 
 
 });
@@ -100,28 +101,30 @@ function createCards() {
         // }
 
     // this created rows for every 2 card
-        //create rows on odd cards
-        // var createRow;
-        // if (i%2 !== 0){
-        // createRow = "<div class='row'>"
-        // }
-        // else{
-        //     createRow = "";
-        // }
+    //create rows on odd cards
+        var createRow;
+        if (i%2 == 0){
+        createRow = `<div class='row' id=row${i}>`
+        }
+        else{
+            createRow = "";
+        }
 
-        // //close rows on even cards
-        // var closeRow;
-        // if (i%2 == 0){
-        //     closeRow = "</div>"
-        //     }
-        // else{
-        //     closeRow = "";
-        // }
+        // // //close rows on even cards
+        var closeRow;
+        if (i%2 !== 0){
+            closeRow = "</div>"
+            }
+        else{
+            closeRow = "";
+        }
 
         //this is where everything is inseted into
         insert +=
-            `
-            <div class="resultsCards col s12 m6 nonactiveCard" id="card${i}" cardNum="${i}" class="section scrollspy">
+            `${createRow}
+            
+            <div class="resultsCards col s12 m6 nonactiveCard" id="card${i}" cardNum="${i}" class="section scrollspy"> 
+            
                     <div class="card hoverable">
                         
                             <div class="card-content">
@@ -160,8 +163,9 @@ function createCards() {
                                 </div>  
                             </div>
                         </div>
-                </div>
-          `
+                        </div>
+                
+            ${closeRow}`
 
     })
 
@@ -358,7 +362,7 @@ function initializeLarge(i, term) {
 
     });
     console.log(markerLarge);
-var content= `<a href="#card${term}">${i}</a>`;
+var content= `<a href="#displayCard">${i}</a>`;
 
 
     var largeInfoWindow = new google.maps.InfoWindow({
@@ -372,17 +376,19 @@ var content= `<a href="#card${term}">${i}</a>`;
 
         //when clicking on marker it expands the text below
         $(".activeCard").removeClass("m12");
-        $(".activeCard").addClass("m6");
-        $(".image" + $(".activeCard").attr("cardNum")).addClass("m6");
-        $(".image" + $(".activeCard").attr("cardNum")).removeClass("m3");
-        $(".activeCard").removeClass("activeCard");
-        
+    $(".activeCard").addClass("m6");
+    //console.log($(".activeCard").attr("cardNum"));
+    $(".image" + $(".activeCard").attr("cardNum")).addClass("m6");
+    $(".image" + $(".activeCard").attr("cardNum")).removeClass("m3");
+    $(".activeCard").removeClass("activeCard");
+    $("#displayCard").empty();
     
-        $("#card"+this.value).addClass("activeCard");
-        $("#card"+this.value).removeClass("m6");
-        $("#card"+this.value).addClass("m12");
-        $(".image" + $("#card"+this.value).attr("cardNum")).removeClass("m6");
-        $(".image" + $("#card"+this.value).attr("cardNum")).addClass("m3");
+    $("#card"+this.value).clone().addClass("activeCard").removeClass("nonactiveCard").appendTo("#displayCard");
+    $(".activeCard").removeClass("m6");
+    $(".activeCard").addClass("m12");
+    //console.log($(".activeCard").attr("cardNum"));
+     $(".image" + $(".activeCard").attr("cardNum")).removeClass("m6");
+     $(".image" + $(".activeCard").attr("cardNum")).addClass("m3");
     });
 
 }
@@ -398,7 +404,7 @@ function createLargeMap() {
         mapTypeId: 'terrain'
     };
 
-    $('.scrollspy').scrollSpy();
+    //$('.scrollspy').scrollSpy();
 
     mapLarge = new google.maps.Map(document.getElementById('mapLarge'),
         mapOptionsLarge);
@@ -409,21 +415,25 @@ $("#multipleCards").on("click", ".nonactiveCard", function () {
     
     $(".activeCard").removeClass("m12");
     $(".activeCard").addClass("m6");
-    console.log($(".activeCard").attr("cardNum"));
+    //console.log($(".activeCard").attr("cardNum"));
     $(".image" + $(".activeCard").attr("cardNum")).addClass("m6");
     $(".image" + $(".activeCard").attr("cardNum")).removeClass("m3");
     $(".activeCard").removeClass("activeCard");
+    $("#displayCard").empty();
     
-
-    $(this).addClass("activeCard");
-    $(this).removeClass("m6");
-    $(this).addClass("m12");
-    console.log($(this).attr("cardNum"));
-    $(".image" + $(this).attr("cardNum")).removeClass("m6");
-    $(".image" + $(this).attr("cardNum")).addClass("m3");
+    $(this).clone().addClass("activeCard").removeClass("nonactiveCard").appendTo("#displayCard");
+    $(".activeCard").removeClass("m6");
+    $(".activeCard").addClass("m12");
+    //console.log($(".activeCard").attr("cardNum"));
+     $(".image" + $(".activeCard").attr("cardNum")).removeClass("m6");
+     $(".image" + $(".activeCard").attr("cardNum")).addClass("m3");
     
 
 })
+
+
+    
+
 
 
 
