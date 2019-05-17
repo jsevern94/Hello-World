@@ -11,13 +11,6 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 
-
-
-//these need to be changed out with the values I get from the quiz
-// there will need to be a firebasee call to get this array 
-var searchTerms = ["London", "Paris", "Barcelona", "Antananarivo", "Tokyo"];
-//referance array of objects based on user choices and index through the firebase object ex top food
-
 //other vaiables
 var cityLat;
 var cityLng;
@@ -37,18 +30,49 @@ var cityAttractions
 
 //everything loads on doc ready
 $(document).ready(function () {
-    createCards();
-    getInitialData();
-    createLargeMap();
-    getData();
-    getBlurb();
-    $('.scrollspy').scrollSpy();
-
+    createSearchTerms();
 
 });
 
-function getInitialData(){
-        searchTerms.forEach(function (term, i) {
+//these need to be changed out with the values I get from the quiz
+// there will need to be a firebasee call to get this array 
+//referance array of objects based on user choices and index through the firebase object ex top food
+
+// var searchTerms = ["London", "Paris", "Barcelona", "Antananarivo", "Tokyo"];
+// console.log(searchTerms);
+
+var searchTerms = [];
+function createSearchTerms(){
+
+    database.ref("userCities/cities/").once("value").then(function (snapshot) {
+        
+            var sv = snapshot.val();
+            console.log(sv);
+            //searchTerms.push(sv);
+            
+            //console.log(searchTerms);
+        
+        for (var i = 0; i < 5; i++) { 
+        searchTerms.push(sv[i]);
+        };
+        console.log(searchTerms);
+        createCards(searchTerms);
+        getInitialData();
+        createLargeMap();
+        getData();
+        getBlurb();
+        $('.scrollspy').scrollSpy();
+
+    })
+    
+
+
+
+}
+
+
+function getInitialData() {
+    searchTerms.forEach(function (term, i) {
         database.ref("cities/" + term + "/food").once("value").then(function (snapshot) {
             var sv = snapshot.val();
             //this will be changed to sv.details
@@ -57,20 +81,20 @@ function getInitialData(){
             cityFood = sv;
             console.log(cityFood);
             console.log(`#food${i}`);
-            $(`#food${i}`).append("<br> Bakery Rating: " + cityFood.bakery.rating);  
-            $(`#food${i}`).append("<br> Cafe Rating: " + cityFood.cafe.rating); 
-            $(`#food${i}`).append("<br> Restaurant Rating: " + cityFood.restaurant.rating);
+            $(`#food${i}`).append("<br> Bakery Rating: " + cityFood.bakery.rating.toFixed(2));
+            $(`#food${i}`).append("<br> Cafe Rating: " + cityFood.cafe.rating.toFixed(2));
+            $(`#food${i}`).append("<br> Restaurant Rating: " + cityFood.restaurant.rating.toFixed(2));
         });
-    
-        
+
+
         database.ref("cities/" + term + "/nightlife").once("value").then(function (snapshot) {
             var sv = snapshot.val();
             //sv is going to be the details added later. 
             //this sv needs to go to the food section for the specific card
             cityNightlife = sv;
             console.log(cityNightlife);
-            $(`#nightlife${i}`).append("<br> Bar Rating: " + cityNightlife.bar.rating); 
-            $(`#nightlife${i}`).append("<br> Night Club Rating: " + cityNightlife.night_club.rating);
+            $(`#nightlife${i}`).append("<br> Bar Rating: " + cityNightlife.bar.rating.toFixed(2));
+            $(`#nightlife${i}`).append("<br> Night Club Rating: " + cityNightlife.night_club.rating.toFixed(2));
         });
 
 
@@ -81,9 +105,9 @@ function getInitialData(){
             //will add in /details at the end of the datbase
             cityAttractions = sv;
             console.log(cityAttractions);
-            $(`#attractions${i}`).append("<br> Aquarium Rating: " + cityAttractions.aquarium.rating);
-            $(`#attractions${i}`).append("<br> Casino Rating: " + cityAttractions.casino.rating);
-            $(`#attractions${i}`).append("<br> Zoo Rating: " + cityAttractions.zoo.rating);
+            $(`#attractions${i}`).append("<br> Aquarium Rating: " + cityAttractions.aquarium.rating.toFixed(2));
+            $(`#attractions${i}`).append("<br> Casino Rating: " + cityAttractions.casino.rating.toFixed(2));
+            $(`#attractions${i}`).append("<br> Zoo Rating: " + cityAttractions.zoo.rating.toFixed(2));
         });
         database.ref("cities/" + term + "/nature").once("value").then(function (snapshot) {
             var sv = snapshot.val();
@@ -91,8 +115,8 @@ function getInitialData(){
             //this sv needs to go to the food section for the specific card
             cityNature = sv;
             console.log(cityNature);
-            $(`#nature${i}`).append("<br> Park Rating: " + cityNature.park.rating);
-            $(`#nature${i}`).append("<br> Campground Rating: " + cityNature.campground.rating);
+            $(`#nature${i}`).append("<br> Park Rating: " + cityNature.park.rating.toFixed(2));
+            $(`#nature${i}`).append("<br> Campground Rating: " + cityNature.campground.rating.toFixed(2));
         });
         database.ref("cities/" + term + "/culture").once("value").then(function (snapshot) {
             var sv = snapshot.val();
@@ -101,10 +125,10 @@ function getInitialData(){
             cityCulture = sv;
             console.log(cityCulture);
             console.log(`#culture${i}`);
-            $(`#culture${i}`).append("<br> Museum Rating: " + cityCulture.museum.rating);
+            $(`#culture${i}`).append("<br> Museum Rating: " + cityCulture.museum.rating.toFixed(2));
         });
 
-})
+    })
 }
 
 
@@ -125,7 +149,7 @@ function getData() {
                 lngSelected = false;
             }
         });
-        
+
         //used for map
         database.ref("cities/" + term).once("value").then(function (snapshot) {
             var sv = snapshot.val();
@@ -147,7 +171,7 @@ function getData() {
             countryLowerCase = country.toLowerCase();
             countryURL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(countryLowerCase) + "&safesearch=true";
             countrySelected = true;
-           //triggers pictues
+            //triggers pictues
             if (countrySelected) {
                 getPhotos(term, i, countryURL);
                 countrySelected = false;
@@ -159,23 +183,23 @@ function getData() {
 
 
 
-	 
-	 //Call with ratingGenerator(location, "restaurant", "food", city);
-	 
+
+//Call with ratingGenerator(location, "restaurant", "food", city);
+
 // 	 var location = lat + "," + lng;
 // 	//GET LAT AND LNG FROM FIREBASE
-             
+
 
 //       //food, nature, nightlife, culture, attractions
 //       ratingGenerator(location, "restaurant", "food", city);
 // }
 
 //function to make cards
-function createCards() {
+function createCards(searchTerms) {
     var insert = "";
     searchTerms.forEach(function (term, i) {
 
-        
+
         // var display;
         // if (i <= 0) {
         //     display = `<div class="col s12 m12 activeCard" id="card${i}" card="${i}">`
@@ -184,22 +208,22 @@ function createCards() {
         //     display = ``
         // }
 
-    // this created rows for every 2 card
-    //create rows on odd cards
+        // this created rows for every 2 card
+        //create rows on odd cards
         var createRow;
-        if (i%2 == 0){
-        createRow = `<div class='row' id=row${i}>`
+        if (i % 2 == 0) {
+            createRow = `<div class='row' id=row${i}>`
         }
-        else{
+        else {
             createRow = "";
         }
 
         // // //close rows on even cards
         var closeRow;
-        if (i%2 !== 0){
+        if (i % 2 !== 0) {
             closeRow = "</div>"
-            }
-        else{
+        }
+        else {
             closeRow = "";
         }
 
@@ -257,7 +281,7 @@ function createCards() {
 
     //puts the card where they should go. 
     $("#multipleCards").append(insert);
-    
+
 
 
 
@@ -287,20 +311,20 @@ function getPhotos(term, i, countryURL) {
         method: "GET"
     })
         .then(function (data) {
-            
+
             if (parseInt(data.totalHits) > 0) {
                 var cityImageResults;
                 cityImageResults = data.totalHits;
-                
+
                 //if there are less than 4 images to another ajax call to get more images under th larger term of counties
                 if (cityImageResults < 4) {
 
                     for (var j = 0; j < data.totalHits; j++) {
                         $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m6 image" + i + "' src='" + data.hits[j].imageURL + "'>");
-                        
+
                     };
-                    
-                    
+
+
                     $.ajax({
                         url: countryURL,
                         method: "GET"
@@ -309,7 +333,7 @@ function getPhotos(term, i, countryURL) {
                             //start adding country images after last city image
                             for (var j = cityImageResults; j < 4; j++) {
                                 $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m6 image" + i + "'  src='" + data.hits[j].imageURL + "'>");
-                                
+
                             };
                         })
                 }
@@ -333,7 +357,7 @@ function getPhotos(term, i, countryURL) {
                     .then(function (data) {
                         for (var j = 0; j < 4; j++) {
                             $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m6 image" + i + "' src='" + data.hits[j].imageURL + "'>");
-    
+
                         };
                     })
             }
@@ -356,7 +380,7 @@ function getBlurb() {
 
         //gets blurb off of page
         var blurbUrl = "https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&exsentences=6&redirects=1&titles=" + term;
-        
+
         //gets unique page id
         $.ajax({
             url: url,
@@ -401,7 +425,7 @@ var labelIndex = 0;
 function initialize(i, term) {
     var map = "map-" + term;
     var marker = "marker-" + term;
-    
+
     positionLocation = new google.maps.LatLng(cityLat, cityLng);
 
     var mapOptions = {
@@ -449,7 +473,7 @@ function initializeLarge(i, term) {
     });
     console.log(markerLarge);
     //change this to display card to then have it properly open up the display card. 
-var content= `<a href="#card${term}">${i}</a>`;
+    var content = `<a href="#card${term}">${i}</a>`;
 
 
     var largeInfoWindow = new google.maps.InfoWindow({
@@ -462,27 +486,27 @@ var content= `<a href="#card${term}">${i}</a>`;
         largeInfoWindow.open(mapLarge, markerLarge);
 
         //when clicking on marker it expands the text below
-    //     $(".activeCard").removeClass("m12");
-    // $(".activeCard").addClass("m6");
-    // //console.log($(".activeCard").attr("cardNum"));
-    // $(".image" + $(".activeCard").attr("cardNum")).addClass("m6");
-    // $(".image" + $(".activeCard").attr("cardNum")).removeClass("m3");
-    // $(".activeCard").removeClass("activeCard");
-    // $("#displayCard").empty();
-    
-    // $("#card"+this.value).clone().addClass("activeCard").removeClass("nonactiveCard").appendTo("#displayCard");
-    // $(".activeCard").removeClass("m6");
-    // $(".activeCard").addClass("m12");
-    // //console.log($(".activeCard").attr("cardNum"));
-    //  $(".image" + $(".activeCard").attr("cardNum")).removeClass("m6");
-    //  $(".image" + $(".activeCard").attr("cardNum")).addClass("m3");
-     });
+        //     $(".activeCard").removeClass("m12");
+        // $(".activeCard").addClass("m6");
+        // //console.log($(".activeCard").attr("cardNum"));
+        // $(".image" + $(".activeCard").attr("cardNum")).addClass("m6");
+        // $(".image" + $(".activeCard").attr("cardNum")).removeClass("m3");
+        // $(".activeCard").removeClass("activeCard");
+        // $("#displayCard").empty();
+
+        // $("#card"+this.value).clone().addClass("activeCard").removeClass("nonactiveCard").appendTo("#displayCard");
+        // $(".activeCard").removeClass("m6");
+        // $(".activeCard").addClass("m12");
+        // //console.log($(".activeCard").attr("cardNum"));
+        //  $(".image" + $(".activeCard").attr("cardNum")).removeClass("m6");
+        //  $(".image" + $(".activeCard").attr("cardNum")).addClass("m3");
+    });
 
 }
 
 function createLargeMap() {
 
-    var center = new google.maps.LatLng(20, 0);
+    var center = new google.maps.LatLng(20, 10);
 
     var mapOptionsLarge = {
         center: center,
@@ -499,7 +523,7 @@ function createLargeMap() {
 
 
 // $("#multipleCards").on("click", ".nonactiveCard", function () {
-    
+
 //     $(".activeCard").removeClass("m12");
 //     $(".activeCard").addClass("m6");
 //     //console.log($(".activeCard").attr("cardNum"));
@@ -507,19 +531,19 @@ function createLargeMap() {
 //     $(".image" + $(".activeCard").attr("cardNum")).removeClass("m3");
 //     $(".activeCard").removeClass("activeCard");
 //     $("#displayCard").empty();
-    
+
 //     $(this).clone().addClass("activeCard").removeClass("nonactiveCard").appendTo("#displayCard");
 //     $(".activeCard").removeClass("m6");
 //     $(".activeCard").addClass("m12");
 //     //console.log($(".activeCard").attr("cardNum"));
 //      $(".image" + $(".activeCard").attr("cardNum")).removeClass("m6");
 //      $(".image" + $(".activeCard").attr("cardNum")).addClass("m3");
-    
+
 
 // })
 
 
-    
+
 
 
 
