@@ -75,7 +75,7 @@ var Categories = [
         name: "food",
         subCats: [
             {
-                display: "Bakery Rating:",
+                display: "Bakery Rating: ",
                 name: "bakery"
             },
             {
@@ -83,7 +83,7 @@ var Categories = [
                 name: "cafe"
             },
             {
-                display: "Restaurant Rating:",
+                display: "Restaurant Rating: ",
                 name: "restaurant"
             }
         ]
@@ -96,11 +96,51 @@ var Categories = [
                 name: "bar"
             },
             {
-                display: "Night Club Rating:",
+                display: "Night Club Rating: ",
                 name: "night_club"
             }
         ]
-    }
+    },
+    {
+        name: "attractions",
+        subCats: [
+            {
+                display: "Aquarium Rating: ",
+                name: "aquarium"
+            },
+            {
+                display: "Casino Rating: ",
+                name: "casino"
+            },
+            {
+                display: "Zoo Rating:",
+                name: "zoo"
+            }
+        ]
+    },
+    {
+        name: "nature",
+        subCats: [
+            {
+                display: "Park Rating: ",
+                name: "park"
+            },
+            {
+                display: "Campground Rating: ",
+                name: "campground"
+            }
+        ]
+    },
+    {
+        name: "culture",
+        subCats: [
+            {
+                display: "Museum Rating: ",
+                name: "museum"
+            },
+        ]
+    } 
+
 ]
 
 function getCardDetails(sv, cat, cardIndx) {
@@ -289,9 +329,7 @@ function createCards(searchTerms) {
                             <div class="card-content">
 
                                 
-                                    <span class="card-title activator grey-text text-darken-4" id="resultsCardTitle">${term} <i class="material-icons right">expand_more</i>
-                                    
-                                    </span>
+                                    <span class="card-title activator grey-text text-darken-4" id="resultsCardTitle">${term} <a class="btn-floating right grey lighten-2"><i class="material-icons">details</i></a></span>
                                 
                                 <div class="text row">
                                 <div class="map" id="map${i}" style="height: 200px; width: 200px; margin: .5rem;"></div>
@@ -303,7 +341,7 @@ function createCards(searchTerms) {
                                 </div>
                             </div>
                             <div class="card-reveal">
-                                <span class="card-title grey-text text-darken-4">${term}<i class="material-icons right">expand_less</i></span>
+                                <span class="card-title grey-text text-darken-4">${term}<a class="btn-floating right grey lighten-2"><i class="material-icons">change_history</i></a></span>
                                 <div class="row">
                                     <div class="col s12">
                                         <ul class="tabs">
