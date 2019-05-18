@@ -1,5 +1,5 @@
 body { 
-    background-image: url("../images/background-img.webp");
+    background-image: url("../images/background-img.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -36,4 +36,9 @@ h1 {
     margin: 0 auto;
     margin-left: 20px;
     margin-bottom: 10px;
+}
+
+a{
+    color: white;
+    text-decoration: none;
 }

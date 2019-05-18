@@ -857,6 +857,69 @@ for (var m = 0; m < novemberTemps.length; m++) {
 
 
 
+
+
+
+$("#calc").on("click", function(){
+
+    //ADD LOOP TO GO THROUGH CITIESS LIST AND CALL FOR EACH CATEGORY
+});
+
+var detailGenerator = function (city, category, type) {
+    var key = "AIzaSyAha_xNjRBSWl4K2J23sdr0lemDTPK2xQk";
+
+    var lat = 0;
+    var lng = 0;
+    var location;
+
+    database.ref("cities/" + city).once("value").then(function (snapshot) {
+        lat = snapshot.val().lat;
+        lng = snapshot.val().lng;
+        location = lat + "," + lng;
+
+    var queryURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + type + "&location=" + location + "&radius=8000&key=" + key + "&inputType=textquery";
+
+
+     $.ajax({
+        url: queryURL,
+    }).then(function mySuccess(response) {
+        var nameArray = [];
+        var addressArray = [];
+        var ratingsArray = [];
+
+    
+        // for (var i = 0; i < response.results.length; i++) { --> CHANGE LOOP WHEN READY TO ACTUALLY PULL ALL RESULTS
+    for (var i = 0; i < response.results.length; i++) {
+
+            nameArray.push(response.results[i].name);
+            addressArray.push(response.results[i].formatted_address);
+            ratingsArray.push(response.results[i].rating);
+
+    }
+        console.log(city, category, type);
+
+        // STILL NEED TO APPEND TO FIREBASE
+        database.ref("cities/" + city + "/details/" + category + "/" + type).update({
+            "name": nameArray,
+            "address": addressArray,
+            "ratings": ratingsArray,
+        });
+        
+        //SO......
+        // database.ref("cities/" + city + /details).once("value").then(function(snapshot) {var sv = snapshot.value})
+        //SHOULD GIVE YOU ALL THE DETAILS FOR THAT CITY
+       });  
+    });
+}; 
+
+for (var i = 0; i < cities.length; i++) {
+detailGenerator(cities[i].city, "food", "cafe")
+}
+
+
+
+
+
 function renderChart(cityIndex) {
 
     var chart = new CanvasJS.Chart("chartContainer", {
@@ -925,10 +988,7 @@ function renderChartC(cityIndex) {
 
 }
 
-// renderChart(154)
-
 renderChartC(17)
-
 
 function findFlights(place) {
     var city = place;

@@ -11,14 +11,12 @@
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-  
-
-
   <!-- Added a link to our external stylesheet-->
   <link rel="stylesheet" type="text/css" href="assets/style/style.css">
 
   <!--Added a link to jquery-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 
   <!--Added link to firebase-->
   <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
@@ -28,16 +26,31 @@
   <script type="text/javascript"
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAC5mZSEJTGf7dpJHY7HjFMau_rZLeXZvM"></script>
 
+</head>
+
+  <script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAC5mZSEJTGf7dpJHY7HjFMau_rZLeXZvM"></script>
+
+  <!--favicon-->
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
 
 </head>
 
 <body>
-
-  <nav>
-    <div class="nav-wrapper">
-      <a href="index.html" class="brand-logo center col s12">Hello World!</a>
-    </div>
-  </nav>
+  <div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#!" class="brand-logo"><i class="material-icons"></i><img id="logo-image"
+            src="assets/images/logo.png"></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="homepage.html">Home</a></li>
+          <li><a href="results.html">Your Results</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
 
   <div class="row">
   <div class="hide-on-small-only" id="mapLarge"> </div>
@@ -46,14 +59,13 @@
   <div id="displayCard" class="row"></div>
   <div id="multipleCards" class="row"></div>
 
+
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
   <!-- Added link to the jQuery Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-
-
 
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
