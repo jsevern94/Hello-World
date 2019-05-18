@@ -70,63 +70,114 @@ function createSearchTerms(){
 
 }
 
+var Categories = [
+    {
+        name: "food",
+        subCats: [
+            {
+                display: "Bakery Rating:",
+                name: "bakery"
+            },
+            {
+                display: "Cafe Rating:",
+                name: "cafe"
+            },
+            {
+                display: "Restaurant Rating:",
+                name: "restaurant"
+            }
+        ]
+    },
+    {
+        name: "nightlife",
+        subCats: [
+            {
+                display: "Bar Rating:",
+                name: "bar"
+            },
+            {
+                display: "Night Club Rating:",
+                name: "night_club"
+            }
+        ]
+    }
+]
+
+function getCardDetails(sv, cat, cardIndx) {
+    var data = sv[cat.name];
+    console.log(data);
+    //console.log(`#${cat.name}${i}`);
+    cat.subCats.forEach(function(sCat){
+        $(`#${cat.name}${cardIndx}`).append(`<br>${sCat.display} ${data[sCat.name].rating.toFixed(2)}`);
+
+        var details = sv.details[cat.name][sCat.name]
+        details.address.filter(function(val, i){return i < 5})
+            .forEach(function(val2, j){
+                $(`#${cat.name}${cardIndx}`).append(`<br> Name: ${details.name[j]}<br> Address: ${val2} <br> Rating: ${details.ratings[j]}`);
+
+                //var obj = {name: details.name[j], address: val2, rating: details.ratings[j]}
+            })
+
+            $(`#${cat.name}${cardIndx}`).append(`<br>~~~~~`)
+    })
+    
+            
+            
+
+}
 
 function getInitialData() {
     searchTerms.forEach(function (term, i) {
-        database.ref("cities/" + term + "/food").once("value").then(function (snapshot) {
+        database.ref("cities/" + term).once("value").then(function (snapshot) {
             var sv = snapshot.val();
-            //this will be changed to sv.details
-            //sv is going to be the details added later. 
-            //this sv needs to go to the food section for the specific card
-            cityFood = sv;
-            console.log(cityFood);
-            console.log(`#food${i}`);
-            $(`#food${i}`).append("<br> Bakery Rating: " + cityFood.bakery.rating.toFixed(2));
-            $(`#food${i}`).append("<br> Cafe Rating: " + cityFood.cafe.rating.toFixed(2));
-            $(`#food${i}`).append("<br> Restaurant Rating: " + cityFood.restaurant.rating.toFixed(2));
+
+            Categories.forEach(function(cat){
+                getCardDetails(sv, cat, i)
+            })
+
         });
 
 
-        database.ref("cities/" + term + "/nightlife").once("value").then(function (snapshot) {
-            var sv = snapshot.val();
-            //sv is going to be the details added later. 
-            //this sv needs to go to the food section for the specific card
-            cityNightlife = sv;
-            console.log(cityNightlife);
-            $(`#nightlife${i}`).append("<br> Bar Rating: " + cityNightlife.bar.rating.toFixed(2));
-            $(`#nightlife${i}`).append("<br> Night Club Rating: " + cityNightlife.night_club.rating.toFixed(2));
-        });
+        // database.ref("cities/" + term + "/nightlife").once("value").then(function (snapshot) {
+        //     var sv = snapshot.val();
+        //     //sv is going to be the details added later. 
+        //     //this sv needs to go to the food section for the specific card
+        //     cityNightlife = sv;
+        //     console.log(cityNightlife);
+        //     $(`#nightlife${i}`).append("<br> Bar Rating: " + cityNightlife.bar.rating.toFixed(2));
+        //     $(`#nightlife${i}`).append("<br> Night Club Rating: " + cityNightlife.night_club.rating.toFixed(2));
+        // });
 
 
-        database.ref("cities/" + term + "/attractions").once("value").then(function (snapshot) {
-            var sv = snapshot.val();
-            //sv is going to be the details added later. 
-            //this sv needs to go to the food section for the specific card
-            //will add in /details at the end of the datbase
-            cityAttractions = sv;
-            console.log(cityAttractions);
-            $(`#attractions${i}`).append("<br> Aquarium Rating: " + cityAttractions.aquarium.rating.toFixed(2));
-            $(`#attractions${i}`).append("<br> Casino Rating: " + cityAttractions.casino.rating.toFixed(2));
-            $(`#attractions${i}`).append("<br> Zoo Rating: " + cityAttractions.zoo.rating.toFixed(2));
-        });
-        database.ref("cities/" + term + "/nature").once("value").then(function (snapshot) {
-            var sv = snapshot.val();
-            //sv is going to be the details added later. 
-            //this sv needs to go to the food section for the specific card
-            cityNature = sv;
-            console.log(cityNature);
-            $(`#nature${i}`).append("<br> Park Rating: " + cityNature.park.rating.toFixed(2));
-            $(`#nature${i}`).append("<br> Campground Rating: " + cityNature.campground.rating.toFixed(2));
-        });
-        database.ref("cities/" + term + "/culture").once("value").then(function (snapshot) {
-            var sv = snapshot.val();
-            //sv is going to be the details added later. 
-            //this sv needs to go to the food section for the specific card
-            cityCulture = sv;
-            console.log(cityCulture);
-            console.log(`#culture${i}`);
-            $(`#culture${i}`).append("<br> Museum Rating: " + cityCulture.museum.rating.toFixed(2));
-        });
+        // database.ref("cities/" + term + "/attractions").once("value").then(function (snapshot) {
+        //     var sv = snapshot.val();
+        //     //sv is going to be the details added later. 
+        //     //this sv needs to go to the food section for the specific card
+        //     //will add in /details at the end of the datbase
+        //     cityAttractions = sv;
+        //     console.log(cityAttractions);
+        //     $(`#attractions${i}`).append("<br> Aquarium Rating: " + cityAttractions.aquarium.rating.toFixed(2));
+        //     $(`#attractions${i}`).append("<br> Casino Rating: " + cityAttractions.casino.rating.toFixed(2));
+        //     $(`#attractions${i}`).append("<br> Zoo Rating: " + cityAttractions.zoo.rating.toFixed(2));
+        // });
+        // database.ref("cities/" + term + "/nature").once("value").then(function (snapshot) {
+        //     var sv = snapshot.val();
+        //     //sv is going to be the details added later. 
+        //     //this sv needs to go to the food section for the specific card
+        //     cityNature = sv;
+        //     console.log(cityNature);
+        //     $(`#nature${i}`).append("<br> Park Rating: " + cityNature.park.rating.toFixed(2));
+        //     $(`#nature${i}`).append("<br> Campground Rating: " + cityNature.campground.rating.toFixed(2));
+        // });
+        // database.ref("cities/" + term + "/culture").once("value").then(function (snapshot) {
+        //     var sv = snapshot.val();
+        //     //sv is going to be the details added later. 
+        //     //this sv needs to go to the food section for the specific card
+        //     cityCulture = sv;
+        //     console.log(cityCulture);
+        //     console.log(`#culture${i}`);
+        //     $(`#culture${i}`).append("<br> Museum Rating: " + cityCulture.museum.rating.toFixed(2));
+        // });
 
     })
 }
