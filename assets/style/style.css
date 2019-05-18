@@ -98,3 +98,8 @@ body {
     }
 }
 
+.chart-container { 
+    margin-top: auto;
+    height: 400px;
+    width: 100%;"
+}
