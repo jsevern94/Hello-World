@@ -49,14 +49,17 @@
 
     <div class="container">
         <div class="row">
+            <div class="col s12">
 
-            <div class="col s12 m6">
                 <div class="card">
                     <div class="card-content">
                         <span class="card-title">Temperature</span>
+                        <div class="divider"></div><br>
                         <p>Use the slider to choose your ideal vacation Temperature.</p><br>
-                        <form id="tempslider" action="#">
-                            <p class="range-field">
+
+                        <form action="#">
+                            <p class="range-field" id="tempSlider">
+
                                 <input type="range" id="userTemp" min="30" max="100" />
                             </p>
                         </form>
@@ -68,123 +71,95 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col l6 s12 quizCard">
 
-            <div class="col s12 m6">
                 <div class="card">
-                    <div class="row">
-
-                        <div class="card-content col s12">
-                            <span class="card-title">Vacation Type</span>
-                            <p>Select which activities you're interested in:</p><br>
-                            <div class="switch row">
-                                <p class="col s6">Food & Restaurants</p>
-                                <label class="col s6">
-                                    No
-                                    <input type="checkbox" class="category" id="userFood">
-                                    <span class="lever"></span>
-                                    Yes
+                    <div class="card-content">
+                        <span class="card-title">Vacation Type</span>
+                        <div class="divider"></div><br>
+                        <p>Select which activities you're interested in:</p><br>
+                        <form action="#">
+                            <p>
+                                <label class="cat">
+                                    <input class="with-gap category" id="userFood" name="group1" type="radio"
+                                        disabled="disabled" />
+                                    <span>Food & Restaurants</span>
                                 </label>
-                            </div>
-                            <div class="switch row">
-                                <p class="col s6">Bars & Nightlife</p>
-
-                                <label class="col s6">
-                                    No
-                                    <input type="checkbox" class="category" id="userNightlife">
-                                    <span class="lever"></span>
-                                    Yes
+                            </p>
+                            <p>
+                                <label>
+                                    <input class="with-gap category" id="userNightlife" name="group1" type="radio"
+                                        disabled="disabled" />
+                                    <span>Bars & Nightlife</span>
                                 </label>
-                            </div>
-                            <div class="switch row">
-                                <p class="col s6">History & Culture</p>
-
-                                <label class="col s6">
-                                    No
-                                    <input type="checkbox" class="category" id="userCulture">
-                                    <span class="lever"></span>
-                                    Yes
+                            </p>
+                            <p>
+                                <label>
+                                    <input class="with-gap category" id="userCulture" name="group1" type="radio"
+                                        disabled="disabled" />
+                                    <span>History & Culture</span>
                                 </label>
-                            </div>
-                            <div class="switch row">
-                                <p class="col s6">Parks & Nature</p>
-
-                                <label class="col s6">
-                                    No
-                                    <input type="checkbox" class="category" id="userNature">
-                                    <span class="lever"></span>
-                                    Yes
+                            </p>
+                            <p>
+                                <label>
+                                    <input class="with-gap category" id="userNature" name="group1" type="radio"
+                                        disabled="disabled" />
+                                    <span>Parks & Nature</span>
                                 </label>
-                            </div>
-                            <div class="switch row">
-                                <p class="col s6">Tourist Attractions</p>
-
-                                <label class="col s6">
-                                    No
-                                    <input type="checkbox" class="category" id="userAttractions">
-                                    <span class="lever"></span>
-                                    Yes
+                            </p>
+                            <p>
+                                <label>
+                                    <input class="with-gap category" id="userAttractions" name="group1" type="radio"
+                                        disabled="disabled" />
+                                    <span>Tourist Attractions</span>
                                 </label>
-                            </div>
-                        </div>
-                        <a class="btn-floating halfway-fab waves-effect waves-light red disabled" id="submitCategory">
-                            <i class="material-icons">chevron_right</i></a>
+                            </p>
+                        </form>
 
                     </div>
+                    <a class="btn-floating halfway-fab waves-effect waves-light red disabled" id="submitCategory">
+                        <i class="material-icons">chevron_right</i></a>
                 </div>
             </div>
 
-            <div class="col s12 m6">
-                <div class="card" id="months">
+            <div class="col l6 s12 quizCard">
+                <div class="card">
 
                     <div class="card-content">
                         <span class="card-title">Month</span>
-                        <p>Click a month below to select which you'd like to travel during:</p>
-                        <div class="text-black">
-                            <div class="col s4">
-                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="0">JAN</a>
-                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="3">APR</a>
-                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="6">JUL</a>
-                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="9">OCT</a>
+                        <div class="divider"></div><br>
+                        <p id="monthText">Click a month below to select which you'd like to travel during:</p>
+                        <br><div class="text-black">
+                            <a class="btn-small waves-effect waves-light btn-flat month disabled" month="0">JAN</a>
+                            <a class="btn-small waves-effect waves-light btn-flat month disabled" month="1">FEB</a>
+                            <a class="btn-small waves-effect waves-light btn-flat month disabled" month="2">MAR</a>
+                            <a class="btn-small waves-effect waves-light btn-flat month disabled" month="3">APR</a>
+                            <a class="btn-small waves-effect waves-light btn-flat month disabled" month="4">MAY</a>
+                            <a class="btn-small waves-effect waves-light btn-flat month disabled" month="5">JUN</a>
+                            <a class="btn-small waves-effect waves-light btn-flat month disabled" month="6">JUL</a>
+                            <a class="btn-small waves-effect waves-light btn-flat month disabled" month="7">AUG</a>
+                            <a class="btn-small waves-effect waves-light btn-flat month disabled" month="8">SEP</a>
+                            <a class="btn-small waves-effect waves-light btn-flat month disabled" month="9">OCT</a>
+                            <a class="btn-small waves-effect waves-light btn-flat month disabled" month="10">NOV</a>
+                            <a class="btn-small waves-effect waves-light btn-flat month disabled" month="11">DEC</a>
 
-                            </div>
-                            <div class="col s4">
-                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="1">FEB</a>
-                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="4">MAY</a>
-                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="7">AUG</a>
-                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="10">NOV</a>
-
-                            </div>
-                            <div class="col s4">
-                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="2">MAR</a>
-                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="5">JUN</a>
-                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="8">SEP</a>
-                                <a class="btn-small waves-effect waves-light btn-flat month disabled" month="11">DEC</a>
-
-                            </div>
                             <p class="hide" id="userMonth"></p>
 
                             <!-- CHANGE # TO OTHER html RESULTS PAGE -->
                             <a href="results.html" class="btn-floating halfway-fab waves-effect waves-light red disabled"
-                                id="submitMonth">
-                                <i class="material-icons">chevron_right</i></a>
-                        </div>
+                                        id="submitMonth">
+                                        <i class="material-icons">chevron_right</i></a>
+                        </div><br>
+
                     </div>
                 </div>
             </div>
         </div>
+
     </div> <!--  end of container -->
-
-    <!-- <h3>References array of temps per month, generates new array limited by user input</h3>
-    <button id="tempLimit">Click</button><br>
-
-    <h3>Generates rating arrays (based on cities limited by temp)</h3>
-    <button id="pullTempSet">Click</button><br>
-
-    <h3>Click below to get the top 5</h3>
-    <button id="getTopFive">Click</button><br> -->
-
-    <div class="results"></div>
-
+    <a class="btn waves-effect waves-light" id="calc">Calculate</a>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
