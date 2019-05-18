@@ -866,7 +866,7 @@ $("#calc").on("click", function(){
 });
 
 var detailGenerator = function (city, category, type) {
-    var key = "AIzaSyDp5ggkLJjKHNyeUrQXUgd70suVcnBOW78";
+    var key = "AIzaSyAha_xNjRBSWl4K2J23sdr0lemDTPK2xQk";
 
     var lat = 0;
     var lng = 0;
@@ -886,15 +886,16 @@ var detailGenerator = function (city, category, type) {
         var nameArray = [];
         var addressArray = [];
         var ratingsArray = [];
+
     
         // for (var i = 0; i < response.results.length; i++) { --> CHANGE LOOP WHEN READY TO ACTUALLY PULL ALL RESULTS
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i < response.results.length; i++) {
+
             nameArray.push(response.results[i].name);
             addressArray.push(response.results[i].formatted_address);
             ratingsArray.push(response.results[i].rating);
 
     }
-        console.log(response.results.val);
         console.log(city, category, type);
 
         // STILL NEED TO APPEND TO FIREBASE
@@ -911,9 +912,9 @@ var detailGenerator = function (city, category, type) {
     });
 }; 
 
-
-detailGenerator("Paris", "food", "restaurant")
-
+for (var i = 0; i < cities.length; i++) {
+detailGenerator(cities[i].city, "food", "cafe")
+}
 
 
 
