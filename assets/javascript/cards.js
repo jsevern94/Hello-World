@@ -25,13 +25,16 @@ var cityFood;
 var cityNightlife;
 var cityCulture;
 var cityNature;
-var cityAttractions
-var userMonth;
-var thisTemp;
+
+var cityAttractions;
+
+var unique = [];
+var uniqueNew;
+
 
 //everything loads on doc ready
 $(document).ready(function () {
-    createSearchTerms();
+    createSearchTerms(getUnique());
 });
 
 //these need to be changed out with the values I get from the quiz
@@ -40,25 +43,31 @@ $(document).ready(function () {
 
 // var searchTerms = ["London", "Paris", "Barcelona", "Antananarivo", "Tokyo"];
 // console.log(searchTerms);
+function getUnique() {
+    database.ref("unique").on("child_added", function (childSnapshot) {
+        var sv = childSnapshot;
+        var string = sv.getRef().toString();
+        var split = string.split("-");
+        unique.push("-" + split[3]);
+        console.log(unique[unique.length - 1]);
+        console.log(unique);
+        uniqueNew = unique[unique.length - 1];
+    });
+}
 
 var searchTerms = [];
-function createSearchTerms() {
 
-    database.ref("userCities/month/").once("value").then(function (snapshot) {
-        var sv = parseInt(snapshot.val());
-        userMonth = sv;
-    })
+function createSearchTerms(callback) {
 
-    database.ref("userCities/cities/").once("value").then(function (snapshot) {
+    callback;
+    console.log(uniqueNew)
 
+    database.ref("unique").once("value").then(function (snapshot) {
         var sv = snapshot.val();
-        console.log(sv);
-        //searchTerms.push(sv);
-
-        //console.log(searchTerms);
-
+        var object = sv[uniqueNew];
+        var list = object.cities;
         for (var i = 0; i < 5; i++) {
-            searchTerms.push(sv[i]);
+            searchTerms.push(list[i]);
         };
         console.log(searchTerms);
         createCards(searchTerms);
@@ -68,23 +77,24 @@ function createSearchTerms() {
         getBlurb();
         $('.scrollspy').scrollSpy();
 
-    })
-}
+
+    });
+};
 
 var Categories = [
     {
         name: "food",
         subCats: [
             {
-                display: "Bakery Rating: ",
+                display: "Bakeries: ",
                 name: "bakery"
             },
             {
-                display: "Cafe Rating:",
+                display: "Cafes:",
                 name: "cafe"
             },
             {
-                display: "Restaurant Rating: ",
+                display: "Restaurants: ",
                 name: "restaurant"
             }
         ]
@@ -93,11 +103,11 @@ var Categories = [
         name: "nightlife",
         subCats: [
             {
-                display: "Bar Rating:",
+                display: "Bars:",
                 name: "bar"
             },
             {
-                display: "Night Club Rating: ",
+                display: "Night Clubs: ",
                 name: "night_club"
             }
         ]
@@ -106,15 +116,15 @@ var Categories = [
         name: "attractions",
         subCats: [
             {
-                display: "Aquarium Rating: ",
+                display: "Aquariums: ",
                 name: "aquarium"
             },
             {
-                display: "Casino Rating: ",
+                display: "Casinos: ",
                 name: "casino"
             },
             {
-                display: "Zoo Rating:",
+                display: "Zoos:",
                 name: "zoo"
             }
         ]
@@ -123,11 +133,11 @@ var Categories = [
         name: "nature",
         subCats: [
             {
-                display: "Park Rating: ",
+                display: "Parks: ",
                 name: "park"
             },
             {
-                display: "Campground Rating: ",
+                display: "Campgrounds: ",
                 name: "campground"
             }
         ]
@@ -136,7 +146,7 @@ var Categories = [
         name: "culture",
         subCats: [
             {
-                display: "Museum Rating: ",
+                display: "Museums: ",
                 name: "museum"
             },
         ]
@@ -148,18 +158,23 @@ function getCardDetails(sv, cat, cardIndx) {
     var data = sv[cat.name];
     console.log(data);
     //console.log(`#${cat.name}${i}`);
-    cat.subCats.forEach(function (sCat) {
-        $(`#${cat.name}${cardIndx}`).append(`<br>${sCat.display} ${data[sCat.name].rating.toFixed(2)}`);
+
+
+    cat.subCats.forEach(function(sCat){
+        $(`#${cat.name}${cardIndx}`).append(`<br><h4 style="margin-bottom: 0px; margin-top: 30px;"><u>${sCat.display}</u><i class="material-icons right small">star</i><div class = "right">${data[sCat.name].rating.toFixed(2)}</div></h4>`);
 
         var details = sv.details[cat.name][sCat.name]
-        details.address.filter(function (val, i) { return i < 5 })
-            .forEach(function (val2, j) {
-                $(`#${cat.name}${cardIndx}`).append(`<br> Name: ${details.name[j]}<br> Address: ${val2} <br> Rating: ${details.ratings[j]}`);
+        details.address.filter(function(val, i){return i < 5})
+            .forEach(function(val2, j){
+                $(`#${cat.name}${cardIndx}`).append(`<br><h6 style="margin-top: 0px; margin-bottom: 0px;"> ${details.name[j]} <i class="material-icons right">star</i><div class= "right">${details.ratings[j]}</div></h6><div>${val2}</div>`);
 
                 //var obj = {name: details.name[j], address: val2, rating: details.ratings[j]}
             })
 
-        $(`#${cat.name}${cardIndx}`).append(`<br>~~~~~`)
+
+
+            //$(`#${cat.name}${cardIndx}`).append(`<br>~~~~~`)
+
     })
 
 
@@ -173,8 +188,6 @@ function getInitialData() {
             var sv = snapshot.val();
             console.log(sv);
             renderChart(sv.index, i);
-            thisTemp = monthlyTemps[userMonth][sv.index].split(":")[1]
-            console.log(thisTemp);
             Categories.forEach(function (cat) {
                 getCardDetails(sv, cat, i)
             })
@@ -333,8 +346,9 @@ function createCards(searchTerms) {
                             <div class="card-content">
 
                                 
+
                                     <span class="card-title activator grey-text text-darken-4" id="resultsCardTitle">${term} <a class="btn-floating right blue lighten-2"><i class="material-icons">details</i></a></span>
-                                
+
                                 <div class="text row">
                                 <div class="map" id="map${i}" style="height: 200px; width: 200px; margin: .5rem;"></div>
                                     <div id ="blurbHere${i}"></div>
@@ -345,7 +359,9 @@ function createCards(searchTerms) {
                                 </div>
                             </div>
                             <div class="card-reveal">
+
                                 <span class="card-title grey-text text-darken-4">${term}<a class="btn-floating right blue lighten-2"><i class="material-icons">change_history</i></a></span>
+
                                 <div class="row">
                                     <div class="col s12">
                                         <ul class="tabs">
@@ -375,6 +391,8 @@ function createCards(searchTerms) {
     //puts the card where they should go. 
     $("#multipleCards").append(insert);
 
+    // <li class="tab col s2"><a  href="#graph${i}"><i class="material-icons">cloud</i></a></li>
+    // <div id="graph${i}" class="col s12">graph</div>
 
 
 
