@@ -1091,6 +1091,7 @@ $(document).ready(function () {
     $("#submitTemp").on("click", function () {
         //Disables the temp submit button so the user can't press it again
         $(this).addClass("disabled");
+        $("#sliderText").removeClass("red-text");
 
         //stores the slider value as a var
         userTemp = $("#userTemp").val();
@@ -1101,6 +1102,8 @@ $(document).ready(function () {
         //activates the vacation type submit button
         $("#submitCategory").removeClass("disabled");
         $(".category").removeAttr("disabled");
+        $("#categoryText").addClass("red-text");
+
 
     });
 
@@ -1117,6 +1120,8 @@ $(document).ready(function () {
         //Disables the VACATION TYPE submit button so the user can't press it again
         $(this).addClass("disabled");
         $(".category").attr("disabled", "disabled");
+        $("#categoryText").removeClass("red-text");
+
 
         //CALLS FUNCTION THAT LISTENS TO EACH SWITCH
         listenUserCategories($("#userFood"), "food");
@@ -1247,7 +1252,7 @@ $(document).ready(function () {
             };
             maxRating = topRatings[0];
 
-            database.ref("userCities").update({
+            database.ref("unique").push({
                 "cities": topCities,
                 "ratings": topRatings,
                 "month": userMonth,

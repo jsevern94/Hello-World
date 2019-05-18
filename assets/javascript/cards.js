@@ -25,12 +25,15 @@ var cityFood;
 var cityNightlife;
 var cityCulture;
 var cityNature;
-var cityAttractions
+var cityAttractions;
+
+var unique = [];
+var uniqueNew;
 
 
 //everything loads on doc ready
 $(document).ready(function () {
-    createSearchTerms();
+    createSearchTerms(getUnique());
 
 });
 
@@ -40,20 +43,30 @@ $(document).ready(function () {
 
 // var searchTerms = ["London", "Paris", "Barcelona", "Antananarivo", "Tokyo"];
 // console.log(searchTerms);
+function getUnique() {
+    database.ref("unique").on("child_added", function (childSnapshot) {
+        var sv = childSnapshot;
+        var string = sv.getRef().toString();
+        var split = string.split("-");
+        unique.push("-" + split[3]);
+        console.log(unique[unique.length - 1]);
+        console.log(unique);
+        uniqueNew = unique[unique.length - 1];
+    });
+}
 
 var searchTerms = [];
-function createSearchTerms(){
+function createSearchTerms(callback) {
 
-    database.ref("userCities/cities/").once("value").then(function (snapshot) {
-        
-            var sv = snapshot.val();
-            console.log(sv);
-            //searchTerms.push(sv);
-            
-            //console.log(searchTerms);
-        
-        for (var i = 0; i < 5; i++) { 
-        searchTerms.push(sv[i]);
+    callback;
+    console.log(uniqueNew)
+
+    database.ref("unique").once("value").then(function (snapshot) {
+        var sv = snapshot.val();
+        var object = sv[uniqueNew];
+        var list = object.cities;
+        for (var i = 0; i < 5; i++) {
+            searchTerms.push(list[i]);
         };
         console.log(searchTerms);
         createCards(searchTerms);
@@ -63,12 +76,8 @@ function createSearchTerms(){
         getBlurb();
         $('.scrollspy').scrollSpy();
 
-    })
-    
-
-
-
-}
+    });
+};
 
 var Categories = [
     {
@@ -139,7 +148,7 @@ var Categories = [
                 name: "museum"
             },
         ]
-    } 
+    }
 
 ]
 
@@ -147,22 +156,22 @@ function getCardDetails(sv, cat, cardIndx) {
     var data = sv[cat.name];
     console.log(data);
     //console.log(`#${cat.name}${i}`);
-    cat.subCats.forEach(function(sCat){
+    cat.subCats.forEach(function (sCat) {
         $(`#${cat.name}${cardIndx}`).append(`<br>${sCat.display} ${data[sCat.name].rating.toFixed(2)}`);
 
         var details = sv.details[cat.name][sCat.name]
-        details.address.filter(function(val, i){return i < 5})
-            .forEach(function(val2, j){
+        details.address.filter(function (val, i) { return i < 5 })
+            .forEach(function (val2, j) {
                 $(`#${cat.name}${cardIndx}`).append(`<br> Name: ${details.name[j]}<br> Address: ${val2} <br> Rating: ${details.ratings[j]}`);
 
                 //var obj = {name: details.name[j], address: val2, rating: details.ratings[j]}
             })
 
-            $(`#${cat.name}${cardIndx}`).append(`<br>~~~~~`)
+        $(`#${cat.name}${cardIndx}`).append(`<br>~~~~~`)
     })
-    
-            
-            
+
+
+
 
 }
 
@@ -171,7 +180,7 @@ function getInitialData() {
         database.ref("cities/" + term).once("value").then(function (snapshot) {
             var sv = snapshot.val();
 
-            Categories.forEach(function(cat){
+            Categories.forEach(function (cat) {
                 getCardDetails(sv, cat, i)
             })
 
