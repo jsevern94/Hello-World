@@ -84,15 +84,15 @@ var Categories = [
         name: "food",
         subCats: [
             {
-                display: "Bakery Rating: ",
+                display: "Bakeries: ",
                 name: "bakery"
             },
             {
-                display: "Cafe Rating:",
+                display: "Cafes:",
                 name: "cafe"
             },
             {
-                display: "Restaurant Rating: ",
+                display: "Restaurants: ",
                 name: "restaurant"
             }
         ]
@@ -101,11 +101,11 @@ var Categories = [
         name: "nightlife",
         subCats: [
             {
-                display: "Bar Rating:",
+                display: "Bars:",
                 name: "bar"
             },
             {
-                display: "Night Club Rating: ",
+                display: "Night Clubs: ",
                 name: "night_club"
             }
         ]
@@ -114,15 +114,15 @@ var Categories = [
         name: "attractions",
         subCats: [
             {
-                display: "Aquarium Rating: ",
+                display: "Aquariums: ",
                 name: "aquarium"
             },
             {
-                display: "Casino Rating: ",
+                display: "Casinos: ",
                 name: "casino"
             },
             {
-                display: "Zoo Rating:",
+                display: "Zoos:",
                 name: "zoo"
             }
         ]
@@ -131,11 +131,11 @@ var Categories = [
         name: "nature",
         subCats: [
             {
-                display: "Park Rating: ",
+                display: "Parks: ",
                 name: "park"
             },
             {
-                display: "Campground Rating: ",
+                display: "Campgrounds: ",
                 name: "campground"
             }
         ]
@@ -144,7 +144,7 @@ var Categories = [
         name: "culture",
         subCats: [
             {
-                display: "Museum Rating: ",
+                display: "Museums: ",
                 name: "museum"
             },
         ]
@@ -156,18 +156,22 @@ function getCardDetails(sv, cat, cardIndx) {
     var data = sv[cat.name];
     console.log(data);
     //console.log(`#${cat.name}${i}`);
-    cat.subCats.forEach(function (sCat) {
-        $(`#${cat.name}${cardIndx}`).append(`<br>${sCat.display} ${data[sCat.name].rating.toFixed(2)}`);
+
+    cat.subCats.forEach(function(sCat){
+        $(`#${cat.name}${cardIndx}`).append(`<br><h4 style="margin-bottom: 0px; margin-top: 30px;"><u>${sCat.display}</u><i class="material-icons right small">star</i><div class = "right">${data[sCat.name].rating.toFixed(2)}</div></h4>`);
 
         var details = sv.details[cat.name][sCat.name]
-        details.address.filter(function (val, i) { return i < 5 })
-            .forEach(function (val2, j) {
-                $(`#${cat.name}${cardIndx}`).append(`<br> Name: ${details.name[j]}<br> Address: ${val2} <br> Rating: ${details.ratings[j]}`);
+        details.address.filter(function(val, i){return i < 5})
+            .forEach(function(val2, j){
+                $(`#${cat.name}${cardIndx}`).append(`<br><h6 style="margin-top: 0px; margin-bottom: 0px;"> ${details.name[j]} <i class="material-icons right">star</i><div class= "right">${details.ratings[j]}</div></h6><div>${val2}</div>`);
+
 
                 //var obj = {name: details.name[j], address: val2, rating: details.ratings[j]}
             })
 
-        $(`#${cat.name}${cardIndx}`).append(`<br>~~~~~`)
+
+            //$(`#${cat.name}${cardIndx}`).append(`<br>~~~~~`)
+
     })
 
 
