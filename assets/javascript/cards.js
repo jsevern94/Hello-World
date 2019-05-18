@@ -11,14 +11,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 
-
-
-
-
-
-
-var searchTerms = ["London", "Paris", "Barcelona", "Antananarivo", "Amsterdam"];
-
+//other vaiables
 var cityLat;
 var cityLng;
 var latSelected;
@@ -28,20 +21,218 @@ var countryLowerCase;
 var countryURL
 var countrySelected;
 
+var cityFood;
+var cityNightlife;
+var cityCulture;
+var cityNature;
+var cityAttractions
+
+
+//everything loads on doc ready
 $(document).ready(function () {
-    createCards();
-    createLargeMap();
-    getData();
-    getBlurb();
+    createSearchTerms();
 
 });
 
+//these need to be changed out with the values I get from the quiz
+// there will need to be a firebasee call to get this array 
+//referance array of objects based on user choices and index through the firebase object ex top food
+
+// var searchTerms = ["London", "Paris", "Barcelona", "Antananarivo", "Tokyo"];
+// console.log(searchTerms);
+
+var searchTerms = [];
+function createSearchTerms(){
+
+    database.ref("userCities/cities/").once("value").then(function (snapshot) {
+        
+            var sv = snapshot.val();
+            console.log(sv);
+            //searchTerms.push(sv);
+            
+            //console.log(searchTerms);
+        
+        for (var i = 0; i < 5; i++) { 
+        searchTerms.push(sv[i]);
+        };
+        console.log(searchTerms);
+        createCards(searchTerms);
+        getInitialData();
+        createLargeMap();
+        getData();
+        getBlurb();
+        $('.scrollspy').scrollSpy();
+
+    })
+    
+
+
+
+}
+
+var Categories = [
+    {
+        name: "food",
+        subCats: [
+            {
+                display: "Bakery Rating: ",
+                name: "bakery"
+            },
+            {
+                display: "Cafe Rating:",
+                name: "cafe"
+            },
+            {
+                display: "Restaurant Rating: ",
+                name: "restaurant"
+            }
+        ]
+    },
+    {
+        name: "nightlife",
+        subCats: [
+            {
+                display: "Bar Rating:",
+                name: "bar"
+            },
+            {
+                display: "Night Club Rating: ",
+                name: "night_club"
+            }
+        ]
+    },
+    {
+        name: "attractions",
+        subCats: [
+            {
+                display: "Aquarium Rating: ",
+                name: "aquarium"
+            },
+            {
+                display: "Casino Rating: ",
+                name: "casino"
+            },
+            {
+                display: "Zoo Rating:",
+                name: "zoo"
+            }
+        ]
+    },
+    {
+        name: "nature",
+        subCats: [
+            {
+                display: "Park Rating: ",
+                name: "park"
+            },
+            {
+                display: "Campground Rating: ",
+                name: "campground"
+            }
+        ]
+    },
+    {
+        name: "culture",
+        subCats: [
+            {
+                display: "Museum Rating: ",
+                name: "museum"
+            },
+        ]
+    } 
+
+]
+
+function getCardDetails(sv, cat, cardIndx) {
+    var data = sv[cat.name];
+    console.log(data);
+    //console.log(`#${cat.name}${i}`);
+    cat.subCats.forEach(function(sCat){
+        $(`#${cat.name}${cardIndx}`).append(`<br>${sCat.display} ${data[sCat.name].rating.toFixed(2)}`);
+
+        var details = sv.details[cat.name][sCat.name]
+        details.address.filter(function(val, i){return i < 5})
+            .forEach(function(val2, j){
+                $(`#${cat.name}${cardIndx}`).append(`<br> Name: ${details.name[j]}<br> Address: ${val2} <br> Rating: ${details.ratings[j]}`);
+
+                //var obj = {name: details.name[j], address: val2, rating: details.ratings[j]}
+            })
+
+            $(`#${cat.name}${cardIndx}`).append(`<br>~~~~~`)
+    })
+    
+            
+            
+
+}
+
+function getInitialData() {
+    searchTerms.forEach(function (term, i) {
+        database.ref("cities/" + term).once("value").then(function (snapshot) {
+            var sv = snapshot.val();
+
+            Categories.forEach(function(cat){
+                getCardDetails(sv, cat, i)
+            })
+
+        });
+
+
+        // database.ref("cities/" + term + "/nightlife").once("value").then(function (snapshot) {
+        //     var sv = snapshot.val();
+        //     //sv is going to be the details added later. 
+        //     //this sv needs to go to the food section for the specific card
+        //     cityNightlife = sv;
+        //     console.log(cityNightlife);
+        //     $(`#nightlife${i}`).append("<br> Bar Rating: " + cityNightlife.bar.rating.toFixed(2));
+        //     $(`#nightlife${i}`).append("<br> Night Club Rating: " + cityNightlife.night_club.rating.toFixed(2));
+        // });
+
+
+        // database.ref("cities/" + term + "/attractions").once("value").then(function (snapshot) {
+        //     var sv = snapshot.val();
+        //     //sv is going to be the details added later. 
+        //     //this sv needs to go to the food section for the specific card
+        //     //will add in /details at the end of the datbase
+        //     cityAttractions = sv;
+        //     console.log(cityAttractions);
+        //     $(`#attractions${i}`).append("<br> Aquarium Rating: " + cityAttractions.aquarium.rating.toFixed(2));
+        //     $(`#attractions${i}`).append("<br> Casino Rating: " + cityAttractions.casino.rating.toFixed(2));
+        //     $(`#attractions${i}`).append("<br> Zoo Rating: " + cityAttractions.zoo.rating.toFixed(2));
+        // });
+        // database.ref("cities/" + term + "/nature").once("value").then(function (snapshot) {
+        //     var sv = snapshot.val();
+        //     //sv is going to be the details added later. 
+        //     //this sv needs to go to the food section for the specific card
+        //     cityNature = sv;
+        //     console.log(cityNature);
+        //     $(`#nature${i}`).append("<br> Park Rating: " + cityNature.park.rating.toFixed(2));
+        //     $(`#nature${i}`).append("<br> Campground Rating: " + cityNature.campground.rating.toFixed(2));
+        // });
+        // database.ref("cities/" + term + "/culture").once("value").then(function (snapshot) {
+        //     var sv = snapshot.val();
+        //     //sv is going to be the details added later. 
+        //     //this sv needs to go to the food section for the specific card
+        //     cityCulture = sv;
+        //     console.log(cityCulture);
+        //     console.log(`#culture${i}`);
+        //     $(`#culture${i}`).append("<br> Museum Rating: " + cityCulture.museum.rating.toFixed(2));
+        // });
+
+    })
+}
+
+
+
+//gets data from database
 function getData() {
+    //used fo map
     searchTerms.forEach(function (term, i) {
         database.ref("cities/" + term).once("value").then(function (snapshot) {
             var sv = snapshot.val();
             cityLat = sv.lat;
             latSelected = true;
+            //triggers map
             if (latSelected && lngSelected) {
                 initialize(term, i);
                 initializeLarge(term, i);
@@ -50,10 +241,12 @@ function getData() {
             }
         });
 
+        //used for map
         database.ref("cities/" + term).once("value").then(function (snapshot) {
             var sv = snapshot.val();
             cityLng = sv.lng;
             lngSelected = true;
+            //triggers map
             if (latSelected && lngSelected) {
                 initialize(term, i);
                 initializeLarge(term, i);
@@ -62,12 +255,14 @@ function getData() {
             }
         });
 
+        //used for images if country is needed.
         database.ref("cities/" + term).once("value").then(function (snapshot) {
             var sv = snapshot.val();
             country = sv.country;
             countryLowerCase = country.toLowerCase();
             countryURL = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(countryLowerCase) + "&safesearch=true";
             countrySelected = true;
+            //triggers pictues
             if (countrySelected) {
                 getPhotos(term, i, countryURL);
                 countrySelected = false;
@@ -77,27 +272,118 @@ function getData() {
     })
 }
 
+
+
+
+//Call with ratingGenerator(location, "restaurant", "food", city);
+
+// 	 var location = lat + "," + lng;
+// 	//GET LAT AND LNG FROM FIREBASE
+
+
+//       //food, nature, nightlife, culture, attractions
+//       ratingGenerator(location, "restaurant", "food", city);
+// }
+
 //function to make cards
-function createCards() {
+function createCards(searchTerms) {
     var insert = "";
     searchTerms.forEach(function (term, i) {
 
+
+        // var display;
+        // if (i <= 0) {
+        //     display = `<div class="col s12 m12 activeCard" id="card${i}" card="${i}">`
+        // }
+        // else {
+        //     display = ``
+        // }
+
+        // this created rows for every 2 card
+        //create rows on odd cards
+        var createRow;
+        if (i % 2 == 0) {
+            createRow = `<div class='row' id=row${i}>`
+        }
+        else {
+            createRow = "";
+        }
+
+        // // //close rows on even cards
+        var closeRow;
+        if (i % 2 !== 0) {
+            closeRow = "</div>"
+        }
+        else {
+            closeRow = "";
+        }
+
+        //this is where everything is inseted into
         insert +=
-            `<div class="card">
-                <div class="card-image waves-effect waves-block waves-light"></div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4" id="cardTitle">${term} <i class="material-icons right">expand_more</i><i class="right map" id="map${i}"></i></span>
-                    <p id ="blurbHere${i}"></p>
-                    <p id="pictures${i}Here"></p>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">${term}<i class="material-icons right">expand_less</i></span>
-                    <p></p>
-                </div>
-          </div>`
+            `${createRow}
+            
+            <div class="resultsCards col s12 m6 nonactiveCard" id="card${i}" cardNum="${i}" class="section scrollspy"> 
+            
+                    <div class="card hoverable">
+                        
+                            <div class="card-content">
+
+                                
+                                    <span class="card-title activator grey-text text-darken-4" id="resultsCardTitle">${term} <a class="btn-floating right grey lighten-2"><i class="material-icons">details</i></a></span>
+                                
+                                <div class="text row">
+                                <div class="map" id="map${i}" style="height: 200px; width: 200px; margin: .5rem;"></div>
+                                    <div id ="blurbHere${i}"></div>
+                                </div>
+
+                                <div class="allpictures row">
+                                    <div id="pictures${i}Here"></div>
+                                </div>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">${term}<a class="btn-floating right grey lighten-2"><i class="material-icons">change_history</i></a></span>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <ul class="tabs">
+                                            <li class="tab col s2"><a class="active" href="#food${i}"><i class="material-icons">local_dining</i></a></li>
+                                            <li class="tab col s2"><a href="#nightlife${i}"><i class="material-icons">local_bar</i></a></li>
+                                            <li class="tab col s2"><a href="#attractions${i}"><i class="material-icons">local_activity</i></a></li>
+                                            <li class="tab col s2"><a href="#nature${i}"><i class="material-icons">local_florist</i></a></li>
+                                            <li class="tab col s2"><a  href="#culture${i}"><i class="material-icons">palette</i></a></li>
+                                            <li class="tab col s2"><a  href="#graph${i}"><i class="material-icons">cloud</i></a></li>
+                                        </ul>
+                                    </div>
+                                        <div id="food${i}" class="col s12"></div>
+                                        <div id="nightlife${i}" class="col s12"></div>
+                                        <div id="attractions${i}" class="col s12"></div>
+                                        <div id="nature${i}" class="col s12"></div>
+                                        <div id="culture${i}" class="col s12"></div>
+                                        <div id="graph${i}" class="col s12">graph</div>
+                                </div>  
+                            </div>
+                        </div>
+                        </div>
+                
+            ${closeRow}`
+
     })
-    $("#multipleCards").html(insert);
+
+    //puts the card where they should go. 
+    $("#multipleCards").append(insert);
+
+
+
+
+    //js for tabs
+    var elem = $('.tabs');
+    var options = {};
+    instance = M.Tabs.init(elem, options);
+
+
+
+
 }
+
 
 
 //images
@@ -114,37 +400,42 @@ function getPhotos(term, i, countryURL) {
         method: "GET"
     })
         .then(function (data) {
-            //console.log(data)
+
             if (parseInt(data.totalHits) > 0) {
-                //console.log(data.totalHits);
                 var cityImageResults;
                 cityImageResults = data.totalHits;
-                //console.log(cityImageResults);
-                if (cityImageResults < 5) {
+
+                //if there are less than 4 images to another ajax call to get more images under th larger term of counties
+                if (cityImageResults < 4) {
 
                     for (var j = 0; j < data.totalHits; j++) {
-                        $(`#pictures${i}Here`).append("<img  class='cityImage' src='" + data.hits[j].imageURL + "'>");
-                        //console.log(cityImageResults + " " + i);
+                        $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m6 image" + i + "' src='" + data.hits[j].imageURL + "'>");
+
                     };
-                    //put loop to go through country photos here
-                    //console.log(cityImageResults + " " + i);
+
+
                     $.ajax({
                         url: countryURL,
                         method: "GET"
                     })
                         .then(function (data) {
-                            //console.log(countryURL + " " + i);
-                            for (var j = cityImageResults; j < 5; j++) {
-                                $(`#pictures${i}Here`).append("<img  class='cityImage' src='" + data.hits[j].imageURL + "'>");
+                            //start adding country images after last city image
+                            for (var j = cityImageResults; j < 4; j++) {
+                                $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m6 image" + i + "'  src='" + data.hits[j].imageURL + "'>");
+
                             };
                         })
                 }
+                //if there are enough city images display the 1st 4
                 else {
-                    for (var j = 0; j < 5; j++) {
-                        $(`#pictures${i}Here`).append("<img  class='cityImage' src='" + data.hits[j].imageURL + "'>");
+                    for (var j = 0; j < 4; j++) {
+                        $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m6 image" + i + "'  src='" + data.hits[j].imageURL + "'>");
+                        //assignInitialDisplayCard(i);
                     };
                 }
             }
+
+            //if there are not hits display country imags for all 4
             else {
                 console.log('No hits');
                 //put loop to go through country photos here
@@ -153,8 +444,9 @@ function getPhotos(term, i, countryURL) {
                     method: "GET"
                 })
                     .then(function (data) {
-                        for (var j = 0; j < 5; j++) {
-                            $(`#pictures${i}Here`).append("<img  class='cityImage' src='" + data.hits[j].imageURL + "'>");
+                        for (var j = 0; j < 4; j++) {
+                            $(`#pictures${i}Here`).append("<img  class='cityImage col s12 m6 image" + i + "' src='" + data.hits[j].imageURL + "'>");
+
                         };
                     })
             }
@@ -176,7 +468,9 @@ function getBlurb() {
 
 
         //gets blurb off of page
-        var blurbUrl = "https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&exsentences=10&redirects=1&titles=" + term;
+        var blurbUrl = "https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&exsentences=6&redirects=1&titles=" + term;
+
+        //gets unique page id
         $.ajax({
             url: url,
             method: "GET"
@@ -184,6 +478,7 @@ function getBlurb() {
             .then(function (response) {
                 var pageID = response.query.search[0].pageid;
 
+                //uses unique page id to get blub
                 $.ajax({
                     url: blurbUrl,
                     method: "GET"
@@ -207,26 +502,19 @@ function getBlurb() {
 }
 
 //google maps here!!!
-//helpful links
-//https://developers.google.com/maps/documentation/javascript/examples/marker-labels
-//https://developers.google.com/maps/documentation/javascript/examples/marker-animations
 
-
-
+//maps variables
 var mapLarge;
-//var markerLarge;
 var marker;
 var positionLocation;
-var labels ='12345';
+var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 var labelIndex = 0;
 
+//small individual map
 function initialize(i, term) {
     var map = "map-" + term;
     var marker = "marker-" + term;
 
-    //console.log(map + " " + term)
-    //console.log(cityLat+ " " + cityLat)
-    //small individual map
     positionLocation = new google.maps.LatLng(cityLat, cityLng);
 
     var mapOptions = {
@@ -241,7 +529,8 @@ function initialize(i, term) {
     marker = new google.maps.Marker({
         position: positionLocation,
         map: map,
-        title: i
+        title: i,
+        mapTypeId: 'terrain'
     });
 
     var smallInfoWindow = new google.maps.InfoWindow({
@@ -256,7 +545,7 @@ function initialize(i, term) {
 
 //large map
 function initializeLarge(i, term) {
-    var markerLarge = "markerLarge-" + term;    
+    var markerLarge = "markerLarge-" + term;
 
     positionLocation = new google.maps.LatLng(cityLat, cityLng);
 
@@ -264,56 +553,95 @@ function initializeLarge(i, term) {
     markerLarge = new google.maps.Marker({
         position: positionLocation,
         map: mapLarge,
-        //this can be used when there are multiple locations to number them
+        //adds different labels to each marker
         label: labels[labelIndex++ % labels.length],
-        title: i
+        title: i,
+        value: term,
+
+
     });
     console.log(markerLarge);
+    //change this to display card to then have it properly open up the display card. 
+    var content = `<a href="#card${term}">${i}</a>`;
+
 
     var largeInfoWindow = new google.maps.InfoWindow({
-        content: i
+        content: content,
     });
 
 
 
     markerLarge.addListener('click', function () {
         largeInfoWindow.open(mapLarge, markerLarge);
+
+        //when clicking on marker it expands the text below
+        //     $(".activeCard").removeClass("m12");
+        // $(".activeCard").addClass("m6");
+        // //console.log($(".activeCard").attr("cardNum"));
+        // $(".image" + $(".activeCard").attr("cardNum")).addClass("m6");
+        // $(".image" + $(".activeCard").attr("cardNum")).removeClass("m3");
+        // $(".activeCard").removeClass("activeCard");
+        // $("#displayCard").empty();
+
+        // $("#card"+this.value).clone().addClass("activeCard").removeClass("nonactiveCard").appendTo("#displayCard");
+        // $(".activeCard").removeClass("m6");
+        // $(".activeCard").addClass("m12");
+        // //console.log($(".activeCard").attr("cardNum"));
+        //  $(".image" + $(".activeCard").attr("cardNum")).removeClass("m6");
+        //  $(".image" + $(".activeCard").attr("cardNum")).addClass("m3");
     });
 
 }
 
-function createLargeMap(){
+function createLargeMap() {
 
-    var center = new google.maps.LatLng(20, 0);
+    var center = new google.maps.LatLng(20, 10);
 
     var mapOptionsLarge = {
         center: center,
         zoom: 2,
         disableDefaultUI: true,
+        mapTypeId: 'terrain'
     };
+
+    //$('.scrollspy').scrollSpy();
 
     mapLarge = new google.maps.Map(document.getElementById('mapLarge'),
         mapOptionsLarge);
 }
 
-//from materialize : .hide-on-small-only this will be used fo the full size map
 
-//use hoverable for cards
+// $("#multipleCards").on("click", ".nonactiveCard", function () {
 
-//use breadcrumbs for quiz
+//     $(".activeCard").removeClass("m12");
+//     $(".activeCard").addClass("m6");
+//     //console.log($(".activeCard").attr("cardNum"));
+//     $(".image" + $(".activeCard").attr("cardNum")).addClass("m6");
+//     $(".image" + $(".activeCard").attr("cardNum")).removeClass("m3");
+//     $(".activeCard").removeClass("activeCard");
+//     $("#displayCard").empty();
 
-//use icons on cards for different prefeeerencees
-
-//use collapsible for details
-
-//make images class materrial box?
-
-//use scrollspy to scroll to different cards from map
-
-//can use tooltips to explain any element that we ceate that might be seen as confusing
-
-//look into flowtext and truncate for the card and how they will change as the page changes
-
-
+//     $(this).clone().addClass("activeCard").removeClass("nonactiveCard").appendTo("#displayCard");
+//     $(".activeCard").removeClass("m6");
+//     $(".activeCard").addClass("m12");
+//     //console.log($(".activeCard").attr("cardNum"));
+//      $(".image" + $(".activeCard").attr("cardNum")).removeClass("m6");
+//      $(".image" + $(".activeCard").attr("cardNum")).addClass("m3");
 
 
+// })
+
+
+
+
+
+
+
+
+// function assignInitialDisplayCard(i) {
+//     if (i <= 0) {
+//         console.log(`image${i}`)
+//         $(`.image${i}`).removeClass("m6")
+//         $(`.image${i}`).addClass("m3")
+//     }
+// };

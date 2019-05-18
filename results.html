@@ -11,15 +11,12 @@
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-
   <!-- Added a link to our external stylesheet-->
   <link rel="stylesheet" type="text/css" href="assets/style/style.css">
 
   <!--Added a link to jquery-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 
   <!--Added link to firebase-->
   <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
@@ -29,10 +26,14 @@
   <script type="text/javascript"
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAC5mZSEJTGf7dpJHY7HjFMau_rZLeXZvM"></script>
 
+</head>
+
+  <script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAC5mZSEJTGf7dpJHY7HjFMau_rZLeXZvM"></script>
+
   <!--favicon-->
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-
 
 </head>
 
@@ -51,23 +52,13 @@
     </nav>
   </div>
 
+  <div class="row">
+  <div class="hide-on-small-only" id="mapLarge"> </div>
+  </div>
 
-  <div id="mapLarge"> </div>
+  <div id="displayCard" class="row"></div>
+  <div id="multipleCards" class="row"></div>
 
-  <!-- <div class="card">
-            <div class="card-image waves-effect waves-block waves-light"></div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4" id="cardTitle"> <i class="material-icons right">more_vert</i><i class="right" id="map"></i></span>
-              <p id ="blurbHere"></p>
-              <p id="picturesHere"></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p></p>
-            </div>
-          </div> -->
-
-  <div id="multipleCards"> </div>
 
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
@@ -76,10 +67,10 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
   <!--Added link to our javascript-->
-
-
-
   <script src="assets/javascript/cards.js"></script>
 
 
