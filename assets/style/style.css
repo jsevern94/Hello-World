@@ -1,18 +1,49 @@
-body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+body { 
+    background-image: url("../images/background-img.webp");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: 'Vollkorn', serif;
 }
 
-#map, .cityImage, #map0, #map1, #map2, #map3, #map4 {
-    height: 200px;
-    width: 200px;
-  }
 
 
 #mapLarge {
     height: 500px;
     width: 80%;
-    margin: auto;
+    margin: 2rem auto;
+}
+
+
+#resultsCardTitle{
+    font-size: 3rem;
+}
+
+#resultsCard{
+    text-align: left;
+}
+
+
+
+.cityImage {
+    height: 200px;
+    width: 200px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+.map{
+    float: right;
+}
+
+.activeCard {
+    font-size: 1.5rem;
+}
+
+@media screen and (max-width: 640px){
+
+    .map {
+        float: none;
+    }
 }
 
