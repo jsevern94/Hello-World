@@ -342,7 +342,7 @@ function createCards(searchTerms) {
                             <div class="card-content">
 
                                 
-                                    <span class="card-title activator grey-text text-darken-4" id="resultsCardTitle">${term} <a class="btn-floating right grey lighten-2"><i class="material-icons">details</i></a></span>
+                                    <span class="card-title activator grey-text text-darken-4" id="resultsCardTitle">${term} <a class="btn-floating right light-blue darken-4"><i class="material-icons">details</i></a></span>
                                 
                                 <div class="text row">
                                 <div class="map" id="map${i}" style="height: 200px; width: 200px; margin: .5rem;"></div>
@@ -354,7 +354,7 @@ function createCards(searchTerms) {
                                 </div>
                             </div>
                             <div class="card-reveal">
-                                <span class="card-title grey-text text-darken-4">${term}<a class="btn-floating right grey lighten-2"><i class="material-icons">change_history</i></a></span>
+                                <span class="card-title grey-text text-darken-4">${term}<a class="btn-floating right light-blue darken-4"><i class="material-icons">change_history</i></a></span>
                                 <div class="row">
                                     <div class="col s12">
                                         <ul class="tabs">
@@ -363,7 +363,6 @@ function createCards(searchTerms) {
                                             <li class="tab col s2"><a href="#attractions${i}"><i class="material-icons">local_activity</i></a></li>
                                             <li class="tab col s2"><a href="#nature${i}"><i class="material-icons">local_florist</i></a></li>
                                             <li class="tab col s2"><a  href="#culture${i}"><i class="material-icons">palette</i></a></li>
-                                            <li class="tab col s2"><a  href="#graph${i}"><i class="material-icons">cloud</i></a></li>
                                         </ul>
                                     </div>
                                         <div id="food${i}" class="col s12"></div>
@@ -371,7 +370,6 @@ function createCards(searchTerms) {
                                         <div id="attractions${i}" class="col s12"></div>
                                         <div id="nature${i}" class="col s12"></div>
                                         <div id="culture${i}" class="col s12"></div>
-                                        <div id="graph${i}" class="col s12">graph</div>
                                 </div>  
                             </div>
                         </div>
@@ -384,6 +382,8 @@ function createCards(searchTerms) {
     //puts the card where they should go. 
     $("#multipleCards").append(insert);
 
+    // <li class="tab col s2"><a  href="#graph${i}"><i class="material-icons">cloud</i></a></li>
+    // <div id="graph${i}" class="col s12">graph</div>
 
 
 
