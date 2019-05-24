@@ -32,7 +32,7 @@ var unique = [];
 var uniqueNew;
 
 
-//wheen document ready runds it runs creeateeSearchTerms oncee the user input has been gotten from firebase
+//when document ready runs it runs creeateSearchTerms once the user input has been gotten from firebase
 $(document).ready(function () {
     createSearchTerms(getUnique());
 });
@@ -50,7 +50,7 @@ function getUnique() {
     });
 }
 
-//this is wheree the search terms will b pushd to 
+//this is where the search terms will be pusheed to 
 var searchTerms = [];
 
 //gets top 6 places then begins cascade of functions to create cards
@@ -84,7 +84,7 @@ function createCards(searchTerms) {
     var insert = "";
     searchTerms.forEach(function (term, i) {
 
-        // this created rows for every 2 card
+        // this creates rows for every 2 card
         //create rows on odd cards
         var createRow;
         if (i % 2 == 0) {
