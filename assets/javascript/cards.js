@@ -107,7 +107,7 @@ function createCards(searchTerms) {
         insert +=
             `${createRow}
             
-            <div class="resultsCards col s12 m6 nonactiveCard" id="card${i}" cardNum="${i}" class="section scrollspy"> 
+            <div class="resultsCards col s12 m6 nonactiveCard" id="card${i}" cardNum="${i}"> 
             
                     <div class="card hoverable">
                         
@@ -115,7 +115,7 @@ function createCards(searchTerms) {
 
                                 
 
-                                    <span class="card-title activator grey-text text-darken-4" id="resultsCardTitle">${term} <a class="btn-floating right light-blue darken-4"><i class="material-icons">details</i></a></span>
+                                    <span class="card-title activator grey-text text-darken-4 section scrollspy" id="resultsCardTitle">${term} <a class="btn-floating right light-blue darken-4"><i class="material-icons">details</i></a></span>
 
                                 <div class="text row">
                                 <div class="map" id="map${i}" style="height: 200px; width: 200px; margin: .5rem;"></div>
