@@ -1,2 +1,9 @@
 # Thor-Team-Project
-Our first group project, to include multiple APIs
+Technology: Google Places API, Google Maps API, WorldWeatherOnline API, Wikimedia API, Pixabay API, canvas.js API, Materialize, JQuery, Firebase Realtime Database, GitHub, CSS, & HTML.
+
+We created this app for the traveler that knows what they want, but does not know where to go. 
+
+To use this app first you will want to click on the let's get started button. This will take you to our quiz. Chose your prefered temperature by using the slider. Once you are happy with your deecission click on the chevron to go onto the next question. Here you will choose your ideal vacation type. Please click one, and then when you are happy with your choice click the chevron to move on and chose your month. Click on the ideal month that you would like to travel. Once you are happy with your choice click on the last chevron to be brought to the results page. On the results page you are able to view a world map with all of the destinations that we have chosen for you based on your preferences. If you click on a marker here it will show you the name of the place and then when you click on the name it will bring you down to the card. You may also browse by simply scrolling past this map and viewing all of the destination cards that are displayed. On the destination card there will be a map shown along with a blurb about the location and some images from the location. If you click the blue button in the top right hand corner of each cards it will display the details page. The icons at the top are tabs that will show you the oveeral score for the attractions under that tab and an example of a few locations you might want to look into visiting in each category. On the right most tab under the cloud icon there is a map of all of the temperatures throughout the year at this location. This allows travlers to see if prossibly there is another time of year they may wish to travel to this location based on their temperature preferences. 
+
+
+Please take a look for yourself, and find your ideal vacation location: https://jsevern94.github.io/Hello-World/
