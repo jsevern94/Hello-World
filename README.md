@@ -1,4 +1,4 @@
-# Thor-Team-Project
+# Hello-World
 Technology: Google Places API, Google Maps API, WorldWeatherOnline API, Wikimedia API, Pixabay API, canvas.js API, Materialize, JQuery, Firebase Realtime Database, GitHub, CSS, & HTML.
 
 We created this app for the traveler that knows what they want, but does not know where to go. 
