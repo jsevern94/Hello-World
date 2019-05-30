@@ -1,105 +1,103 @@
 body { 
-    background-image: url("../images/background-img.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    font-family: 'Vollkorn', serif;
+  background-image: url("../images/background-img.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  font-family: 'Vollkorn', serif;
 }
 
 .material-icons, .icon-text {
-    vertical-align: middle;
-  }
+  vertical-align: middle;
+}
   
 .nav-wrapper{
-    background-color: #01579b !important;
-   }
+  background-color: #01579b !important;
+}
  
-   #logo-image {
-    height: 64px;
- }
+#logo-image {
+  height: 64px;
+}
  
- .halfway-fab {
-    background-color: #01579b !important;
- }
+.halfway-fab {
+  background-color: #0091ea      !important;
+}
  
- input[type=range]::-webkit-slider-thumb {
-    background-color: #01579b;
-  }
-  /* input[type=range]::-moz-range-thumb {
-    background-color: #01579b;
-  } */
-  /* input[type=range]::-ms-thumb {
-    background-color: #01579b;
-  } */
+input[type=range]::-webkit-slider-thumb {
+  background-color: #01579b;
+}
  
-  input[type=range] + .thumb {
-    background-color: #01579b;
-  }
+input[type=range] + .thumb {
+  background-color: #01579b;
+}
  
-  .switch label input[type=checkbox]:checked+.lever {
-    background-color: #42a5f5;
-  }
- 
-  .switch label input[type=checkbox]:checked+.lever:after {
-    background-color: #01579b;
-  }
- 
-  .btn-flat:hover {
-    background-color: #42a5f5 !important;
-  }
-  .btn-flat:active{
-    background-color: #42a5f5!important;
-  }
-  .btn-flat:focus{
-    background-color: #42a5f5!important;
-  }
-
-
-#mapLarge {
-    height: 500px;
-    width: 80%;
-    margin: 2rem auto;
+.btn-flat:hover {
+  background-color: #01579b !important;
+}
+.btn-flat:active{
+  background-color: #01579b !important;
+}
+.btn-flat:focus{
+  background-color: #01579b !important;
 }
 
+[type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:before, [type="radio"].with-gap:checked+span:after {
+  border: 2px solid #01579b !important;
+}
+
+[type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:after {
+  background-color: #01579b !important;
+}
+
+[type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:before, [type="radio"].with-gap:checked+span:after {
+  border: 2px solid #01579b !important;
+}
+
+#mapLarge {
+  height: 500px;
+  width: 80%;
+  margin: 2rem auto;
+}
 
 #resultsCardTitle{
-    font-size: 3rem;
+  font-size: 3rem;
 }
 
 #resultsCard{
-    text-align: left;
+  text-align: left;
 }
-
 
 
 #months {
-    height: 250px;
+  height: 250px;
 }
 
 .cityImage {
-    height: 200px;
-    width: 200px;
-    padding: 1rem;
-    margin-bottom: 2rem;
+  height: 200px;
+  width: 200px;
+  padding: 1rem;
+  margin-bottom: 2rem;
 }
 
 .map{
-    float: right;
+  float: right;
 }
 
 .activeCard {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
+}
+
+h5 {
+  margin-top: 0;
 }
 
 @media screen and (max-width: 640px){
-
-    .map {
-        float: none;
-    }
+  .map {
+    float: none;
+  }
 }
 
 .chart-container { 
-    margin-top: auto;
-    height: 400px;
-    width: 100%;"
+  margin-top: auto;
+  height: 400px;
+  width: 100%;"
 }

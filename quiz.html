@@ -37,16 +37,27 @@
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper">
-                <a href="#!" class="brand-logo"><i class="material-icons"></i><img id="logo-image"
+                <a href="index.html" class="brand-logo"><i class="material-icons"></i><img id="logo-image"
                         src="assets/images/logo.png"></a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="quiz.html">Take Our Quiz</a></li>
                     <li><a href="results.html">Your Results</a></li>
                     <li><a href="aboutus.html">About Us</a></li>
                 </ul>
             </div>
         </nav>
     </div>
+
+    <ul class="sidenav" id="mobile-demo">
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion center-align">
+                <li class="sidenav-margin"><a href="quiz.html">Take Our Quiz</a></li>
+                <li class="sidenav-margin"><a href="results.html">Your Results</a></li>
+                <li class="sidenav-margin"><a href="aboutus.html">About Us</a></li>
+            </ul>
+        </li>
+    </ul>
 
     <div class="container">
         <div class="row">
@@ -56,7 +67,8 @@
                     <div class="card-content">
                         <span class="card-title">Temperature</span>
                         <div class="divider"></div><br>
-                        <p class="red-text" id="sliderText">Use the slider to choose your ideal vacation Temperature.</p><br>
+                        <p class="red-text" id="sliderText">Use the slider to choose your ideal vacation Temperature.
+                        </p><br>
 
                         <form action="#">
                             <p class="range-field" id="tempSlider">
@@ -67,8 +79,8 @@
                         <br>
                         <p>Temps are measured in Fahrenheit, and correspond to the daytime high</p>
 
-                        <a class="btn-floating halfway-fab waves-effect waves-light red" id="submitTemp">
-                            <i class="material-icons">chevron_right</i></a>
+                        <a class="btn-floating btn-large halfway-fab waves-effect waves-light red" id="submitTemp">
+                            <i class="large material-icons">arrow_forward</i></a>
                     </div>
                 </div>
             </div>
@@ -120,8 +132,9 @@
                         </form>
 
                     </div>
-                    <a class="btn-floating halfway-fab waves-effect waves-light red disabled" id="submitCategory">
-                        <i class="material-icons">chevron_right</i></a>
+                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light red disabled"
+                        id="submitCategory">
+                        <i class="material-icons">arrow_forward</i></a>
                 </div>
             </div>
 
@@ -132,7 +145,8 @@
                         <span class="card-title">Month</span>
                         <div class="divider"></div><br>
                         <p id="monthText">Click a month below to select which you'd like to travel during:</p>
-                        <br><div class="text-black">
+                        <br>
+                        <div class="text-black">
                             <a class="btn-small waves-effect waves-light btn-flat month disabled" month="0">JAN</a>
                             <a class="btn-small waves-effect waves-light btn-flat month disabled" month="1">FEB</a>
                             <a class="btn-small waves-effect waves-light btn-flat month disabled" month="2">MAR</a>
@@ -150,9 +164,10 @@
 
                             <!-- CHANGE # TO OTHER html RESULTS PAGE -->
 
-                            <a href="results.html" class="btn-floating halfway-fab waves-effect waves-light red disabled"
-                                        id="submitMonth">
-                                        <i class="material-icons">chevron_right</i></a>
+                            <a href="results.html"
+                                class="btn-floating btn-large halfway-fab waves-effect waves-light red disabled"
+                                id="submitMonth">
+                                <i class="material-icons">arrow_forward</i></a>
                         </div><br>
                     </div>
                 </div>

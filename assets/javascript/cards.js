@@ -35,6 +35,7 @@ var uniqueNew;
 //when document ready runs it runs creeateSearchTerms once the user input has been gotten from firebase
 $(document).ready(function () {
     createSearchTerms(getUnique());
+    $('.sidenav').sidenav();
 });
 
 //gets user input from fireebase
@@ -63,11 +64,14 @@ function createSearchTerms(callback) {
         var sv = snapshot.val();
         var object = sv[uniqueNew];
         var list = object.cities;
+        var temps = object.temps;
+        var month = object.month
+        console.log(object);
         for (var i = 0; i < 6; i++) {
             searchTerms.push(list[i]);
         };
         console.log(searchTerms);
-        createCards(searchTerms);
+        createCards(searchTerms, temps, month);
         getInitialData();
         createLargeMap();
         getData();
@@ -80,10 +84,24 @@ function createSearchTerms(callback) {
 
 
 //function to make cards =================================================================================
-function createCards(searchTerms) {
+function createCards(searchTerms, temps, month) {
     var insert = "";
     searchTerms.forEach(function (term, i) {
 
+        var months = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ]
         // this creates rows for every 2 card
         //create rows on odd cards
         var createRow;
@@ -115,8 +133,8 @@ function createCards(searchTerms) {
 
                                 
 
-                                    <span class="card-title activator grey-text text-darken-4 section scrollspy" id="resultsCardTitle">${term} <a class="btn-floating right light-blue darken-4"><i class="material-icons">details</i></a></span>
-
+                                    <span class="card-title activator grey-text text-darken-4 section scrollspy" id="resultsCardTitle">${term}<a class="btn-floating right light-blue darken-4"><i class="material-icons">details</i></a></span>
+                                    <h5>~${temps[i]} in ${months[month]} </h5>
                                 <div class="text row">
                                 <div class="map" id="map${i}" style="height: 200px; width: 200px; margin: .5rem;"></div>
                                     <div id ="blurbHere${i}"></div>

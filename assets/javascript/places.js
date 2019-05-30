@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $('.sidenav').sidenav();
     // Your web app's Firebase configuration
     var firebaseConfig = {
         apiKey: "AIzaSyDuKxBBJIya6DvOXENE1xnfSZ2uImIWd-M",
@@ -1230,7 +1231,6 @@ $(document).ready(function () {
     }
 
     var callFinalRatings = function (callback) {
-        
         for (var i = 0; i < userCities.length; i++) {
             var city = userCities[i];
             database.ref("cities/" + city + "/finalRatings/" + userCategory).once("value").then(function (snapshot) {
