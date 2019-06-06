@@ -39,10 +39,11 @@
   <div class="navbar-fixed">
     <nav>
       <div class="nav-wrapper">
-        <a href="#!" class="brand-logo"><i class="material-icons"></i><img id="logo-image"
+        <a href="index.html" class="brand-logo"><i class="material-icons"></i><img id="logo-image"
             src="assets/images/logo.png"></a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="index.html">Home</a></li>
+          <li><a href="quiz.html">Take Our Quiz</a></li>
           <li><a href="results.html">Your Results</a></li>
           <li><a href="aboutus.html">About Us</a></li>
         </ul>
@@ -50,13 +51,22 @@
     </nav>
   </div>
 
+  <ul class="sidenav" id="mobile-demo">
+    <li class="no-padding">
+      <ul class="collapsible collapsible-accordion center-align">
+        <li class="sidenav-margin"><a href="quiz.html">Take Our Quiz</a></li>
+        <li class="sidenav-margin"><a href="results.html">Your Results</a></li>
+        <li class="sidenav-margin"><a href="aboutus.html">About Us</a></li>
+      </ul>
+    </li>
+  </ul>
+
   <div class="row">
     <div class="hide-on-small-only" id="mapLarge"> </div>
   </div>
 
   <div id="displayCard" class="row"></div>
   <div id="multipleCards" class="row"></div>
-
 
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>

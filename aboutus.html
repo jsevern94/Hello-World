@@ -43,16 +43,27 @@
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper">
-                <a href="#!" class="brand-logo"><i class="material-icons"></i><img id="logo-image"
+                <a href="index.html" class="brand-logo"><i class="material-icons"></i><img id="logo-image"
                         src="assets/images/logo.png"></a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="quiz.html">Take Our Quiz</a></li>
                     <li><a href="results.html">Your Results</a></li>
                     <li><a href="aboutus.html">About Us</a></li>
                 </ul>
             </div>
         </nav>
     </div>
+
+    <ul class="sidenav" id="mobile-demo">
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion center-align">
+                <li class="sidenav-margin"><a href="quiz.html">Take Our Quiz</a></li>
+                <li class="sidenav-margin"><a href="results.html">Your Results</a></li>
+                <li class="sidenav-margin"><a href="aboutus.html">About Us</a></li>
+            </ul>
+        </li>
+    </ul>
 
 
     <div class="row main">
@@ -133,6 +144,7 @@
                 <div class="card-content">
                     <h5 class="title">Mascot</h5>
                     <p>I am a good mascot for my team and the very best cat a human could ask for.</p>
+                    <br>
                     <p class="truncate">fievilgoeswest@gmail.com</p>
                 </div>
                 <button class="btn waves-effect waves-light"><a href="#">Portfolio</a></button>
@@ -141,5 +153,23 @@
         </div>
 
     </div>
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
+    <!-- Added link to the jQuery Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClcGkba1HB3RADI3Xp3eBrK4zXvLxqTU4&libraries=places"></script>
+
+    <script src="assets/javascript/places.js" type="text/javascript"></script>
+
+    <!-- Compiled and minified Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
 
 </body>
